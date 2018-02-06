@@ -1,0 +1,39 @@
+<div class="navbar-default sidebar" role="navigation">
+	<div class="sidebar-nav navbar-collapse">
+		<ul class="nav" id="side-menu">
+			<li class="sidebar-search">
+				<div class="input-group custom-search-form">
+					<input type="text" class="form-control" placeholder="Search by Block / Transaction / Account" name="query" [(ngModel)]="query" (keyup.enter)="onSubmit()">
+					<span class="input-group-btn">
+                                <button class="btn btn-default" type="button" (click)="onSubmit()">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+				</div>
+				<!-- /input-group -->
+			</li>
+			<li>
+				<a routerLink="/" routerLinkActive="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+			</li>
+			<li>
+				<a routerLink="/blocks" routerLinkActive="active"><i class="fa fa-th fa-fw"></i> Blocks</a>
+			</li>
+			<li>
+				<a routerLink="/transactions" routerLinkActive="active"><i class="fa fa-list-alt fa-fw"></i> Transactions</a>
+			</li>
+			<li>
+				<a routerLink="/accounts" routerLinkActive="active"><i class="fa fa-users fa-fw"></i> Accounts</a>
+			</li>
+			<li>
+				<a routerLink="/producers" routerLinkActive="active"><i class="fa fa-gavel fa-fw"></i> Producers</a>
+			</li>
+			<li>
+				<a routerLink="/contracts" routerLinkActive="active"><i class="fa fa-files-o fa-fw"></i> Messages</a>
+			</li>
+			<li>
+				<a routerLink="/wallet" routerLinkActive="active"><i class="fa fa-credit-card fa-fw"></i> Wallet</a>
+			</li>
+		</ul>
+	</div>
+	<!-- /.sidebar-collapse -->
+</div>

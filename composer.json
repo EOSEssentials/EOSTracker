@@ -1,0 +1,5 @@
+{
+    "require": {
+        "symfony/cache": "^4.0"
+    }
+}

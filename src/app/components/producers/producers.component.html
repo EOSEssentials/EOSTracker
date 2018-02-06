@@ -1,0 +1,71 @@
+<app-page>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Producers</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Producers
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!producers"></app-loading>
+						<div *ngIf="producers" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>Name</th>
+									<th>EOS</th>
+									<th>Blocks</th>
+									<th>Created At</th>
+									<th>Updated At</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let producer of producers">
+									<td><a routerLink="/accounts/{{producer.name}}">{{producer.name}}</a></td>
+									<td>{{producer.eos_balance}}</td>
+									<td>{{producer.count | number}}</td>
+									<td>{{producer.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{producer.updatedAt.sec * 1000 | date:'medium'}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Stats
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!producers"></app-loading>
+						<div class="flot-chart">
+							<div class="flot-chart-content" id="flot-pie-chart"></div>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+</app-page>

@@ -1,0 +1,110 @@
+<app-page>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Account <span *ngIf="account">{{account.name}}</span></h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Account
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!account"></app-loading>
+						<div *ngIf="account" class="table-responsive">
+							<table class="table table-striped">
+								<tr>
+									<td>Name:</td>
+									<td>{{account.name}}</td>
+								</tr>
+								<tr>
+									<td>Balance:</td>
+									<td>{{account.eos_balance}}</td>
+								</tr>
+								<tr>
+									<td>Staked:</td>
+									<td>{{account.staked_balance}}</td>
+								</tr>
+								<tr>
+									<td>Unstaked:</td>
+									<td>{{account.unstaking_balance}}</td>
+								</tr>
+
+								<tr>
+									<td>Created At:</td>
+									<td>{{account.createdAt.sec * 1000 | date:'medium'}}</td>
+								</tr>
+
+								<tr>
+									<td>Updated At:</td>
+									<td>{{account.updatedAt.sec * 1000 | date:'medium'}}</td>
+								</tr>
+
+								<tr *ngIf="account.abi">
+									<td colspan="2">
+										<prettyjson [obj]="account.abi"></prettyjson>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Transactions
+
+						<div class="pull-right">
+							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> Previous</i></button>
+							<button *ngIf="transactions && transactions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">Next <i class="fa fa-angle-right"></i></button>
+						</div>
+
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!transactions"></app-loading>
+						<div *ngIf="transactions" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>Block Id</th>
+									<th>Created At</th>
+									<th>Messages</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let transaction of transactions">
+									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id|slice:0:32}}...</a></td>
+									<td><a routerLink="/search" [queryParams]="{q: transaction.block_id}">{{transaction.block_id |slice:0:32}}...</a></td>
+									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{transaction.messages.length}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+</app-page>

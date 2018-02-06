@@ -1,0 +1,190 @@
+<app-page>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Dashboard</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-th fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="medium">{{stats[0]| number}}</div>
+								<div>Blocks</div>
+							</div>
+						</div>
+					</div>
+					<a href="#" routerLink="/blocks">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-green">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-tasks fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="medium">{{stats[1]| number}}</div>
+								<div>Transactions</div>
+							</div>
+						</div>
+					</div>
+					<a href="#" routerLink="/transactions">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-yellow">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-users fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="medium">{{stats[2]| number}}</div>
+								<div>Accounts</div>
+							</div>
+						</div>
+					</div>
+					<a href="#" routerLink="/accounts">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-red">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-files-o fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="medium">{{stats[3]| number}}</div>
+								<div>Messages</div>
+							</div>
+						</div>
+					</div>
+					<a href="#" routerLink="/contracts">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Blocks
+
+						<div class="pull-right">
+							<button type="button" routerLink="/blocks" class="btn btn-outline btn-info btn-xs">View
+								All
+							</button>
+						</div>
+
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!blocks"></app-loading>
+						<div *ngIf="blocks" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>Time</th>
+									<th># Tx</th>
+									<th>Producer</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let block of blocks">
+									<td><a routerLink="/blocks/{{block.block_num}}">{{block.block_num | number}}</a></td>
+									<td>{{block.timestamp.sec * 1000 | date:'medium'}}</td>
+									<td>{{block.transactions.length}}</td>
+									<td><a routerLink="/accounts/{{block.producer_account_id}}">{{block.producer_account_id}}</a></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-6 -->
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Transactions
+
+						<div class="pull-right">
+							<button type="button" routerLink="/transactions" class="btn btn-outline btn-info btn-xs">
+								View All
+							</button>
+						</div>
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!transactions"></app-loading>
+						<div *ngIf="transactions" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>Time</th>
+									<th>Msgs</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let transaction of transactions">
+									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id | slice:0:32}}...</a>
+									</td>
+									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{transaction.messages.length}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-6 -->
+		</div>
+
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+</app-page>

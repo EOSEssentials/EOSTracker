@@ -1,0 +1,55 @@
+<app-page>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Transactions</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Transactions
+
+						<div class="pull-right">
+							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> Previous</i></button>
+							<button type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">Next <i class="fa fa-angle-right"></i></button>
+						</div>
+
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!transactions"></app-loading>
+						<div *ngIf="transactions" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>Block Id</th>
+									<th>Created At</th>
+									<th>Messages</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let transaction of transactions">
+									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id|slice:0:32}}...</a></td>
+									<td><a routerLink="/search" [queryParams]="{q: transaction.block_id}">{{transaction.block_id |slice:0:32}}...</a></td>
+									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{transaction.messages.length}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+</app-page>

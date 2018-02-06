@@ -1,0 +1,62 @@
+<app-page>
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Messages</h1>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Messages
+
+            <div class="pull-right">
+              <button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> Previous</i></button>
+              <button type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">Next <i class="fa fa-angle-right"></i></button>
+            </div>
+
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <app-loading *ngIf="!messages"></app-loading>
+            <div *ngIf="messages" class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Transaction Id</th>
+                  <th>Created At</th>
+                  <th>Authorization</th>
+                  <th>Handler</th>
+                  <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let message of messages">
+                  <td><a routerLink="/contracts/{{message.message_id}}/{{message.transaction_id}}">{{message.transaction_id}}</a></td>
+                  <td>{{message.createdAt.sec * 1000 | date:'medium'}}</td>
+                  <td>
+                    <span *ngFor="let account of message.authorization">
+                          <a routerLink="/accounts/{{account.account}}">{{account.account}}</a>
+                    </span>
+                  </td>
+                  <td><a routerLink="/accounts/{{message.handler_account_name}}">{{message.handler_account_name}}</a></td>
+                  <td>{{message.type}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.table-responsive -->
+          </div>
+          <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+      </div>
+    </div>
+
+    <!-- /.row -->
+  </div>
+  <!-- /#page-wrapper -->
+</app-page>

@@ -1,0 +1,55 @@
+<app-page>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Accounts</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Accounts
+
+						<div class="pull-right">
+							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> Previous</i></button>
+							<button *ngIf="accounts && accounts.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">Next <i class="fa fa-angle-right"></i></button>
+						</div>
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!accounts"></app-loading>
+						<div *ngIf="accounts" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>Name</th>
+									<th>EOS</th>
+									<th>Created At</th>
+									<th>Updated At</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let account of accounts">
+									<td><a routerLink="/accounts/{{account.name}}">{{account.name}}</a></td>
+									<td>{{account.eos_balance}}</td>
+									<td>{{account.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{account.updatedAt.sec * 1000 | date:'medium'}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+</app-page>
