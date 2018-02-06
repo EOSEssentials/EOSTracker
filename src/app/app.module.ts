@@ -17,7 +17,6 @@ import {AccountComponent} from './components/account/account.component';
 import {ProducersComponent} from './components/producers/producers.component';
 import {ContractsComponent} from './components/contracts/contracts.component';
 import {ContractComponent} from './components/contract/contract.component';
-import {WalletComponent} from './components/wallet/wallet.component';
 import { SearchComponent } from './components/search/search.component';
 import {BlockService} from './services/block.service';
 import {TransactionService} from './services/transaction.service';
@@ -41,8 +40,7 @@ const appRoutes: Routes = [
   {path: 'contracts', component: ContractsComponent},
   {path: 'contracts/:index/:id', component: ContractComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'producers', component: ProducersComponent},
-  {path: 'wallet', component: WalletComponent}
+  {path: 'producers', component: ProducersComponent}
 ];
 
 @NgModule({
@@ -61,7 +59,6 @@ const appRoutes: Routes = [
     ProducersComponent,
     ContractsComponent,
     ContractComponent,
-    WalletComponent,
     SearchComponent,
     LoadingComponent
   ],
