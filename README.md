@@ -6,10 +6,12 @@ EOS Tracker is a Frontend based on Angular4 that connects to EOS Tracker API.
 📌 Getting Started
 ------------
 
-`git clone git@github.com:EOSEssentials/EOSTracker.git`
-`cd EOSTracker`
-`npm install`
-  
+```bash
+$ git clone git@github.com:EOSEssentials/EOSTracker.git
+$ cd EOSTracker
+$ npm install
+```
+
 📌 Development server
 ------------
 
