@@ -2,7 +2,7 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Message</h1>
+				<h1 class="page-header">Action</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -11,44 +11,44 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Message
+						Action
 					</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 
-						<app-loading *ngIf="!message"></app-loading>
-						<div *ngIf="message" class="table-responsive">
+						<app-loading *ngIf="!action"></app-loading>
+						<div *ngIf="action" class="table-responsive">
 							<table class="table table-striped">
 								<tr>
 									<td>Transaction Id:</td>
-									<td><a routerLink="/transactions/{{message.transaction_id}}">{{message.transaction_id}}</a></td>
+									<td><a routerLink="/transactions/{{action.transaction_id}}">{{action.transaction_id}}</a></td>
 								</tr>
 								<tr>
-									<td>Message Index:</td>
-									<td>{{message.message_id}}</td>
+									<td>Action Index:</td>
+									<td>{{action.action_id}}</td>
 								</tr>
 								<tr>
 									<td>Created At:</td>
-									<td>{{message.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{action.createdAt.sec * 1000 | date:'medium'}}</td>
 								</tr>
 								<tr>
 									<td>Handler Account:</td>
-									<td><a routerLink="/accounts/{{message.handler_account_name}}">{{message.handler_account_name}}</a></td>
+									<td><a routerLink="/accounts/{{action.handler_account_name}}">{{action.handler_account_name}}</a></td>
 								</tr>
 								<tr>
 									<td>Type:</td>
-									<td>{{message.type}}</td>
+									<td>{{action.type}}</td>
 								</tr>
 								<tr>
 									<td>Authorization:</td>
 									<td>
-										<span *ngFor="let account of message.authorization">
+										<span *ngFor="let account of action.authorization">
 											<a routerLink="/accounts/{{account.account}}">{{account.account}}</a>
 										</span>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><prettyjson [obj]="message.data"> </prettyjson></td>
+									<td colspan="2"><prettyjson [obj]="action.data"> </prettyjson></td>
 								</tr>
 							</table>
 						</div>

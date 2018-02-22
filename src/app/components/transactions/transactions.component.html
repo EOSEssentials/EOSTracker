@@ -29,7 +29,7 @@
 									<th>#</th>
 									<th>Block Id</th>
 									<th>Created At</th>
-									<th>Messages</th>
+									<th>Actions</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -37,7 +37,7 @@
 									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id|slice:0:32}}...</a></td>
 									<td><a routerLink="/search" [queryParams]="{q: transaction.block_id}">{{transaction.block_id |slice:0:32}}...</a></td>
 									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
-									<td>{{transaction.messages.length}}</td>
+									<td>{{transaction.actions.length}}</td>
 								</tr>
 								</tbody>
 							</table>
