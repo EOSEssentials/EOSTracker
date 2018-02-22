@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment';
 export class ContractsComponent implements OnInit {
   private subscriber: Subscription;
   page = 0;
-  messages = null;
+  actions = null;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
   }
@@ -20,8 +20,8 @@ export class ContractsComponent implements OnInit {
   ngOnInit() {
     this.subscriber = this.route.queryParams.subscribe(params => {
       this.page = params['page'] || 0;
-      this.http.get(environment.apiUrl + '/messages?page=' + this.page).subscribe(data => {
-        this.messages = data;
+      this.http.get(environment.apiUrl + '/actions?page=' + this.page).subscribe(data => {
+        this.actions = data;
         console.log(data);
       });
     });
