@@ -2,7 +2,7 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Messages</h1>
+        <h1 class="page-header">Actions</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -11,7 +11,7 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            Messages
+            Actions
 
             <div class="pull-right">
               <button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> Previous</i></button>
@@ -21,8 +21,8 @@
           </div>
           <!-- /.panel-heading -->
           <div class="panel-body">
-            <app-loading *ngIf="!messages"></app-loading>
-            <div *ngIf="messages" class="table-responsive">
+            <app-loading *ngIf="!actions"></app-loading>
+            <div *ngIf="actions" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                 <tr>
@@ -34,16 +34,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let message of messages">
-                  <td><a routerLink="/contracts/{{message.message_id}}/{{message.transaction_id}}">{{message.transaction_id}}</a></td>
-                  <td>{{message.createdAt.sec * 1000 | date:'medium'}}</td>
+                <tr *ngFor="let action of actions">
+                  <td><a routerLink="/contracts/{{action.action_id}}/{{action.transaction_id}}">{{action.transaction_id}}</a></td>
+                  <td>{{action.createdAt.sec * 1000 | date:'medium'}}</td>
                   <td>
-                    <span *ngFor="let account of message.authorization">
+                    <span *ngFor="let account of action.authorization">
                           <a routerLink="/accounts/{{account.account}}">{{account.account}}</a>
                     </span>
                   </td>
-                  <td><a routerLink="/accounts/{{message.handler_account_name}}">{{message.handler_account_name}}</a></td>
-                  <td>{{message.type}}</td>
+                  <td><a routerLink="/accounts/{{action.handler_account_name}}">{{action.handler_account_name}}</a></td>
+                  <td>{{action.type}}</td>
                 </tr>
                 </tbody>
               </table>
