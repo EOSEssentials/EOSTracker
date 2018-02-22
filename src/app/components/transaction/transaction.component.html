@@ -40,11 +40,11 @@
 									</td>
 								</tr>
 								<tr>
-									<td>Messages:</td>
+									<td>Actions:</td>
 									<td>
-										<span *ngIf="transaction.messages.length == 0">{{transaction.messages.length}}</span>
-										<span *ngIf="transaction.messages.length != 0">
-											<span *ngFor="let message of transaction.messages; let idx = index; last as isLast">
+										<span *ngIf="transaction.actions.length == 0">{{transaction.actions.length}}</span>
+										<span *ngIf="transaction.actions.length != 0">
+											<span *ngFor="let action of transaction.actions; let idx = index; last as isLast">
 												<a routerLink="/contracts/{{idx}}/{{transaction.transaction_id}}">{{idx+1}}</a>
 												<span *ngIf="!isLast"> - </span>
 											</span>
