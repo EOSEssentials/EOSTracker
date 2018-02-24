@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Subscription} from 'rxjs/Subscription';
+import * as Eos from 'eosjs';
 
 @Component({
   selector: 'app-block',
@@ -12,6 +13,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class BlockComponent implements OnInit {
   public id: number;
   public block = null;
+  public blockRaw = null;
   public transactions = null;
   private subscriber: Subscription;
   page = 0;
@@ -21,6 +23,12 @@ export class BlockComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
+
+    let eos = Eos.Localnet({httpEndpoint: environment.blockchainUrl});
+    eos.getBlock(this.id).then(result => {
+      this.blockRaw = result;
+    });
+
     this.http.get(environment.apiUrl + '/blocks?block_num=' + this.id).subscribe(data => {
       this.block = data[0];
       console.log(this.block);

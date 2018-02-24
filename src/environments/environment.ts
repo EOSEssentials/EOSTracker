@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: '//localhost:8000'
+  apiUrl: '//localhost:8000',
+  blockchainUrl: 'http://eosio.es:1001'
 };
