@@ -28,6 +28,7 @@ import { LoadingComponent } from './components/shared/page/loading/loading.compo
 import {HttpClientModule} from '@angular/common/http';
 import {PrettyJsonModule, SafeJsonPipe} from 'angular2-prettyjson';
 import {JsonPipe} from '@angular/common';
+import {EosService} from './services/eos.service';
 
 const appRoutes: Routes = [
   {path: '', component: DashboardComponent},
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     BlockService,
     TransactionService,
     DashboardService,
+    EosService,
     AccountService,
     ProducerService,
     { provide: JsonPipe, useClass: SafeJsonPipe }

@@ -75,6 +75,24 @@
 			</div>
 		</div>
 
+		<div class="panel-group" id="accordion2" *ngIf="tables">
+
+			<div class="panel panel-default" *ngFor="let table of tables">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion2" href="#{{table.table_name}}" aria-expanded="false" class="collapsed">Table - {{table.table_name}}</a>
+					</h4>
+				</div>
+				<div id="{{table.table_name}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="panel-body">
+						<div *ngFor="let row of table.rows">
+							<prettyjson [obj]="row"></prettyjson>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<div class="row">
 			<div class="col-lg-12">

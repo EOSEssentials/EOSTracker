@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {Subscription} from 'rxjs/Subscription';
-import * as Eos from 'eosjs';
+import {EosService} from '../../services/eos.service';
 
 @Component({
   selector: 'app-account',
@@ -13,25 +13,31 @@ import * as Eos from 'eosjs';
 export class AccountComponent implements OnInit {
 
   public name: number;
+  public tables = null;
   public account = null;
   public accountRaw = null;
   public transactions = null;
   private subscriber: Subscription;
   page = 0;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private eosService: EosService) {
   }
 
   ngOnInit() {
     this.name = this.route.snapshot.params['id'];
     this.http.get(environment.apiUrl + '/accounts?name=' + this.name).subscribe(data => {
       this.account = data[0];
-      console.log(this.account)
-    });
+      console.log(this.account);
+      if (this.account.abi && this.account.abi.tables) {
+        this.tables = this.account.abi.tables;
 
-    let eos = Eos.Localnet({httpEndpoint: environment.blockchainUrl});
-    eos.getAccount(this.name).then(result => {
-      this.accountRaw = result;
+        this.tables.forEach((item, index) => {
+          this.eosService.eos.getTableRows(true, item.key_types[0], this.name, this.name, item.table_name).then(result => {
+            console.log(result.rows);
+            this.tables[index].rows = result.rows; // TODO: allow pagination
+          });
+        });
+      }
     });
 
     this.subscriber = this.route.queryParams.subscribe(params => {
@@ -41,6 +47,10 @@ export class AccountComponent implements OnInit {
         this.transactions = data;
         console.log(data);
       });
+    });
+
+    this.eosService.eos.getAccount(this.name).then(result => {
+      this.accountRaw = result;
     });
   }
 
