@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: '//localhost:8000'
+  apiUrl: '//eostracker.eosva.io:8000'
 };
