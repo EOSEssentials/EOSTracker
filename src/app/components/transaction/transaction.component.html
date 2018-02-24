@@ -60,6 +60,21 @@
 			</div>
 		</div>
 
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">Blockchain Raw Data</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="panel-body">
+						<prettyjson [obj]="transactionRaw"></prettyjson>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- /.row -->
 	</div>
 	<!-- /#page-wrapper -->
