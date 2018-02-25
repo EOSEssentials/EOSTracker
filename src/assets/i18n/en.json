@@ -1,5 +1,18 @@
 {
   "Dashboard": "Dashboard",
   "ViewDetails": "View Details",
-  "Transactions": "Transactions"
+  "Transactions": "Transactions",
+  "Accounts": "Accounts",
+  "Messages": "Messages",
+  "Producers": "Producers",
+  "Blocks": "Blocks",
+  "ViewAll": "View All",
+  "Time": "Time",
+  "Tx": "Tx",
+  "Producer": "Producer",
+  "Msgs": "Msgs",
+  "ToggleNavigation": "Toggle navigation",
+  "EOSTracker": "EOS Tracker",
+  "Wallet": "Wallet",
+  "SearchBy": "Search by Block / Transaction / Account"
 }

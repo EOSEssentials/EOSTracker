@@ -3,7 +3,7 @@
 		<ul class="nav" id="side-menu">
 			<li class="sidebar-search">
 				<div class="input-group custom-search-form">
-					<input type="text" class="form-control" placeholder="Search by Block / Transaction / Account" name="query" [(ngModel)]="query" (keyup.enter)="onSubmit()">
+					<input type="text" class="form-control" placeholder="{{ 'SearchBy' | translate }}" name="query" [(ngModel)]="query" (keyup.enter)="onSubmit()">
 					<span class="input-group-btn">
                                 <button class="btn btn-default" type="button" (click)="onSubmit()">
                                     <i class="fa fa-search"></i>
@@ -13,25 +13,25 @@
 				<!-- /input-group -->
 			</li>
 			<li>
-				<a routerLink="/" routerLinkActive="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+				<a routerLink="/" routerLinkActive="active"><i class="fa fa-dashboard fa-fw"></i> {{ 'Dashboard' | translate }}</a>
 			</li>
 			<li>
-				<a routerLink="/blocks" routerLinkActive="active"><i class="fa fa-th fa-fw"></i> Blocks</a>
+				<a routerLink="/blocks" routerLinkActive="active"><i class="fa fa-th fa-fw"></i> {{ 'Blocks' | translate }}</a>
 			</li>
 			<li>
-				<a routerLink="/transactions" routerLinkActive="active"><i class="fa fa-list-alt fa-fw"></i> Transactions</a>
+				<a routerLink="/transactions" routerLinkActive="active"><i class="fa fa-list-alt fa-fw"></i> {{ 'Transactions' | translate }}</a>
 			</li>
 			<li>
-				<a routerLink="/accounts" routerLinkActive="active"><i class="fa fa-users fa-fw"></i> Accounts</a>
+				<a routerLink="/accounts" routerLinkActive="active"><i class="fa fa-users fa-fw"></i> {{ 'Accounts' | translate }}</a>
 			</li>
 			<li>
-				<a routerLink="/producers" routerLinkActive="active"><i class="fa fa-gavel fa-fw"></i> Producers</a>
+				<a routerLink="/producers" routerLinkActive="active"><i class="fa fa-gavel fa-fw"></i> {{ 'Producers' | translate }}</a>
 			</li>
 			<li>
-				<a routerLink="/contracts" routerLinkActive="active"><i class="fa fa-files-o fa-fw"></i> Messages</a>
+				<a routerLink="/contracts" routerLinkActive="active"><i class="fa fa-files-o fa-fw"></i> {{ 'Messages' | translate }}</a>
 			</li>
 			<li>
-				<a target="_blank" href="//walleteos.com"><i class="fa fa-credit-card fa-fw"></i> Wallet</a>
+				<a target="_blank" href="//walleteos.com"><i class="fa fa-credit-card fa-fw"></i> {{ 'Wallet' | translate }}</a>
 			</li>
 		</ul>
 	</div>

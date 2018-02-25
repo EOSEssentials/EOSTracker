@@ -17,7 +17,7 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="medium">{{stats[0]| number}}</div>
-								<div>Blocks</div>
+								<div>{{ 'Blocks' | translate }}</div>
 							</div>
 						</div>
 					</div>
@@ -61,7 +61,7 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="medium">{{stats[2]| number}}</div>
-								<div>Accounts</div>
+								<div>{{ 'Accounts' | translate }}</div>
 							</div>
 						</div>
 					</div>
@@ -83,7 +83,7 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="medium">{{stats[3]| number}}</div>
-								<div>Messages</div>
+								<div>{{ 'Messages' | translate }}</div>
 							</div>
 						</div>
 					</div>
@@ -103,11 +103,11 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Blocks
+						{{ 'Blocks' | translate }}
 
 						<div class="pull-right">
-							<button type="button" routerLink="/blocks" class="btn btn-outline btn-info btn-xs">View
-								All
+							<button type="button" routerLink="/blocks" class="btn btn-outline btn-info btn-xs">
+								{{ 'ViewAll' | translate }}
 							</button>
 						</div>
 
@@ -120,9 +120,9 @@
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>Time</th>
-									<th># Tx</th>
-									<th>Producer</th>
+									<th>{{ 'Time' | translate }}</th>
+									<th># {{ 'Tx' | translate }}</th>
+									<th>{{ 'Producer' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -145,11 +145,11 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Transactions
+						{{ 'Transactions' | translate }}
 
 						<div class="pull-right">
 							<button type="button" routerLink="/transactions" class="btn btn-outline btn-info btn-xs">
-								View All
+								{{ 'ViewAll' | translate }}
 							</button>
 						</div>
 					</div>
@@ -161,8 +161,8 @@
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>Time</th>
-									<th>Msgs</th>
+									<th>{{ 'Time' | translate }}</th>
+									<th>{{ 'Msgs' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
