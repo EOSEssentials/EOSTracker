@@ -2,7 +2,7 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Account <span *ngIf="account">{{account.name}}</span></h1>
+				<h1 class="page-header">{{ 'Account' | translate }} <span *ngIf="account">{{account.name}}</span></h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -11,7 +11,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Account
+						{{ 'Account' | translate }}
 					</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
@@ -19,29 +19,29 @@
 						<div *ngIf="account" class="table-responsive">
 							<table class="table table-striped">
 								<tr>
-									<td>Name:</td>
+									<td>{{ 'Name' | translate }}:</td>
 									<td>{{account.name}}</td>
 								</tr>
 								<tr>
-									<td>Balance:</td>
+									<td>{{ 'Balance' | translate }}:</td>
 									<td>{{account.eos_balance}}</td>
 								</tr>
 								<tr>
-									<td>Staked:</td>
+									<td>{{ 'Staked' | translate }}:</td>
 									<td>{{account.staked_balance}}</td>
 								</tr>
 								<tr>
-									<td>Unstaked:</td>
+									<td>{{ 'Unstaked' | translate }}:</td>
 									<td>{{account.unstaking_balance}}</td>
 								</tr>
 
 								<tr>
-									<td>Created At:</td>
+									<td>{{ 'CreatedAt' | translate }}:</td>
 									<td>{{account.createdAt.sec * 1000 | date:'medium'}}</td>
 								</tr>
 
 								<tr>
-									<td>Updated At:</td>
+									<td>{{ 'UpdatedAt' | translate }}:</td>
 									<td>{{account.updatedAt.sec * 1000 | date:'medium'}}</td>
 								</tr>
 
@@ -64,7 +64,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">Blockchain Raw Data</a>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">{{ 'BlockchainRawData' | translate }}</a>
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
@@ -80,7 +80,7 @@
 			<div class="panel panel-default" *ngFor="let table of tables">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion2" href="#{{table.table_name}}" aria-expanded="false" class="collapsed">Table - {{table.table_name}}</a>
+						<a data-toggle="collapse" data-parent="#accordion2" href="#{{table.table_name}}" aria-expanded="false" class="collapsed">{{ 'Table' | translate }} - {{table.table_name}}</a>
 					</h4>
 				</div>
 				<div id="{{table.table_name}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
@@ -98,11 +98,11 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Transactions
+						{{ 'Transactions' | translate }}
 
 						<div class="pull-right">
-							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> Previous</i></button>
-							<button *ngIf="transactions && transactions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">Next <i class="fa fa-angle-right"></i></button>
+							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="transactions && transactions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
 						</div>
 
 					</div>
@@ -114,9 +114,9 @@
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>Block Id</th>
-									<th>Created At</th>
-									<th>Messages</th>
+									<th>{{ 'BlockId' | translate }}</th>
+									<th>{{ 'CreatedAt' | translate }}</th>
+									<th>{{ 'Messages' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>

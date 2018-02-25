@@ -14,8 +14,8 @@
 						{{ 'Blocks' | translate }}
 
 						<div class="pull-right">
-							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> Previous</i></button>
-							<button *ngIf="blocks && blocks.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">Next <i class="fa fa-angle-right"></i></button>
+							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="blocks && blocks.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
 						</div>
 
 					</div>
@@ -27,9 +27,9 @@
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>Timestamp</th>
-									<th># Transactions</th>
-									<th>Producer</th>
+									<th>{{ 'Timestamp' | translate }}</th>
+									<th># {{ 'Transactions' | translate }}</th>
+									<th>{{ 'Producer' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
