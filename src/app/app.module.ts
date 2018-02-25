@@ -1,7 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
@@ -17,18 +15,24 @@ import {AccountComponent} from './components/account/account.component';
 import {ProducersComponent} from './components/producers/producers.component';
 import {ContractsComponent} from './components/contracts/contracts.component';
 import {ContractComponent} from './components/contract/contract.component';
-import { SearchComponent } from './components/search/search.component';
+import {SearchComponent} from './components/search/search.component';
 import {BlockService} from './services/block.service';
 import {TransactionService} from './services/transaction.service';
 import {DashboardService} from './services/dashboard.service';
 import {FormsModule} from '@angular/forms';
 import {AccountService} from './services/account.service';
 import {ProducerService} from './services/producer.service';
-import { LoadingComponent } from './components/shared/page/loading/loading.component';
-import {HttpClientModule} from '@angular/common/http';
+import {LoadingComponent} from './components/shared/page/loading/loading.component';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {PrettyJsonModule, SafeJsonPipe} from 'angular2-prettyjson';
 import {JsonPipe} from '@angular/common';
 import {EosService} from './services/eos.service';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 const appRoutes: Routes = [
   {path: '', component: DashboardComponent},
@@ -67,6 +71,13 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     PrettyJsonModule,
     RouterModule.forRoot(appRoutes)
   ],
@@ -77,7 +88,7 @@ const appRoutes: Routes = [
     EosService,
     AccountService,
     ProducerService,
-    { provide: JsonPipe, useClass: SafeJsonPipe }
+    {provide: JsonPipe, useClass: SafeJsonPipe}
   ],
   bootstrap: [AppComponent]
 })
