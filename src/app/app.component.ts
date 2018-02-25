@@ -14,7 +14,7 @@ export class AppComponent {
   title = 'EOS Tracker | EosTracker.io';
 
   constructor(public router: Router, private translate: TranslateService) {
-    translate.setDefaultLang('es');
+    translate.setDefaultLang('en');
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && typeof ga === "function") {
         ga('set', 'page', event.urlAfterRedirects);
