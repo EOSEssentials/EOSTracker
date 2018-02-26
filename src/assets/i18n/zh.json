@@ -21,7 +21,7 @@
   "SearchBy": "根据 区块 / 交易 / 账户 搜索",
   "Name": "用户名",
   "Balance": "余额",
-  "Staked": "以受押的",
+  "Staked": "已受押的",
   "Unstaked": "未受押的",
   "CreatedAt": "创建时间",
   "UpdatedAt": "更新时间",
