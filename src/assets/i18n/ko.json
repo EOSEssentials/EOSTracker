@@ -13,7 +13,7 @@
   "ViewAll": "모두보기",
   "Time": "시간",
   "Tx": "Tx",
-  "Producer": "프로듀서",
+  "Producer": "블록 프로듀서",
   "Msgs": "메시지",
   "ToggleNavigation": "네비게이션 전환",
   "EOSTracker": "EOS 트래커",
@@ -22,9 +22,9 @@
   "Name": "이름",
   "Balance": "잔액",
   "Staked": "묶임(Staked)",
-  "Unstaked": "묶임 해 제(Unstaked)",
-  "CreatedAt": "생성시각",
-  "UpdatedAt": "갱신시각",
+  "Unstaked": "묶임 해제(Unstaked)",
+  "CreatedAt": "생성 시각",
+  "UpdatedAt": "갱신 시각",
   "BlockchainRawData": "블록체인 로데이터",
   "Table": "테이블",
   "Previous": "이전",
@@ -45,6 +45,6 @@
   "Search": "검색",
   "Id": "ID",
   "Scope": "범위",
-  "Settings": "Settings",
-  "Language": "Language"
+  "Settings": "설정",
+  "Language": "언어"
 }
