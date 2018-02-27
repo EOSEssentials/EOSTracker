@@ -22,7 +22,7 @@
   "Name": "이름",
   "Balance": "잔액",
   "Staked": "묶임(Staked)",
-  "Unstaked": "묶임 해	제(Unstaked)",
+  "Unstaked": "묶임 해 제(Unstaked)",
   "CreatedAt": "생성시각",
   "UpdatedAt": "갱신시각",
   "BlockchainRawData": "블록체인 로데이터",
