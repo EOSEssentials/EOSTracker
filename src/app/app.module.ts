@@ -29,6 +29,8 @@ import {JsonPipe} from '@angular/common';
 import {EosService} from './services/eos.service';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {Ng2Webstorage} from 'ngx-webstorage';
+import { SettingsComponent } from './components/settings/settings.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
   {path: 'transactions', component: TransactionsComponent},
   {path: 'transactions/:id', component: TransactionComponent},
   {path: 'accounts', component: AccountsComponent},
+  {path: 'settings', component: SettingsComponent},
   {path: 'accounts/:id', component: AccountComponent},
   {path: 'contracts', component: ContractsComponent},
   {path: 'contracts/:index/:id', component: ContractComponent},
@@ -65,11 +68,13 @@ const appRoutes: Routes = [
     ContractsComponent,
     ContractComponent,
     SearchComponent,
-    LoadingComponent
+    LoadingComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    Ng2Webstorage,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

@@ -44,5 +44,7 @@
   "Stats": "Stats",
   "Search": "Search",
   "Id": "Id",
-  "Scope": "Scope"
+  "Scope": "Scope",
+  "Settings": "Settings",
+  "Language": "Language"
 }

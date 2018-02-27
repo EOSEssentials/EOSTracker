@@ -44,5 +44,7 @@
   "Stats": "统计数据",
   "Search": "搜索",
   "Id": "Id",
-  "Scope": "范围"
+  "Scope": "范围",
+  "Settings": "Settings",
+  "Language": "Language"
 }

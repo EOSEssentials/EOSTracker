@@ -28,6 +28,7 @@
     "angular2-prettyjson": "^2.0.6",
     "core-js": "^2.4.1",
     "eosjs": "^6.1.6",
+    "ngx-webstorage": "^2.0.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
