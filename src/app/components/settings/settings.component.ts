@@ -9,7 +9,7 @@ import {LocalStorage} from 'ngx-webstorage';
 })
 export class SettingsComponent implements OnInit {
   public selectedLang;
-  public allowedLanguages = ['en', 'es', 'ko', 'de', 'pt', 'sl', 'zh'];
+  public allowedLanguages = ['en', 'es', 'hr', 'it', 'ko', 'de', 'pt', 'sl', 'zh'];
   @LocalStorage()
   language: any;
 
