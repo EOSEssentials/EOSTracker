@@ -1,7 +1,7 @@
 💎 EOS Tracker
 ========================
 
-EOS Tracker is a Frontend based on Angular4 that connects to EOS Tracker API.
+EOS Tracker is a Frontend based on Angular4 that connects to [EOS Tracker API](https://github.com/EOSEssentials/EOSTracker-API).
 
 📌 Getting Started
 ------------
