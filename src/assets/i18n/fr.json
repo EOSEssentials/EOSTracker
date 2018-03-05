@@ -34,7 +34,7 @@
   "BlockInformation": "Information de Block",
   "Number": "Nombre",
   "Timestamp": "Horodatage",
-  "MerkleRoot": "racine de Merkle -- not sure if good idea to translate",
+  "MerkleRoot": "Merkle root",
   "TransactionId": "Identifiant de Transaction",
   "MessageIndex": "Index de Message",
   "HandlerAccount": "Gestionnaire du compte",
@@ -44,7 +44,7 @@
   "Stats": "Stats",
   "Search": "Chercher",
   "Id": "Identifiant",
-  "Scope": "Scope --  what exactly do you mean?",
+  "Scope": "Scope",
   "Settings": "Paramètres",
   "Language": "Language"
 }
