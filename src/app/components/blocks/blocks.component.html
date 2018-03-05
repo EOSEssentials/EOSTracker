@@ -34,7 +34,7 @@
 								</thead>
 								<tbody>
 								<tr *ngFor="let block of blocks">
-									<td><a routerLink="/blocks/{{block.block_num}}">{{block.block_num | number}}</a></td>
+									<td><a routerLink="/blocks/{{block.block_num}}">{{block.block_num}}</a></td>
 									<td>{{block.timestamp.sec * 1000 | date:'medium'}}</td>
 									<td>{{block.transactions.length}}</td>
 									<td><a routerLink="/accounts/{{block.producer_account_id}}">{{block.producer_account_id}}</a></td>
