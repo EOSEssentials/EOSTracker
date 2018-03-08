@@ -31,7 +31,7 @@
 								<tr *ngFor="let producer of producers">
 									<td><a routerLink="/accounts/{{producer.name}}">{{producer.name}}</a></td>
 									<td align="right">{{producer.eos_balance}}</td>
-                  <td><a routerLink="/blocks/{{producer.count}}">{{producer.count}}</a></td>
+                  <td>{{producer.count}}</td>
 									<td>{{producer.createdAt.sec * 1000 | date:'medium'}}</td>
 									<td>{{producer.updatedAt.sec * 1000 | date:'medium'}}</td>
 								</tr>
