@@ -26,7 +26,7 @@
 								<thead>
 								<tr>
 									<th>{{ 'Name' | translate }}</th>
-									<th>{{ 'EOS' | translate }}</th>
+									<th style="text-align:right">{{ 'EOS' | translate }}</th>
 									<th>{{ 'CreatedAt' | translate }}</th>
 									<th>{{ 'UpdatedAt' | translate }}</th>
 								</tr>
@@ -34,7 +34,7 @@
 								<tbody>
 								<tr *ngFor="let account of accounts">
 									<td><a routerLink="/accounts/{{account.name}}">{{account.name}}</a></td>
-									<td>{{account.eos_balance}}</td>
+									<td align="right">{{account.eos_balance}}</td>
 									<td>{{account.createdAt.sec * 1000 | date:'medium'}}</td>
 									<td>{{account.updatedAt.sec * 1000 | date:'medium'}}</td>
 								</tr>
