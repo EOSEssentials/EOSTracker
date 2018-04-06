@@ -40,12 +40,12 @@
 									</td>
 								</tr>
 								<tr>
-									<td>{{ 'Messages' | translate }}:</td>
+									<td>{{ 'Actions' | translate }}:</td>
 									<td>
 										<span *ngIf="transaction.messages.length == 0">{{transaction.messages.length}}</span>
 										<span *ngIf="transaction.messages.length != 0">
 											<span *ngFor="let message of transaction.messages; let idx = index; last as isLast">
-												<a routerLink="/contracts/{{idx}}/{{transaction.transaction_id}}">{{idx+1}}</a>
+												<a routerLink="/actions/{{idx}}/{{transaction.transaction_id}}">{{idx+1}}</a>
 												<span *ngIf="!isLast"> - </span>
 											</span>
 										</span>

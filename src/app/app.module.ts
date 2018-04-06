@@ -45,8 +45,8 @@ const appRoutes: Routes = [
   {path: 'accounts', component: AccountsComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'accounts/:id', component: AccountComponent},
-  {path: 'contracts', component: ContractsComponent},
-  {path: 'contracts/:index/:id', component: ContractComponent},
+  {path: 'actions', component: ContractsComponent},
+  {path: 'actions/:index/:id', component: ContractComponent},
   {path: 'search', component: SearchComponent},
   {path: 'producers', component: ProducersComponent}
 ];

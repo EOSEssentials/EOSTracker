@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   apiUrl: '//localhost:8000',
-  blockchainUrl: 'http://t1readonly.eos.io'
+  blockchainUrl: '//localhost:8888'
 };

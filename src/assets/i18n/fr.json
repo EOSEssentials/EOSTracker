@@ -5,6 +5,8 @@
   "Transaction": "Transaction",
   "Accounts": "comptes",
   "Account": "compte",
+  "Actions": "Actions",
+  "Action": "Action",
   "Messages": "Messages",
   "Message": "Message",
   "Producers": "Producteurs",

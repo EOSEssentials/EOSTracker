@@ -5,6 +5,8 @@
   "Transaction": "거래(트랜잭션)",
   "Accounts": "계정",
   "Account": "계정",
+  "Actions": "Actions",
+  "Action": "Action",
   "Messages": "메시지",
   "Message": "메시지",
   "Producers": "블록 프로듀서",

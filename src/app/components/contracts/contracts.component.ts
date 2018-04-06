@@ -29,11 +29,11 @@ export class ContractsComponent implements OnInit {
 
   nextPage() {
     this.page++;
-    this.router.navigate(['/contracts'], {queryParams: {page: this.page}});
+    this.router.navigate(['/actions'], {queryParams: {page: this.page}});
   }
 
   prevPage() {
     this.page--;
-    this.router.navigate(['/contracts'], {queryParams: {page: this.page}});
+    this.router.navigate(['/actions'], {queryParams: {page: this.page}});
   }
 }
