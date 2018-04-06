@@ -38,7 +38,7 @@
   "Timestamp": "Časovna značka",
   "MerkleRoot": "Merklov koren",
   "TransactionId": "Id transakcije",
-  "MessageIndex": "Indeks sporočila",
+  "ActionIndex": "Action Index",
   "HandlerAccount": "Račun ročica",
   "Handler": "Ročica",
   "Type": "Tip",

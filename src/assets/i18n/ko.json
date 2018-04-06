@@ -38,7 +38,7 @@
   "Timestamp": "생성시각",
   "MerkleRoot": "머클 루트",
   "TransactionId": "거래 ID",
-  "MessageIndex": "메시지 인덱스",
+  "ActionIndex": "Action Index",
   "HandlerAccount": "핸들러 계정",
   "Handler": "핸들러",
   "Type": "유형",

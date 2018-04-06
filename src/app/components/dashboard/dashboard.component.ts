@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    TimerObservable.create(0, 3000)
+    TimerObservable.create(0, 2000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
 
     // TODO: move from here and conver to objects https://medium.com/codingthesmartway-com-blog/angular-4-3-httpclient-accessing-rest-web-services-with-angular-2305b8fd654b
-    TimerObservable.create(0, 6000)
+    TimerObservable.create(0, 2000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
 
 
-    TimerObservable.create(0, 6000)
+    TimerObservable.create(0, 2000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
 

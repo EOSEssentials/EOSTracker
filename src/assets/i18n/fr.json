@@ -38,7 +38,7 @@
   "Timestamp": "Horodatage",
   "MerkleRoot": "Merkle root",
   "TransactionId": "Identifiant de Transaction",
-  "MessageIndex": "Index de Message",
+  "ActionIndex": "Action Index",
   "HandlerAccount": "Gestionnaire du compte",
   "Handler": "Gestionnaire",
   "Type": "Type",

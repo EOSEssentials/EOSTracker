@@ -38,7 +38,7 @@
   "Timestamp": "Timestamp",
   "MerkleRoot": "Merkle root",
   "TransactionId": "Transaction Id",
-  "MessageIndex": "Message Index",
+  "ActionIndex": "Action Index",
   "HandlerAccount": "Handler Account",
   "Handler": "Handler",
   "Type": "Type",

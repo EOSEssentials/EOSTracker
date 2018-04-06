@@ -38,7 +38,7 @@
   "Timestamp": "时间戳",
   "MerkleRoot": "Merkle根节点",
   "TransactionId": "交易Id",
-  "MessageIndex": "消息索引",
+  "ActionIndex": "Action Index",
   "HandlerAccount": "处理账户",
   "Handler": "处理",
   "Type": "类型",

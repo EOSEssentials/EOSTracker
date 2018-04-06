@@ -7,8 +7,7 @@ import {EosService} from '../../services/eos.service';
 
 @Component({
   selector: 'app-block',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.css']
+  templateUrl: './block.component.html'
 })
 export class BlockComponent implements OnInit {
   public id: number;

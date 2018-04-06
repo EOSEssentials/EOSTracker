@@ -38,7 +38,7 @@
   "Timestamp": "Fecha",
   "MerkleRoot": "Merkle root",
   "TransactionId": "Transacción Id",
-  "MessageIndex": "Índice del Mensaje",
+  "ActionIndex": "Action Index",
   "HandlerAccount": "Cuenta encargada",
   "Handler": "Encargado",
   "Type": "Tipo",

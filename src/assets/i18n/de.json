@@ -38,7 +38,7 @@
   "Timestamp": "Zeitstempel",
   "MerkleRoot": "Merkle Root",
   "TransactionId": "Transaktions-ID",
-  "MessageIndex": "Nachrichten-Index",
+  "ActionIndex": "Action Index",
   "HandlerAccount": "Handler Account",
   "Handler": "Handler",
   "Type": "Typ",

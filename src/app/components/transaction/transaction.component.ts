@@ -24,8 +24,8 @@ export class TransactionComponent implements OnInit {
       console.log(this.transaction);
     });
 
-    this.eosService.eos.getTransaction(this.id).then(result => {
+    /*this.eosService.eos.getTransaction(this.id).then(result => {
       this.transactionRaw = result;
-    });
+    });*/
   }
 }

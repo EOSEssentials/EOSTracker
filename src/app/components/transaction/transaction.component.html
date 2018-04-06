@@ -31,6 +31,18 @@
 									<td>{{ 'CreatedAt' | translate }}:</td>
 									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
 								</tr>
+								<tr>
+									<td>{{ 'Pending' | translate }}:</td>
+									<td>{{transaction.pending}}</td>
+								</tr>
+								<tr>
+									<td>{{ 'Status' | translate }}:</td>
+									<td>{{transaction.status}}</td>
+								</tr>
+								<tr>
+									<td>{{ 'Type' | translate }}:</td>
+									<td>{{transaction.type}}</td>
+								</tr>
 							</table>
 						</div>
 					</div>

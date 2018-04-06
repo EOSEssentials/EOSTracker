@@ -38,7 +38,7 @@
 	"Timestamp": "Timestamp",
 	"MerkleRoot": "Radice di Merkle",
 	"TransactionId": "Id Transazione",
-	"MessageIndex": "Indice messaggio",
+	"ActionIndex": "Action Index",
 	"HandlerAccount": "Conto Compravendite",
 	"Handler": "Compravendite",
 	"Type": "Tipo",
