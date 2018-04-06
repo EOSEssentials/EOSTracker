@@ -28,7 +28,7 @@
 								<tr>
 									<th>#</th>
 									<th>{{ 'Timestamp' | translate }}</th>
-									<th># {{ 'Transactions' | translate }}</th>
+									<th>{{ 'Pending' | translate }}</th>
 									<th>{{ 'Producer' | translate }}</th>
 								</tr>
 								</thead>
@@ -36,7 +36,7 @@
 								<tr *ngFor="let block of blocks">
 									<td><a routerLink="/blocks/{{block.block_num}}">{{block.block_num}}</a></td>
 									<td>{{block.timestamp.sec * 1000 | date:'medium'}}</td>
-									<td>{{block.transactions.length}}</td>
+									<td>{{block.pending}}</td>
 									<td><a routerLink="/accounts/{{block.producer_account_id}}">{{block.producer_account_id}}</a></td>
 								</tr>
 								</tbody>

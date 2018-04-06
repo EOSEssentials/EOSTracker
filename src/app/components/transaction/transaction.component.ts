@@ -6,8 +6,7 @@ import {EosService} from '../../services/eos.service';
 
 @Component({
   selector: 'app-transaction',
-  templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.css']
+  templateUrl: './transaction.component.html'
 })
 export class TransactionComponent implements OnInit {
   public id: string;

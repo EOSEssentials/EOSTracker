@@ -31,26 +31,6 @@
 									<td>{{ 'CreatedAt' | translate }}:</td>
 									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
 								</tr>
-								<tr>
-									<td>{{ 'Scope' | translate }}:</td>
-									<td>
-										<span *ngFor="let account of transaction.scope">
-											<a routerLink="/accounts/{{account}}">{{account}}</a>
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>{{ 'Actions' | translate }}:</td>
-									<td>
-										<span *ngIf="transaction.messages.length == 0">{{transaction.messages.length}}</span>
-										<span *ngIf="transaction.messages.length != 0">
-											<span *ngFor="let message of transaction.messages; let idx = index; last as isLast">
-												<a routerLink="/actions/{{idx}}/{{transaction.transaction_id}}">{{idx+1}}</a>
-												<span *ngIf="!isLast"> - </span>
-											</span>
-										</span>
-									</td>
-								</tr>
 							</table>
 						</div>
 					</div>

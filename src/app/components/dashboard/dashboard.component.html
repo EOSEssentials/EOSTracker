@@ -121,7 +121,6 @@
 								<tr>
 									<th>#</th>
 									<th>{{ 'Time' | translate }}</th>
-									<th># {{ 'Tx' | translate }}</th>
 									<th>{{ 'Producer' | translate }}</th>
 								</tr>
 								</thead>
@@ -129,7 +128,6 @@
 								<tr *ngFor="let block of blocks">
 									<td><a routerLink="/blocks/{{block.block_num}}">{{block.block_num}}</a></td>
 									<td>{{block.timestamp.sec * 1000 | date:'medium'}}</td>
-									<td>{{block.transactions.length}}</td>
 									<td><a routerLink="/accounts/{{block.producer_account_id}}">{{block.producer_account_id}}</a></td>
 								</tr>
 								</tbody>
@@ -162,7 +160,6 @@
 								<tr>
 									<th>#</th>
 									<th>{{ 'Time' | translate }}</th>
-									<th>{{ 'Msgs' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -170,7 +167,6 @@
 									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id | slice:0:32}}...</a>
 									</td>
 									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
-									<td>{{transaction.messages.length}}</td>
 								</tr>
 								</tbody>
 							</table>

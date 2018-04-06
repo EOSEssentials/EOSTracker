@@ -21,8 +21,8 @@
           </div>
           <!-- /.panel-heading -->
           <div class="panel-body">
-            <app-loading *ngIf="!messages"></app-loading>
-            <div *ngIf="messages" class="table-responsive">
+            <app-loading *ngIf="!actions"></app-loading>
+            <div *ngIf="actions" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                 <tr>
@@ -34,16 +34,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let message of messages">
-                  <td><a routerLink="/actions/{{message.message_id}}/{{message.transaction_id}}">{{message.transaction_id}}</a></td>
-                  <td>{{message.createdAt.sec * 1000 | date:'medium'}}</td>
+                <tr *ngFor="let action of actions">
+                  <td><a routerLink="/actions/{{action.message_id}}/{{action.transaction_id}}">{{action.transaction_id}}</a></td>
+                  <td>{{action.createdAt.sec * 1000 | date:'medium'}}</td>
                   <td>
-                    <span *ngFor="let account of message.authorization">
+                    <span *ngFor="let account of action.authorization">
                           <a routerLink="/accounts/{{account.account}}">{{account.account}}</a>
                     </span>
                   </td>
-                  <td><a routerLink="/accounts/{{message.handler_account_name}}">{{message.handler_account_name}}</a></td>
-                  <td>{{message.type}}</td>
+                  <td><a routerLink="/accounts/{{action.handler_account_name}}">{{action.handler_account_name}}</a></td>
+                  <td>{{action.type}}</td>
                 </tr>
                 </tbody>
               </table>

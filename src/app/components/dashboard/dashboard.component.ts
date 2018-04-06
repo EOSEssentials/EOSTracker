@@ -9,8 +9,7 @@ import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   stats = [0, 0, 0, 0];
