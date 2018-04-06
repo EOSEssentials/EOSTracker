@@ -30,20 +30,20 @@
                   <th>{{ 'CreatedAt' | translate }}</th>
                   <th>{{ 'Authorization' | translate }}</th>
                   <th>{{ 'Handler' | translate }}</th>
-                  <th>{{ 'Type' | translate }}</th>
+                  <th>{{ 'Name' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let action of actions">
-                  <td><a routerLink="/actions/{{action.message_id}}/{{action.transaction_id}}">{{action.transaction_id}}</a></td>
+                  <td><a routerLink="/actions/{{action.action_id}}/{{action.transaction_id}}">{{action.transaction_id}}</a></td>
                   <td>{{action.createdAt.sec * 1000 | date:'medium'}}</td>
                   <td>
                     <span *ngFor="let account of action.authorization">
-                          <a routerLink="/accounts/{{account.account}}">{{account.account}}</a>
+                          <a routerLink="/accounts/{{account.actor}}">{{account.actor}}</a>
                     </span>
                   </td>
                   <td><a routerLink="/accounts/{{action.handler_account_name}}">{{action.handler_account_name}}</a></td>
-                  <td>{{action.type}}</td>
+                  <td>{{action.name}}</td>
                 </tr>
                 </tbody>
               </table>

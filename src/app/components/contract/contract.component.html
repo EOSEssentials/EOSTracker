@@ -25,7 +25,7 @@
 								</tr>
 								<tr>
 									<td>{{ 'MessageIndex' | translate }}:</td>
-									<td>{{message.message_id}}</td>
+									<td>{{action.action_id}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'CreatedAt' | translate }}:</td>
@@ -36,14 +36,14 @@
 									<td><a routerLink="/accounts/{{action.handler_account_name}}">{{action.handler_account_name}}</a></td>
 								</tr>
 								<tr>
-									<td>{{ 'Type' | translate }}:</td>
-									<td>{{action.type}}</td>
+									<td>{{ 'Name' | translate }}:</td>
+									<td>{{action.name}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'Authorization' | translate }}:</td>
 									<td>
 										<span *ngFor="let account of action.authorization">
-											<a routerLink="/accounts/{{account.account}}">{{account.account}}</a>
+											<a routerLink="/accounts/{{account.actor}}">{{account.actor}}</a>
 										</span>
 									</td>
 								</tr>
