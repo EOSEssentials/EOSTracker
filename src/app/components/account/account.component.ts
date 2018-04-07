@@ -7,8 +7,7 @@ import {EosService} from '../../services/eos.service';
 
 @Component({
   selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  templateUrl: './account.component.html'
 })
 export class AccountComponent implements OnInit {
 
@@ -32,7 +31,7 @@ export class AccountComponent implements OnInit {
         this.tables = this.account.abi.tables;
 
         this.tables.forEach((item, index) => {
-          this.eosService.eos.getTableRows(true, item.key_types[0], this.name, this.name, item.table_name).then(result => {
+            this.eosService.eos.getTableRows(true, this.name, this.name, item.name, item.key_names[0]).then(result => {
             console.log(result.rows);
             this.tables[index].rows = result.rows; // TODO: allow pagination
           });
