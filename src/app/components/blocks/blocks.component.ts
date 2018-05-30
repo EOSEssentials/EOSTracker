@@ -13,7 +13,7 @@ import {environment} from '../../../environments/environment';
 export class BlocksComponent implements OnInit {
   blocks = null;
   private subscriber: Subscription;
-  page = 0;
+  page = 1;
 
 
   constructor(private blockService: BlockService, private http: HttpClient,private route: ActivatedRoute, private router: Router) {
@@ -22,7 +22,7 @@ export class BlocksComponent implements OnInit {
   ngOnInit() {
 
     this.subscriber = this.route.queryParams.subscribe(params => {
-      this.page = params['page'] || 0;
+      this.page = params['page'] || 1;
 
       this.http.get(environment.apiUrl + '/blocks?page=' + this.page).subscribe(data => {
         this.blocks = data;

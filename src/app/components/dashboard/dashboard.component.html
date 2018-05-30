@@ -126,9 +126,9 @@
 								</thead>
 								<tbody>
 								<tr *ngFor="let block of blocks">
-									<td><a routerLink="/blocks/{{block.block_num}}">{{block.block_num}}</a></td>
-									<td>{{block.timestamp.sec * 1000 | date:'medium'}}</td>
-									<td><a routerLink="/accounts/{{block.producer_account_id}}">{{block.producer_account_id}}</a></td>
+									<td><a routerLink="/blocks/{{block.blockNumber}}">{{block.blockNumber}}</a></td>
+									<td>{{block.timestamp * 1000 | date:'medium'}}</td>
+									<td><a routerLink="/accounts/{{block.producer}}">{{block.producer}}</a></td>
 								</tr>
 								</tbody>
 							</table>
@@ -164,9 +164,9 @@
 								</thead>
 								<tbody>
 								<tr *ngFor="let transaction of transactions">
-									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id | slice:0:32}}...</a>
+									<td><a routerLink="/transactions/{{transaction.id}}">{{transaction.id | slice:0:32}}...</a>
 									</td>
-									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
 								</tr>
 								</tbody>
 							</table>

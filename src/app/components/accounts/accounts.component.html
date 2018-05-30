@@ -14,7 +14,7 @@
 						{{ 'Accounts' | translate }}
 
 						<div class="pull-right">
-							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
 							<button *ngIf="accounts && accounts.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
 						</div>
 					</div>
@@ -34,9 +34,9 @@
 								<tbody>
 								<tr *ngFor="let account of accounts">
 									<td><a routerLink="/accounts/{{account.name}}">{{account.name}}</a></td>
-									<td align="right">{{account.eos_balance}}</td>
-									<td>{{account.createdAt.sec * 1000 | date:'medium'}}</td>
-									<td>{{account.updatedAt.sec * 1000 | date:'medium'}}</td>
+									<td align="right">{{account.eos}}</td>
+									<td>{{account.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{account.updatedAt * 1000 | date:'medium'}}</td>
 								</tr>
 								</tbody>
 							</table>

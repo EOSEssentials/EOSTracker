@@ -14,7 +14,7 @@
 						{{ 'Transactions' | translate }}
 
 						<div class="pull-right">
-							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
 							<button type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
 						</div>
 
@@ -29,17 +29,17 @@
 									<th>#</th>
 									<th>{{ 'BlockId' | translate }}</th>
 									<th>{{ 'CreatedAt' | translate }}</th>
-									<th>{{ 'Status' | translate }}</th>
-									<th>{{ 'Type' | translate }}</th>
+									<th>{{ 'Expiration' | translate }}</th>
+									<th>{{ 'Actions' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr *ngFor="let transaction of transactions">
-									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id|slice:0:32}}...</a></td>
-									<td><a routerLink="/search" [queryParams]="{q: transaction.block_id}">{{transaction.block_id |slice:0:32}}...</a></td>
-									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
-									<td>{{transaction.status}}</td>
-									<td>{{transaction.type}}</td>
+									<td><a routerLink="/transactions/{{transaction.id}}">{{transaction.id|slice:0:32}}...</a></td>
+									<td><a routerLink="/blocks/{{transaction.blockId}}">{{transaction.blockId}}</a></td>
+									<td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{transaction.expiration * 1000 | date:'medium'}}</td>
+									<td>{{transaction.numActions}}</td>
 								</tr>
 								</tbody>
 							</table>
