@@ -15,7 +15,7 @@ export class AccountComponent implements OnInit {
   public tables = null;
   public account = null;
   public accountRaw = null;
-  public transactions = null;
+  public actions = null;
   private subscriber: Subscription;
   page = 1;
 
@@ -24,14 +24,14 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.name = this.route.snapshot.params['id'];
-    this.http.get(environment.apiUrl + '/accounts?name=' + this.name).subscribe(data => {
+    this.http.get(environment.apiUrl + '/accounts/' + this.name).subscribe(data => {
       this.account = data;
       console.log(this.account);
       if (this.account.abi && this.account.abi.tables) {
         this.tables = this.account.abi.tables;
 
         this.tables.forEach((item, index) => {
-            this.eosService.eos.getTableRows(true, this.name, this.name, item.name, item.key_names[0]).then(result => {
+          this.eosService.eos.getTableRows(true, this.name, this.name, item.name, item.key_names[0]).then(result => {
             console.log(result.rows);
             this.tables[index].rows = result.rows; // TODO: allow pagination
           });
@@ -42,8 +42,8 @@ export class AccountComponent implements OnInit {
     this.subscriber = this.route.queryParams.subscribe(params => {
       this.page = params['page'] || 1;
 
-      this.http.get(environment.apiUrl + '/transactions?scope=' + this.name + '&page=' + this.page).subscribe(data => {
-        this.transactions = data;
+      this.http.get(environment.apiUrl + '/accounts/' + this.name + '/actions?page=' + this.page).subscribe(data => {
+        this.actions = data;
         console.log(data);
       });
     });

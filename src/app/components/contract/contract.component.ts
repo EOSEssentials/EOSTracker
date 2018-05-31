@@ -9,7 +9,6 @@ import {environment} from '../../../environments/environment';
 })
 export class ContractComponent implements OnInit {
   public id: string;
-  public index: number = 0;
   public action = null;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
@@ -17,9 +16,8 @@ export class ContractComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.index = this.route.snapshot.params['index'];
-    this.http.get(environment.apiUrl + '/actions?transaction_id=' + this.id + '&action_id=' + this.index).subscribe(data => {
-      this.action = data[0];
+    this.http.get(environment.apiUrl + '/actions/' + this.id).subscribe(data => {
+      this.action = data;
       console.log(this.action);
     });
   }

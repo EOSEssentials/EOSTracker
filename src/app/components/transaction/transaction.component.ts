@@ -19,13 +19,9 @@ export class TransactionComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
 
-    this.http.get(environment.apiUrl + '/transactions?transaction_id=' + this.id).subscribe(data => {
-      this.transaction = data[0];
+    this.http.get(environment.apiUrl + '/transactions/' + this.id).subscribe(data => {
+      this.transaction = data;
       console.log(this.transaction);
     });
-
-    /*this.eosService.eos.getTransaction(this.id).then(result => {
-      this.transactionRaw = result;
-    });*/
   }
 }

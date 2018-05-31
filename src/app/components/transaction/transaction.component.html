@@ -20,28 +20,24 @@
 							<table class="table table-striped">
 								<tr>
 									<td>{{ 'Id' | translate }}:</td>
-									<td>{{transaction.transaction_id}}</td>
+									<td>{{transaction.id}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'Block' | translate }}:</td>
-									<td><a routerLink="/search" [queryParams]="{q: transaction.block_id}">{{transaction.block_id}}</a>
+									<td><a routerLink="/blocks/{{transaction.blockId}}">{{transaction.blockId}}</a>
 									</td>
 								</tr>
 								<tr>
 									<td>{{ 'CreatedAt' | translate }}:</td>
-									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'Pending' | translate }}:</td>
 									<td>{{transaction.pending}}</td>
 								</tr>
 								<tr>
-									<td>{{ 'Status' | translate }}:</td>
-									<td>{{transaction.status}}</td>
-								</tr>
-								<tr>
-									<td>{{ 'Type' | translate }}:</td>
-									<td>{{transaction.type}}</td>
+									<td>{{ 'Actions' | translate }}:</td>
+									<td>{{transaction.numActions}}</td>
 								</tr>
 							</table>
 						</div>
@@ -51,7 +47,7 @@
 				<!-- /.panel -->
 			</div>
 		</div>
-
+<!--
 		<div class="panel-group" id="accordion">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -65,7 +61,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- /.row -->
 	</div>

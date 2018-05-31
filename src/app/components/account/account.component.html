@@ -37,12 +37,12 @@
 
 								<tr>
 									<td>{{ 'CreatedAt' | translate }}:</td>
-									<td>{{account.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{account.createdAt * 1000 | date:'medium'}}</td>
 								</tr>
 
 								<tr>
 									<td>{{ 'UpdatedAt' | translate }}:</td>
-									<td>{{account.updatedAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{account.updatedAt * 1000 | date:'medium'}}</td>
 								</tr>
 
 								<tr *ngIf="account.abi">
@@ -98,33 +98,31 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						{{ 'Transactions' | translate }}
+						{{ 'Actions' | translate }}
 
 						<div class="pull-right">
-							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
-							<button *ngIf="transactions && transactions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
+							<button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="actions && actions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
 						</div>
 
 					</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
-						<app-loading *ngIf="!transactions"></app-loading>
-						<div *ngIf="transactions" class="table-responsive">
+						<app-loading *ngIf="!actions"></app-loading>
+						<div *ngIf="actions" class="table-responsive">
 							<table class="table table-striped">
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>{{ 'BlockId' | translate }}</th>
-									<th>{{ 'CreatedAt' | translate }}</th>
-									<th>{{ 'Actions' | translate }}</th>
+									<th>{{ 'Transaction' | translate }}</th>
+									<th>{{ 'Name' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr *ngFor="let transaction of transactions">
-									<td><a routerLink="/transactions/{{transaction.transaction_id}}">{{transaction.transaction_id|slice:0:32}}...</a></td>
-									<td><a routerLink="/search" [queryParams]="{q: transaction.block_id}">{{transaction.block_id |slice:0:32}}...</a></td>
-									<td>{{transaction.createdAt.sec * 1000 | date:'medium'}}</td>
-									<td>{{transaction.messages.length}}</td>
+								<tr *ngFor="let action of actions">
+									<td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:32}}...</a></td>
+									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:32}}...</a></td>
+									<td>{{action.name}}</td>
 								</tr>
 								</tbody>
 							</table>

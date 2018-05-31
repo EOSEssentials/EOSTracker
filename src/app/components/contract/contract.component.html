@@ -21,19 +21,19 @@
 							<table class="table table-striped">
 								<tr>
 									<td>{{ 'TransactionId' | translate }}:</td>
-									<td><a routerLink="/transactions/{{action.transaction_id}}">{{action.transaction_id}}</a></td>
+									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction}}</a></td>
 								</tr>
 								<tr>
 									<td>{{ 'ActionIndex' | translate }}:</td>
-									<td>{{action.action_id}}</td>
+									<td>{{action.id}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'CreatedAt' | translate }}:</td>
-									<td>{{action.createdAt.sec * 1000 | date:'medium'}}</td>
+									<td>{{action.createdAt * 1000 | date:'medium'}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'HandlerAccount' | translate }}:</td>
-									<td><a routerLink="/accounts/{{action.handler_account_name}}">{{action.handler_account_name}}</a></td>
+									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
 								</tr>
 								<tr>
 									<td>{{ 'Name' | translate }}:</td>
