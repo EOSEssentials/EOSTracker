@@ -122,6 +122,7 @@
 									<th>#</th>
 									<th>{{ 'Time' | translate }}</th>
 									<th>{{ 'Producer' | translate }}</th>
+									<th>{{ 'Tx' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -129,6 +130,7 @@
 									<td><a routerLink="/blocks/{{block.blockNumber}}">{{block.blockNumber}}</a></td>
 									<td>{{block.timestamp * 1000 | date:'medium'}}</td>
 									<td><a routerLink="/accounts/{{block.producer}}">{{block.producer}}</a></td>
+									<td>{{block.numTransactions}}</td>
 								</tr>
 								</tbody>
 							</table>
@@ -160,13 +162,15 @@
 								<tr>
 									<th>#</th>
 									<th>{{ 'Time' | translate }}</th>
+									<th>{{ 'Actions' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr *ngFor="let transaction of transactions">
-									<td><a routerLink="/transactions/{{transaction.id}}">{{transaction.id | slice:0:32}}...</a>
+									<td><a routerLink="/transactions/{{transaction.id}}">{{transaction.id | slice:0:26}}...</a>
 									</td>
 									<td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{transaction.numActions}}</td>
 								</tr>
 								</tbody>
 							</table>

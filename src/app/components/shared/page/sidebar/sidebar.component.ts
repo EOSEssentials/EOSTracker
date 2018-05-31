@@ -10,9 +10,11 @@ export class SidebarComponent implements OnInit {
 
   query: string;
   walletUrl: string;
+  votingUrl: string;
 
   constructor(private router: Router) {
     this.walletUrl = environment.walletUrl;
+    this.votingUrl = environment.votingUrl;
   }
 
   ngOnInit() {

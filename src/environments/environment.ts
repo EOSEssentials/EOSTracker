@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   walletUrl: '//walleteos.com',
+  votingUrl: '//eosportal.io',
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
   apiUrl: '//localhost:8000',
