@@ -114,6 +114,7 @@
 								<thead>
 								<tr>
 									<th>#</th>
+									<th>{{ 'Account' | translate }}</th>
 									<th>{{ 'Transaction' | translate }}</th>
 									<th>{{ 'Name' | translate }}</th>
 								</tr>
@@ -121,6 +122,7 @@
 								<tbody>
 								<tr *ngFor="let action of actions">
 									<td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:32}}...</a></td>
+									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
 									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:32}}...</a></td>
 									<td>{{action.name}}</td>
 								</tr>
