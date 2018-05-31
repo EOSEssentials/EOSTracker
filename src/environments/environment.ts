@@ -10,5 +10,5 @@ export const environment = {
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
   apiUrl: '//localhost:8000',
-  blockchainUrl: '//localhost:8888'
+  blockchainUrl: '//dev.cryptolions.io:38888'
 };

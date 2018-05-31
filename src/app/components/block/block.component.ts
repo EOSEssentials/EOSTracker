@@ -15,7 +15,7 @@ export class BlockComponent implements OnInit {
   public blockRaw = null;
   public transactions = null;
   private subscriber: Subscription;
-  page = 0;
+  page = 1;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private eosService: EosService) {
   }
@@ -23,13 +23,13 @@ export class BlockComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
 
-    this.http.get(environment.apiUrl + '/blocks?block_num=' + this.id).subscribe(data => {
-      this.block = data[0];
+    this.http.get(environment.apiUrl + '/blocks/' + this.id).subscribe(data => {
+      this.block = data;
       console.log(this.block);
       this.subscriber = this.route.queryParams.subscribe(params => {
-        this.page = params['page'] || 0;
+        this.page = params['page'] || 1;
 
-        this.http.get(environment.apiUrl + '/transactions?block_id=' + this.block.block_id + '&page=' + this.page).subscribe(data => {
+        this.http.get(environment.apiUrl + '/blocks/' + this.id + '/transactions?' + 'page=' + this.page).subscribe(data => {
           this.transactions = data;
           console.log(data);
         });
@@ -43,11 +43,11 @@ export class BlockComponent implements OnInit {
 
   nextPage() {
     this.page++;
-    this.router.navigate(['/blocks/' + this.id], {queryParams: {page: this.page}});
+    this.router.navigate(['/blocks/' + this.id + '/transactions'], {queryParams: {page: this.page}});
   }
 
   prevPage() {
     this.page--;
-    this.router.navigate(['/blocks/' + this.id], {queryParams: {page: this.page}});
+    this.router.navigate(['/blocks/' + this.id + '/transactions'], {queryParams: {page: this.page}});
   }
 }

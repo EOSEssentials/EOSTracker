@@ -14,7 +14,7 @@
             {{ 'Actions' | translate }}
 
             <div class="pull-right">
-              <button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+              <button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
               <button type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
             </div>
 
@@ -35,8 +35,8 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let action of actions">
-                  <td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:32}}</a></td>
-                  <td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:32}}</a></td>
+                  <td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:28}}...</a></td>
+                  <td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:28}}...</a></td>
                   <td>
                     <span *ngFor="let authorization of action.authorizations">
                           <a routerLink="/accounts/{{authorization.actor}}">{{authorization.actor}}</a>

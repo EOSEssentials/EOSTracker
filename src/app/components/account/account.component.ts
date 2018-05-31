@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
   public accountRaw = null;
   public transactions = null;
   private subscriber: Subscription;
-  page = 0;
+  page = 1;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private eosService: EosService) {
   }
@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.name = this.route.snapshot.params['id'];
     this.http.get(environment.apiUrl + '/accounts?name=' + this.name).subscribe(data => {
-      this.account = data[0];
+      this.account = data;
       console.log(this.account);
       if (this.account.abi && this.account.abi.tables) {
         this.tables = this.account.abi.tables;
@@ -40,7 +40,7 @@ export class AccountComponent implements OnInit {
     });
 
     this.subscriber = this.route.queryParams.subscribe(params => {
-      this.page = params['page'] || 0;
+      this.page = params['page'] || 1;
 
       this.http.get(environment.apiUrl + '/transactions?scope=' + this.name + '&page=' + this.page).subscribe(data => {
         this.transactions = data;

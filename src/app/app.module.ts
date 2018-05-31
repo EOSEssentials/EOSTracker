@@ -40,6 +40,7 @@ const appRoutes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'blocks', component: BlocksComponent},
   {path: 'blocks/:id', component: BlockComponent},
+  {path: 'blocks/:id/transactions', component: BlockComponent},
   {path: 'transactions', component: TransactionsComponent},
   {path: 'transactions/:id', component: TransactionComponent},
   {path: 'accounts', component: AccountsComponent},
