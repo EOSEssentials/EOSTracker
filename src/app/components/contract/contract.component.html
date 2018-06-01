@@ -42,7 +42,7 @@
 								<tr>
 									<td>{{ 'Authorization' | translate }}:</td>
 									<td>
-										<span *ngFor="let account of action.authorization">
+										<span *ngFor="let account of action.authorizations">
 											<a routerLink="/accounts/{{account.actor}}">{{account.actor}}</a>
 										</span>
 									</td>

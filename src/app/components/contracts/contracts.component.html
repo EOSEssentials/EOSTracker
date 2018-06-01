@@ -39,7 +39,7 @@
                   <td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:28}}...</a></td>
                   <td>
                     <span *ngFor="let authorization of action.authorizations">
-                          <a routerLink="/accounts/{{authorization.actor}}">{{authorization.actor}}</a>
+                          <a routerLink="/accounts/{{authorization.actor}}">{{authorization.actor}}</a> 
                     </span>
                   </td>
                   <td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
