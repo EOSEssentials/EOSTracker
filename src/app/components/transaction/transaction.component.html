@@ -47,6 +47,54 @@
 				<!-- /.panel -->
 			</div>
 		</div>
+
+
+		<div class="row" *ngIf="transaction && transaction.numActions > 0">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						{{ 'Actions' | translate }}
+
+						<div class="pull-right">
+							<button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="actions && actions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
+						</div>
+
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!actions"></app-loading>
+						<div *ngIf="actions" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>{{ 'Authorization' | translate }}</th>
+									<th>{{ 'Handler' | translate }}</th>
+									<th>{{ 'Name' | translate }}</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let action of actions">
+									<td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:28}}...</a></td>
+									<td>
+					                    <span *ngFor="let authorization of action.authorizations">
+					                          <a routerLink="/accounts/{{authorization.actor}}">{{authorization.actor}}</a>
+					                    </span>
+									</td>
+									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
+									<td>{{action.name}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
 <!--
 		<div class="panel-group" id="accordion">
 			<div class="panel panel-default">
