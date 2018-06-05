@@ -24,13 +24,28 @@ export class SearchComponent implements OnInit {
       let queryInt = Number(this.query);
       if (!isNaN(queryInt)) {
         this.router.navigateByUrl('/blocks/' + this.query);
-      } else if (this.query.substring(0, 2) === 'ff') {
-        this.router.navigateByUrl('/transactions/' + this.query);
-      } else if (this.query.substring(0, 2) === '00') {
-        console.log('test');
-        this.http.get(environment.apiUrl + '/search?query=' + this.query).subscribe(data => {
+      } else if (this.query.length === 64) {
+
+        this.http.get(environment.apiUrl + '/transactions/' + this.query).subscribe(data => {
           console.log(data);
-          this.router.navigateByUrl('/blocks/' + data["block_num"]);
+          if (data) {
+            this.router.navigateByUrl('/transactions/' + this.query);
+          }
+        });
+
+        this.http.get(environment.apiUrl + '/blocks/id/' + this.query).subscribe(data => {
+          console.log(data);
+          if (data) {
+            this.router.navigateByUrl('/blocks/' + data['blockNumber']);
+          }
+        });
+      } else if (this.query.length == 53) {
+        // TODO: allow this
+        this.http.get(environment.apiUrl + '/accounts/key/' + this.query).subscribe(data => {
+          console.log(data);
+          if (data) {
+            this.router.navigateByUrl('/accounts/' + data["name"]);
+          }
         });
       } else {
         this.router.navigateByUrl('/accounts/' + this.query);

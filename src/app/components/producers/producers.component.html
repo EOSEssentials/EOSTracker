@@ -2,7 +2,7 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">{{ 'Producers' | translate }}</h1>
+				<h1 class="page-header">{{ 'Producers' | translate }} Last 24 hours</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -21,19 +21,13 @@
 								<thead>
 								<tr>
 									<th>{{ 'Name' | translate }}</th>
-									<th style="text-align:right">{{ 'EOS' | translate }}</th>
 									<th>{{ 'Blocks' | translate }}</th>
-									<th>{{ 'CreatedAt' | translate }}</th>
-									<th>{{ 'UpdatedAt' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr *ngFor="let producer of producers">
 									<td><a routerLink="/accounts/{{producer.name}}">{{producer.name}}</a></td>
-									<td align="right">{{producer.eos_balance}}</td>
-                                    <td>{{producer.count}}</td>
-									<td>{{producer.createdAt.sec * 1000 | date:'medium'}}</td>
-									<td>{{producer.updatedAt.sec * 1000 | date:'medium'}}</td>
+                                    <td>{{producer.num}}</td>
 								</tr>
 								</tbody>
 							</table>

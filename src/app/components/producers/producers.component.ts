@@ -24,7 +24,7 @@ export class ProducersComponent implements OnInit {
       let dataPie = [];
 
       for (let producer of this.producers) {
-        dataPie.push({label: producer.name, data: producer.count})
+        dataPie.push({label: producer.name, data: producer.num})
       }
 
       $.plot($("#flot-pie-chart"), dataPie, {
