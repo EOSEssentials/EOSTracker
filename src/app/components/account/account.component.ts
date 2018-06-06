@@ -15,6 +15,7 @@ export class AccountComponent implements OnInit {
   public tables = null;
   public account = null;
   public accountRaw = null;
+  public balance = null;
   public actions = null;
   private subscriber: Subscription;
   page = 1;
@@ -50,6 +51,10 @@ export class AccountComponent implements OnInit {
 
     this.eosService.eos.getAccount(this.name).then(result => {
       this.accountRaw = result;
+    });
+
+    this.eosService.eos.getCurrencyBalance('eosio.token', this.name, 'EOS').then(result => {
+      this.balance = result;
     });
   }
 
