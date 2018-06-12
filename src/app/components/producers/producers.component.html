@@ -2,7 +2,7 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">{{ 'Producers' | translate }} Last 24 hours</h1>
+				<h1 class="page-header">{{ 'Producers' | translate }}</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -20,14 +20,16 @@
 							<table class="table table-striped">
 								<thead>
 								<tr>
+									<th>#</th>
 									<th>{{ 'Name' | translate }}</th>
-									<th>{{ 'Blocks' | translate }}</th>
+									<th>{{ 'Url' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr *ngFor="let producer of producers">
-									<td><a routerLink="/accounts/{{producer.name}}">{{producer.name}}</a></td>
-                                    <td>{{producer.num}}</td>
+								<tr *ngFor="let producer of producers; let i = index">
+									<td>{{i + 1}}</td>
+									<td><a routerLink="/accounts/{{producer.owner}}">{{producer.owner}}</a></td>
+                                    <td>{{producer.url}}</td>
 								</tr>
 								</tbody>
 							</table>
@@ -39,25 +41,22 @@
 				<!-- /.panel -->
 			</div>
 		</div>
-
+		<!--
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						{{ 'Stats' | translate }}
 					</div>
-					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<app-loading *ngIf="!producers"></app-loading>
 						<div class="flot-chart">
 							<div class="flot-chart-content" id="flot-pie-chart"></div>
 						</div>
 					</div>
-					<!-- /.panel-body -->
 				</div>
-				<!-- /.panel -->
 			</div>
-		</div>
+		</div> -->
 
 		<!-- /.row -->
 	</div>
