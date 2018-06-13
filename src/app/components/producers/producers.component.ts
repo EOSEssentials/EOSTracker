@@ -30,7 +30,37 @@ export class ProducersComponent implements OnInit {
     ).then(result => {
       this.producers = result.rows;
       this.producers.sort(function(a,b) {return (parseFloat(a.total_votes) < parseFloat(b.total_votes)) ? 1 : ((parseFloat(b.total_votes) < parseFloat(a.total_votes)) ? -1 : 0);} )
-      console.log(result.rows);
+      this.eosService.eos.getTableRows(
+        {
+          json: true,
+          code: "eosio",
+          scope: "eosio",
+          table: "global",
+          limit: 1
+        }
+      ).then(result => {
+        let chainStatus = result.rows[0];
+        for (let index in this.producers) {
+          let position = index +1;
+          let reward = 0;
+          if (position < 22) {
+            reward += 318;
+          }
+          let percentageVotes = (this.producers[index].total_votes / chainStatus.total_producer_vote_weight * 100);
+
+          reward += percentageVotes * 200;
+
+          if (reward < 100) {
+            reward = 0;
+          }
+
+          this.producers[index].reward = reward.toFixed(0);
+          this.producers[index].votes = percentageVotes.toFixed(2);
+          //console.log(entry); // 1, "string", false
+        }
+
+      });
+
     });
 
     /*
