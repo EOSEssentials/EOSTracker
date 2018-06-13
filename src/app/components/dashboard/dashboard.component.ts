@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
 import 'rxjs/add/operator/takeWhile';
 import {environment} from '../../../environments/environment';
+import {EosService} from '../../services/eos.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,17 +14,18 @@ import {environment} from '../../../environments/environment';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   stats = [0, 0, 0, 0];
+  chainPercentage = 0;
   blocks = null; // Block[]
   transactions = null; // Transaction[]
 
   private alive: boolean; // used to unsubscribe from the TimerObservable
 
-  constructor(private dashboardService: DashboardService, private blockService: BlockService, private transactionService: TransactionService, private http: HttpClient) {
+  constructor(private http: HttpClient, private eosService: EosService) {
     this.alive = true;
   }
 
   ngOnInit() {
-    TimerObservable.create(0, 2000)
+    TimerObservable.create(0, 5000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
@@ -33,7 +35,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
 
     // TODO: move from here and conver to objects https://medium.com/codingthesmartway-com-blog/angular-4-3-httpclient-accessing-rest-web-services-with-angular-2305b8fd654b
-    TimerObservable.create(0, 2000)
+    TimerObservable.create(0, 5000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
@@ -43,12 +45,30 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
 
 
-    TimerObservable.create(0, 2000)
+    TimerObservable.create(0, 5000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
         this.http.get(environment.apiUrl + '/transactions?size=20').subscribe(data => {
           this.transactions = data;
+        });
+      });
+
+    TimerObservable.create(0, 5000)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+
+        this.eosService.eos.getTableRows(
+          {
+            json: true,
+            code: "eosio",
+            scope: "eosio",
+            table: "global",
+            limit: 1
+          }
+        ).then(result => {
+          let chainStatus = result.rows[0];
+          this.chainPercentage = (chainStatus.total_activated_stake*6.6666/10000/1000011818*100).toFixed(2);
         });
       });
   }

@@ -56,7 +56,6 @@ export class ProducersComponent implements OnInit {
 
           this.producers[index].reward = reward.toFixed(0);
           this.producers[index].votes = percentageVotes.toFixed(2);
-          //console.log(entry); // 1, "string", false
         }
 
       });
