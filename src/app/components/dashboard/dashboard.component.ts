@@ -14,7 +14,7 @@ import {EosService} from '../../services/eos.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   stats = [0, 0, 0, 0];
-  chainPercentage = 0;
+  chainPercentage: string = "0";
   blocks = null; // Block[]
   transactions = null; // Transaction[]
 
