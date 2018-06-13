@@ -41,7 +41,7 @@ export class ProducersComponent implements OnInit {
       ).then(result => {
         let chainStatus = result.rows[0];
         for (let index in this.producers) {
-          let position = index +1;
+          let position: number = parseInt(index) + 1;
           let reward = 0;
           if (position < 22) {
             reward += 318;
