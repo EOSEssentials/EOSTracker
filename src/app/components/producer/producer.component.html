@@ -1,0 +1,141 @@
+<app-page>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">{{ 'Producer' | translate }} <span *ngIf="account">{{account.name}}</span></h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						{{ 'Producer' | translate }}
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!account"></app-loading>
+						<div *ngIf="account" class="table-responsive">
+							<table class="table table-striped">
+								<tr *ngIf="bpJson && bpJson.org.candidate_name">
+									<td>{{ 'Name' | translate }}:</td>
+									<td>{{bpJson.org.candidate_name}}</td>
+								</tr>
+								<tr>
+									<td>{{ 'Account' | translate }}:</td>
+									<td>{{account.name}} <i *ngIf="validated" class="fa fa-check" style="color: green" aria-hidden="true"></i></td>
+								</tr>
+								<tr *ngIf="producer">
+									<td>{{ 'Public Key' | translate }}:</td>
+									<td>{{producer.producer_key}} <i *ngIf="validated" class="fa fa-check" style="color: green" aria-hidden="true"></i></td>
+								</tr>
+								<tr *ngIf="producer">
+									<td>{{ 'Votes' | translate }}:</td>
+									<td>{{producer.votes}}%</td>
+								</tr>
+								<tr *ngIf="producer">
+									<td>{{ 'Url' | translate }}:</td>
+									<td>{{producer.url}}</td>
+								</tr>
+								<tr *ngIf="producer">
+									<td>{{ 'Position' | translate }}:</td>
+									<td>#{{producer.position}}</td>
+								</tr>
+								<tr *ngIf="producer">
+									<td>{{ 'Daily Reward' | translate }}:</td>
+									<td>{{producer.reward}} EOS</td>
+								</tr>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						{{ 'Nodes' | translate }}
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!account"></app-loading>
+						<div *ngIf="account" class="table-responsive">
+							<div #gmap style="width:100%;height:300px"></div>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+
+
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">{{ 'BlockchainRawData' | translate }}</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="panel-body">
+						<prettyjson [obj]="accountRaw"></prettyjson>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						{{ 'Votes' | translate }}
+
+						<div class="pull-right">
+							<button *ngIf="page != 0" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="votes && votes.length == 50" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
+						</div>
+
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!votes"></app-loading>
+						<div *ngIf="votes" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>{{ 'Account' | translate }}</th>
+									<th>{{ 'Staked' | translate }}</th>
+									<th>{{ 'Number of BPs' | translate }}</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let vote of votes">
+									<td><a routerLink="/accounts/{{vote.account}}">{{vote.account}}</a></td>
+									<td>{{vote.staked | number}} EOS</td>
+									<td>{{vote.votes.length}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+</app-page>

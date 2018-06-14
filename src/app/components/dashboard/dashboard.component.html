@@ -140,7 +140,7 @@
 								<tr *ngFor="let block of blocks">
 									<td><a routerLink="/blocks/{{block.blockNumber}}">{{block.blockNumber}}</a></td>
 									<td class="hidden-xs">{{block.timestamp * 1000 | date:'medium'}}</td>
-									<td><a routerLink="/accounts/{{block.producer}}">{{block.producer}}</a></td>
+									<td><a routerLink="/producers/{{block.producer}}">{{block.producer}}</a></td>
 									<td>{{block.numTransactions}}</td>
 								</tr>
 								</tbody>

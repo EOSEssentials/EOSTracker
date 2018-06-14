@@ -31,6 +31,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {Ng2Webstorage} from 'ngx-webstorage';
 import { SettingsComponent } from './components/settings/settings.component';
+import {ProducerComponent} from './components/producer/producer.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
   {path: 'actions', component: ContractsComponent},
   {path: 'actions/:id', component: ContractComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'producers', component: ProducersComponent}
+  {path: 'producers', component: ProducersComponent},
+  {path: 'producers/:id', component: ProducerComponent}
 ];
 
 @NgModule({
@@ -70,7 +72,8 @@ const appRoutes: Routes = [
     ContractComponent,
     SearchComponent,
     LoadingComponent,
-    SettingsComponent
+    SettingsComponent,
+    ProducerComponent
   ],
   imports: [
     BrowserModule,
