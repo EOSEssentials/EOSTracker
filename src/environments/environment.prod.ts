@@ -5,5 +5,5 @@ export const environment = {
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
   apiUrl: '//api.eostracker.io',
-  blockchainUrl: '//dev.cryptolions.io:38888'
+  blockchainUrl: 'https://api.eosmetal.io:18890'
 };
