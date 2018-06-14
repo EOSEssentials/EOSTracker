@@ -40,17 +40,26 @@ export class ProducersComponent implements OnInit {
         }
       ).then(result => {
         let chainStatus = result.rows[0];
+        let votesToRemove: number = 0;
+        for (let index in this.producers) {
+          let percentageVotes = (this.producers[index].total_votes / chainStatus.total_producer_vote_weight * 100);
+          if (percentageVotes * 200 < 100) {
+            votesToRemove += parseFloat(this.producers[index].total_votes);
+          }
+        }
+
         for (let index in this.producers) {
           let position: number = parseInt(index) + 1;
           let reward = 0;
           if (position < 22) {
             reward += 318;
           }
-          let percentageVotes = (this.producers[index].total_votes / chainStatus.total_producer_vote_weight * 100);
+          let percentageVotes = (this.producers[index].total_votes / (chainStatus.total_producer_vote_weight) * 100);
+          let percentageVotesRewarded = (this.producers[index].total_votes / (chainStatus.total_producer_vote_weight - votesToRemove) * 100);
 
-          reward += percentageVotes * 200;
+          reward += percentageVotesRewarded * 200;
 
-          if (reward < 100) {
+          if (percentageVotes * 200 < 100) {
             reward = 0;
           }
 

@@ -22,7 +22,7 @@
 								<tr>
 									<th>#</th>
 									<th>{{ 'Name' | translate }}</th>
-									<th>{{ 'Url' | translate }}</th>
+									<th class="hidden-xs">{{ 'Url' | translate }}</th>
 									<th>{{ 'Votes' | translate }}</th>
 									<th>{{ 'Daily Reward' | translate }}</th>
 								</tr>
@@ -31,7 +31,7 @@
 								<tr *ngFor="let producer of producers; let i = index">
 									<td>{{i + 1}}</td>
 									<td><a routerLink="/accounts/{{producer.owner}}">{{producer.owner}}</a></td>
-                                    <td>{{producer.url}}</td>
+                                    <td class="hidden-xs">{{producer.url}}</td>
                                     <td>{{producer.votes}}<span *ngIf="producer.votes">%</span></td>
                                     <td>{{producer.reward}} <span *ngIf="producer.reward">EOS</span></td>
 								</tr>

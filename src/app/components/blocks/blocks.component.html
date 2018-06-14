@@ -27,7 +27,7 @@
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>{{ 'Timestamp' | translate }}</th>
+									<th class="hidden-xs">{{ 'Timestamp' | translate }}</th>
 									<th>{{ 'Pending' | translate }}</th>
 									<th>{{ 'Producer' | translate }}</th>
 									<th>{{ 'Transactions' | translate }}</th>
@@ -37,7 +37,7 @@
 								<tbody>
 								<tr *ngFor="let block of blocks">
 									<td><a routerLink="/blocks/{{block.blockNumber}}">{{block.blockNumber}}</a></td>
-									<td>{{block.timestamp * 1000 | date:'medium'}}</td>
+									<td class="hidden-xs">{{block.timestamp * 1000 | date:'medium'}}</td>
 									<td>{{block.irreversible}}</td>
 									<td><a routerLink="/accounts/{{block.producer}}">{{block.producer}}</a></td>
 									<td>{{block.numTransactions}}</td>
