@@ -10,5 +10,5 @@ export const environment = {
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
   apiUrl: '//localhost:8000',
-  blockchainUrl: '//mainnet.genereos.io'
+  blockchainUrl: '//nodes.get-scatter.com'
 };

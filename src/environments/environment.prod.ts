@@ -5,5 +5,5 @@ export const environment = {
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
   apiUrl: '//api.eostracker.io',
-  blockchainUrl: 'https://api.eosmetal.io:18890'
+  blockchainUrl: '//nodes.get-scatter.com'
 };
