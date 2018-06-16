@@ -25,7 +25,8 @@ export class ProducersComponent implements OnInit {
         code: "eosio",
         scope: "eosio",
         table: "producers",
-        limit: 300
+        limit: 500,
+        table_key: ""
       }
     ).then(result => {
       this.producers = result.rows;
