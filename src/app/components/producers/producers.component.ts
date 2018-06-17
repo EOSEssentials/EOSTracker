@@ -66,6 +66,7 @@ export class ProducersComponent implements OnInit {
 
           this.producers[index].reward = reward.toFixed(0);
           this.producers[index].votes = percentageVotes.toFixed(2);
+          this.producers[index].numVotes = (this.producers[index].total_votes  / this.calculateVoteWeight() / 10000).toFixed(0);
         }
 
       });
@@ -105,6 +106,19 @@ export class ProducersComponent implements OnInit {
     });
 
     */
+  }
+
+  calculateVoteWeight()
+  {
+
+    //time epoch:
+    //https://github.com/EOSIO/eos/blob/master/contracts/eosiolib/time.hpp#L160
+    //stake to vote
+    //https://github.com/EOSIO/eos/blob/master/contracts/eosio.system/voting.cpp#L105-L109
+    let timestamp_epoch:number = 946684800000;
+    let dates_:number = (Date.now() / 1000) - (timestamp_epoch / 1000);
+    let weight_:number = Math.floor(dates_ / (86400 * 7)) / 52;  //86400 = seconds per day 24*3600
+    return Math.pow(2, weight_);
   }
 
 }

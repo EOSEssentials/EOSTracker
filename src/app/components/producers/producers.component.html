@@ -23,7 +23,8 @@
 									<th>#</th>
 									<th>{{ 'Name' | translate }}</th>
 									<th class="hidden-xs">{{ 'Url' | translate }}</th>
-									<th>{{ 'Votes' | translate }}</th>
+									<th class="hidden-xs">{{ 'Votes' | translate }}</th>
+									<th>{{ '%' | translate }}</th>
 									<th>{{ 'Daily Reward' | translate }}</th>
 								</tr>
 								</thead>
@@ -32,6 +33,7 @@
 									<td [ngClass]="{'bold': i < 21}">{{i + 1}}</td>
 									<td [ngClass]="{'bold': i < 21}" ><a routerLink="/producers/{{producer.owner}}">{{producer.owner}}</a></td>
                                     <td class="hidden-xs">{{producer.url}}</td>
+                                    <td class="hidden-xs">{{producer.numVotes|number}}<span *ngIf="producer.votes"></span></td>
                                     <td>{{producer.votes}}<span *ngIf="producer.votes">%</span></td>
                                     <td>{{producer.reward}} <span *ngIf="producer.reward">EOS</span></td>
 								</tr>
