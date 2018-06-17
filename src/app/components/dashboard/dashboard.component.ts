@@ -14,7 +14,6 @@ import {EosService} from '../../services/eos.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   stats = [0, 0, 0, 0];
-  chainPercentage: string = "0";
   blocks = null; // Block[]
   transactions = null; // Transaction[]
 
@@ -51,24 +50,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         this.http.get(environment.apiUrl + '/transactions?size=20').subscribe(data => {
           this.transactions = data;
-        });
-      });
-
-    TimerObservable.create(0, 5000)
-      .takeWhile(() => this.alive)
-      .subscribe(() => {
-
-        this.eosService.eos.getTableRows(
-          {
-            json: true,
-            code: "eosio",
-            scope: "eosio",
-            table: "global",
-            limit: 1
-          }
-        ).then(result => {
-          let chainStatus = result.rows[0];
-          this.chainPercentage = (chainStatus.total_activated_stake*6.6666/10000/1000011818*100).toFixed(2);
         });
       });
   }
