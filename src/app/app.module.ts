@@ -32,6 +32,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {Ng2Webstorage} from 'ngx-webstorage';
 import { SettingsComponent } from './components/settings/settings.component';
 import {ProducerComponent} from './components/producer/producer.component';
+import {ToKbPipes} from './pipes/tokb.pipes';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -73,7 +74,8 @@ const appRoutes: Routes = [
     SearchComponent,
     LoadingComponent,
     SettingsComponent,
-    ProducerComponent
+    ProducerComponent,
+    ToKbPipes
   ],
   imports: [
     BrowserModule,

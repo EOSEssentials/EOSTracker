@@ -22,10 +22,6 @@
 									<td>{{ 'Name' | translate }}:</td>
 									<td>{{account.name}}</td>
 								</tr>
-								<tr>
-									<td>{{ 'Balance' | translate }}:</td>
-									<td>{{balance}}</td>
-								</tr>
 
 								<tr>
 									<td>{{ 'CreatedAt' | translate }}:</td>
@@ -35,6 +31,35 @@
 								<tr>
 									<td>{{ 'UpdatedAt' | translate }}:</td>
 									<td>{{account.updatedAt * 1000 | date:'medium'}}</td>
+								</tr>
+
+								<tr *ngIf="balance">
+									<td>{{ 'Balance' | translate }}:</td>
+									<td>{{balance}}</td>
+								</tr>
+
+								<tr *ngIf="accountRaw">
+									<td>{{ 'RAM' | translate }}:</td>
+									<td>{{accountRaw.ram_usage | toKB }} KB / {{accountRaw.ram_quota | toKB}} KB</td>
+								</tr>
+
+								<tr *ngIf="accountRaw">
+									<td>{{ 'CPU' | translate }}:</td>
+									<td>
+										Staked: {{(accountRaw.cpu_weight / 10000).toFixed(4)}} EOS<br />
+										Used: {{(accountRaw.net_limit.used)}}<br />
+										Available: {{(accountRaw.net_limit.available)}}<br />
+										Max: {{(accountRaw.net_limit.max)}}
+									</td>
+								</tr>
+								<tr *ngIf="accountRaw">
+									<td>{{ 'NET' | translate }}:</td>
+									<td>
+										Staked: {{(accountRaw.net_weight / 10000).toFixed(4)}} EOS<br />
+										Used: {{(accountRaw.cpu_limit.used) | toKB}} KB<br />
+										Available: {{(accountRaw.cpu_limit.available) | toKB}} KB<br />
+										Max: {{(accountRaw.cpu_limit.max) | toKB}} KB
+									</td>
 								</tr>
 
 								<tr *ngIf="account.abi">
