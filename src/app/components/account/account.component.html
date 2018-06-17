@@ -61,12 +61,6 @@
 										Max: {{(accountRaw.cpu_limit.max) | toKB}} KB
 									</td>
 								</tr>
-
-								<tr *ngIf="account.abi">
-									<td colspan="2">
-										<prettyjson [obj]="account.abi"></prettyjson>
-									</td>
-								</tr>
 							</table>
 						</div>
 						<!-- /.table-responsive -->
@@ -74,6 +68,21 @@
 					<!-- /.panel-body -->
 				</div>
 				<!-- /.panel -->
+			</div>
+		</div>
+
+		<div *ngIf="account.abi" class="panel-group" id="accordion-abi">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion-abi" href="#collapseAbi" aria-expanded="false" class="collapsed">{{ 'ABI' | translate }}</a>
+					</h4>
+				</div>
+				<div id="collapseAbi" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="panel-body">
+						<prettyjson [obj]="account.abi"></prettyjson>
+					</div>
+				</div>
 			</div>
 		</div>
 
