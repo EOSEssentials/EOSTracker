@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  walletUrl: '//walleteos.com',
-  votingUrl: '//eosportal.io',
+  walletUrl: 'https://walleteos.com',
+  votingUrl: 'https://eosportal.io',
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
-  apiUrl: '//api.eostracker.io',
-  blockchainUrl: '//nodes.get-scatter.com'
+  apiUrl: 'https://api.eostracker.io',
+  blockchainUrl: 'https://nodes.get-scatter.com'
 };

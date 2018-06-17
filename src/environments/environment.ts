@@ -5,10 +5,10 @@
 
 export const environment = {
   production: false,
-  walletUrl: '//walleteos.com',
-  votingUrl: '//eosportal.io',
+  walletUrl: 'https://walleteos.com',
+  votingUrl: 'https://eosportal.io',
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
   apiUrl: '//localhost:8000',
-  blockchainUrl: '//nodes.get-scatter.com'
+  blockchainUrl: 'https://nodes.get-scatter.com'
 };
