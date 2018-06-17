@@ -14,6 +14,7 @@ declare let $: any;
 export class ProducersComponent implements OnInit, OnDestroy {
   producers = null;
   chainPercentage: string = "0";
+  chainNumber: number;
   private alive: boolean; // used to unsubscribe from the TimerObservable
 
   constructor(private http: HttpClient, private eosService: EosService) {
@@ -100,6 +101,7 @@ export class ProducersComponent implements OnInit, OnDestroy {
         ).then(result => {
           let chainStatus = result.rows[0];
           this.chainPercentage = (chainStatus.total_activated_stake  / 10000 / 1000011818 * 100).toFixed(2);
+          this.chainNumber = (chainStatus.total_activated_stake  / 1000011818 * 100000);
         });
       });
 
