@@ -47,8 +47,13 @@
 										</span>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="2"><prettyjson [obj]="action.data"> </prettyjson></td>
+								<tr *ngIf="actionRaw">
+									<td>{{ 'CPU Usage' | translate }}:</td>
+									<td>{{actionRaw.cpu_usage_us | number }} µs</td>
+								</tr>
+								<tr *ngIf="actionRaw">
+									<td>{{ 'Net Usage' | translate }}:</td>
+									<td>{{actionRaw.net_usage_words  | toKB}} KB</td>
 								</tr>
 							</table>
 						</div>
@@ -56,6 +61,42 @@
 					<!-- /.panel-body -->
 				</div>
 				<!-- /.panel -->
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						{{ 'Data' | translate }}
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+
+						<app-loading *ngIf="!action"></app-loading>
+						<div *ngIf="action" class="table-responsive">
+							<prettyjson [obj]="action.data"> </prettyjson>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">{{ 'BlockchainRawData' | translate }}</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					<div class="panel-body">
+						<prettyjson [obj]="actionRaw"></prettyjson>
+					</div>
+				</div>
 			</div>
 		</div>
 

@@ -39,14 +39,6 @@ export class AccountComponent implements OnInit {
       }
     });
 
-    this.subscriber = this.route.queryParams.subscribe(params => {
-      this.page = params['page'] || 1;
-
-      this.http.get(environment.apiUrl + '/accounts/' + this.name + '/actions?page=' + this.page).subscribe(data => {
-        this.actions = data;
-      });
-    });
-
     this.eosService.eos.getAccount(this.name).then(result => {
       this.accountRaw = result;
       console.log(result);
@@ -54,6 +46,14 @@ export class AccountComponent implements OnInit {
 
     this.eosService.eos.getCurrencyBalance('eosio.token', this.name, 'EOS').then(result => {
       this.balance = result;
+    });
+
+    this.subscriber = this.route.queryParams.subscribe(params => {
+      this.page = params['page'] || 1;
+
+      this.http.get(environment.apiUrl + '/accounts/' + this.name + '/actions?page=' + this.page).subscribe(data => {
+        this.actions = data;
+      });
     });
   }
 

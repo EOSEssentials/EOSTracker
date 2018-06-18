@@ -36,10 +36,15 @@ export class TransactionComponent implements OnInit {
         });
       });
 
-    });
+      this.eosService.eos.getBlock(this.transaction.blockId).then(result => {
+        for (let index in result.transactions) {
+          if (result.transactions[index].trx.id == this.transaction.id) {
+            this.transactionRaw = result.transactions[index];
+            return;
+          }
+        }
+      });
 
-    /*this.eosService.eos.getTransaction(this.id).then(result => { TODO: not working
-      this.transactionRaw = result;
-    });*/
+    });
   }
 }

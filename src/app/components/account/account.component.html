@@ -47,18 +47,18 @@
 									<td>{{ 'CPU' | translate }}:</td>
 									<td>
 										Staked: {{(accountRaw.cpu_weight / 10000).toFixed(4)}} EOS<br />
-										Used: {{(accountRaw.net_limit.used)}}<br />
-										Available: {{(accountRaw.net_limit.available)}}<br />
-										Max: {{(accountRaw.net_limit.max)}}
+										Used: {{accountRaw.cpu_limit.used  | number}} µs<br />
+										Available: {{accountRaw.cpu_limit.available  | number}} µs<br />
+										Max: {{accountRaw.cpu_limit.max | number}} µs
 									</td>
 								</tr>
 								<tr *ngIf="accountRaw">
 									<td>{{ 'NET' | translate }}:</td>
 									<td>
 										Staked: {{(accountRaw.net_weight / 10000).toFixed(4)}} EOS<br />
-										Used: {{(accountRaw.cpu_limit.used) | toKB}} KB<br />
-										Available: {{(accountRaw.cpu_limit.available) | toKB}} KB<br />
-										Max: {{(accountRaw.cpu_limit.max) | toKB}} KB
+										Used: {{(accountRaw.net_limit.used) | toKB}} KB<br />
+										Available: {{(accountRaw.net_limit.available) | toKB}} KB<br />
+										Max: {{(accountRaw.net_limit.max) | toKB}} KB
 									</td>
 								</tr>
 							</table>
@@ -75,7 +75,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion-abi" href="#collapseAbi" aria-expanded="false" class="collapsed">{{ 'ABI' | translate }}</a>
+						<a data-toggle="collapse" data-parent="#accordion-abi" href="#collapseAbi" aria-expanded="false" class="collapsed">{{ 'Contract' | translate }}</a>
 					</h4>
 				</div>
 				<div id="collapseAbi" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
@@ -141,15 +141,17 @@
 								<tr>
 									<th>#</th>
 									<th>{{ 'Account' | translate }}</th>
+									<th>{{ 'Timestamp' | translate }}</th>
 									<th>{{ 'Transaction' | translate }}</th>
 									<th>{{ 'Name' | translate }}</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr *ngFor="let action of actions">
-									<td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:32}}...</a></td>
+									<td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:16}}...</a></td>
 									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
-									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:32}}...</a></td>
+									<td>{{action.createdAt * 1000 | date:'medium'}}</td>
+									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:16}}...</a></td>
 									<td>{{action.name}}</td>
 								</tr>
 								</tbody>
