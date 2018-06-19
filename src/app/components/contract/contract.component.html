@@ -53,7 +53,7 @@
 								</tr>
 								<tr *ngIf="actionRaw">
 									<td>{{ 'Net Usage' | translate }}:</td>
-									<td>{{actionRaw.net_usage_words  | toKB}} KB</td>
+									<td>{{actionRaw.net_usage_words  | toKB | number:'1.0-3'}} KB</td>
 								</tr>
 							</table>
 						</div>

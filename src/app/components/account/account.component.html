@@ -40,13 +40,13 @@
 
 								<tr *ngIf="accountRaw">
 									<td>{{ 'RAM' | translate }}:</td>
-									<td>{{accountRaw.ram_usage | toKB }} KB / {{accountRaw.ram_quota | toKB}} KB <span *ngIf="ramPrice">({{(ramPrice * accountRaw.ram_quota).toFixed(4)}} EOS)</span></td>
+									<td>{{accountRaw.ram_usage | toKB }} KB / {{accountRaw.ram_quota | toKB}} KB <span *ngIf="ramPrice">({{(ramPrice * accountRaw.ram_quota) | number:'1.0-4'}} EOS)</span></td>
 								</tr>
 
 								<tr *ngIf="accountRaw">
 									<td>{{ 'CPU' | translate }}:</td>
 									<td>
-										Staked: {{(accountRaw.cpu_weight / 10000).toFixed(4)}} EOS<br />
+										Staked: {{(accountRaw.cpu_weight / 10000) | number:'1.0-4'}} EOS<br />
 										Used: {{accountRaw.cpu_limit.used  | number}} µs<br />
 										Available: {{accountRaw.cpu_limit.available  | number}} µs<br />
 										Max: {{accountRaw.cpu_limit.max | number}} µs
@@ -55,18 +55,18 @@
 								<tr *ngIf="accountRaw">
 									<td>{{ 'NET' | translate }}:</td>
 									<td>
-										Staked: {{(accountRaw.net_weight / 10000).toFixed(4)}} EOS<br />
-										Used: {{(accountRaw.net_limit.used) | toKB}} KB<br />
-										Available: {{(accountRaw.net_limit.available) | toKB}} KB<br />
-										Max: {{(accountRaw.net_limit.max) | toKB}} KB
+										Staked: {{(accountRaw.net_weight / 10000) | number:'1.0-4'}} EOS<br />
+										Used: {{(accountRaw.net_limit.used) | toKB | number:'1.0-2'}} KB<br />
+										Available: {{(accountRaw.net_limit.available) | toKB | number:'1.0-2'}} KB<br />
+										Max: {{(accountRaw.net_limit.max) | toKB | number:'1.0-2'}} KB
 									</td>
 								</tr>
 
 								<tr *ngIf="accountRaw && balance != null && ramPrice">
 									<td>{{ 'Value' | translate }}:</td>
 									<td>
-										{{((accountRaw.cpu_weight / 10000) + (accountRaw.net_weight / 10000) + balance + (ramPrice * accountRaw.ram_quota)).toFixed(4)}} EOS
-										<span *ngIf="eosPrice">(${{(((accountRaw.cpu_weight / 10000) + (accountRaw.net_weight / 10000) + balance + (ramPrice * accountRaw.ram_quota)) * eosPrice).toFixed(2)}})</span>
+										{{((accountRaw.cpu_weight / 10000) + (accountRaw.net_weight / 10000) + balance + (ramPrice * accountRaw.ram_quota)) | number:'1.0-4'}} EOS
+										<span *ngIf="eosPrice">(${{(((accountRaw.cpu_weight / 10000) + (accountRaw.net_weight / 10000) + balance + (ramPrice * accountRaw.ram_quota)) * eosPrice)  | number:'1.0-2'}})</span>
 
 									</td>
 								</tr>

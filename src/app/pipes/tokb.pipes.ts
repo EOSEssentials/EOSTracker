@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 
 export class ToKbPipes implements PipeTransform {
-  transform(value: string): string {
-    return (parseFloat(value)/1024).toFixed(3);
+  transform(value: string): number {
+    return parseFloat(value)/1024;
   }
 }
