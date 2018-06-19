@@ -9,6 +9,6 @@ export const environment = {
   votingUrl: 'https://eosportal.io',
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
-  apiUrl: '//localhost:8000',
+  apiUrl: 'https://api.eostracker.io',
   blockchainUrl: 'https://nodes.get-scatter.com'
 };
