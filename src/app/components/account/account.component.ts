@@ -68,7 +68,8 @@ export class AccountComponent implements OnInit {
       });
 
       this.eosService.eos.getCurrencyBalance('eosio.token', this.name, 'EOS').then(result => {
-        if (result) {
+        this.balance = 0;
+        if (result && result[0]) {
           this.balance = parseFloat(result[0].replace(' EOS', ''));
         }
       });
