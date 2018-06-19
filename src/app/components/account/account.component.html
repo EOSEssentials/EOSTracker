@@ -33,7 +33,7 @@
 									<td>{{account.updatedAt * 1000 | date:'medium'}}</td>
 								</tr>
 
-								<tr *ngIf="balance">
+								<tr *ngIf="balance != null">
 									<td>{{ 'Balance' | translate }}:</td>
 									<td>{{balance}} EOS</td>
 								</tr>
@@ -62,10 +62,11 @@
 									</td>
 								</tr>
 
-								<tr *ngIf="accountRaw && balance && ramPrice">
+								<tr *ngIf="accountRaw && balance != null && ramPrice">
 									<td>{{ 'Value' | translate }}:</td>
 									<td>
 										{{((accountRaw.cpu_weight / 10000) + (accountRaw.net_weight / 10000) + balance + (ramPrice * accountRaw.ram_quota)).toFixed(4)}} EOS
+										<span *ngIf="eosPrice">(${{(((accountRaw.cpu_weight / 10000) + (accountRaw.net_weight / 10000) + balance + (ramPrice * accountRaw.ram_quota)) * eosPrice).toFixed(2)}})</span>
 
 									</td>
 								</tr>

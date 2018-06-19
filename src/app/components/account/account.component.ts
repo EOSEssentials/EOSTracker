@@ -19,6 +19,7 @@ export class AccountComponent implements OnInit {
   public balance = null;
   public actions = null;
   public ramPrice = null;
+  public eosPrice = null;
   private subscriber: Subscription;
   page = 1;
 
@@ -74,10 +75,17 @@ export class AccountComponent implements OnInit {
         }
       });
 
+      this.http.get('https://api.coinmarketcap.com/v2/ticker/1765/').subscribe(result => {
+        if (result['data']) {
+          this.eosPrice = result['data'].quotes.USD.price;
+        }
+      });
+
       this.subscriber = this.route.queryParams.subscribe(params => {
         this.page = params['page'] || 1;
 
         this.http.get(environment.apiUrl + '/accounts/' + this.name + '/actions?page=' + this.page).subscribe(data => {
+          data = (data[0]) ? data : [];
           this.actions = data;
         });
       });
