@@ -1,12 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DashboardService} from '../../services/dashboard.service';
-import {BlockService} from '../../services/block.service';
-import {TransactionService} from '../../services/transaction.service';
-import {HttpClient} from '@angular/common/http';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
 import 'rxjs/add/operator/takeWhile';
-import {environment} from '../../../environments/environment';
 import {EosService} from '../../services/eos.service';
+import {StatService} from '../../services/stat.service';
+import {BlockService} from '../../services/block.service';
+import {TransactionService} from '../../services/transaction.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +17,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private alive: boolean; // used to unsubscribe from the TimerObservable
 
-  constructor(private http: HttpClient, private eosService: EosService) {
+  constructor(
+    private eosService: EosService,
+    private statService: StatService,
+    private blockService: BlockService,
+    private transactionService: TransactionService
+  ) {
     this.alive = true;
   }
 
@@ -28,8 +31,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
-        this.http.get(environment.apiUrl + '/stats').subscribe(data => {
-          this.stats = <number[]>data;
+        this.statService.getStats().subscribe(data => {
+          this.stats = data;
         });
       });
 
@@ -38,7 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
-        this.http.get(environment.apiUrl + '/blocks?size=20').subscribe(data => {
+        this.blockService.getBlocks(undefined, 20).subscribe(data => {
           this.blocks = data;
         });
       });
@@ -48,7 +51,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive)
       .subscribe(() => {
 
-        this.http.get(environment.apiUrl + '/transactions?size=20').subscribe(data => {
+        this.transactionService.getTransactions(undefined, 20).subscribe(data => {
           this.transactions = data;
         });
       });

@@ -34,6 +34,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import {ProducerComponent} from './components/producer/producer.component';
 import {ToKbPipes} from './pipes/tokb.pipes';
 import {CmcService} from './services/cmc.service';
+import {ActionService} from './services/action.service';
+import {StatService} from './services/stat.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -101,6 +103,8 @@ const appRoutes: Routes = [
     AccountService,
     ProducerService,
     CmcService,
+    ActionService,
+    StatService,
     {provide: JsonPipe, useClass: SafeJsonPipe}
   ],
   bootstrap: [AppComponent]

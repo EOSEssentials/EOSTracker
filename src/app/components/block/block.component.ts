@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
 import {Subscription} from 'rxjs/Subscription';
 import {EosService} from '../../services/eos.service';
+import {BlockService} from '../../services/block.service';
 
 @Component({
   selector: 'app-block',
@@ -17,19 +16,23 @@ export class BlockComponent implements OnInit {
   private subscriber: Subscription;
   page = 1;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private eosService: EosService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router, 
+    private eosService: EosService,
+    private blockService: BlockService
+  ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
 
-    this.http.get(environment.apiUrl + '/blocks/' + this.id).subscribe(data => {
+    this.blockService.getBlock(this.id).subscribe(data => {
       this.block = data;
       console.log(this.block);
       this.subscriber = this.route.queryParams.subscribe(params => {
         this.page = params['page'] || 1;
 
-        this.http.get(environment.apiUrl + '/blocks/' + this.id + '/transactions?' + 'page=' + this.page).subscribe(data => {
+        this.blockService.getBlockTransactions(this.id, this.page).subscribe(data => {
           this.transactions = data;
           console.log(data);
         });

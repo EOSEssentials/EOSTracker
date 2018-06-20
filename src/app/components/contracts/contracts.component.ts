@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {environment} from '../../../environments/environment';
+import {ActionService} from '../../services/action.service';
 
 @Component({
   selector: 'app-contracts',
@@ -13,13 +12,16 @@ export class ContractsComponent implements OnInit {
   page = 1;
   actions = null;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
-  }
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private actionService: ActionService
+  ) { }
 
   ngOnInit() {
     this.subscriber = this.route.queryParams.subscribe(params => {
       this.page = params['page'] || 1;
-      this.http.get(environment.apiUrl + '/actions?page=' + this.page).subscribe(data => {
+      this.actionService.getActions(this.page).subscribe(data => {
         this.actions = data;
         console.log(data);
       });
