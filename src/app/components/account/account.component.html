@@ -35,7 +35,7 @@
 
 								<tr *ngIf="balance != null">
 									<td>{{ 'Balance' | translate }}:</td>
-									<td>{{balance}} EOS</td>
+									<td>{{balance | number:'1.0-4' }} EOS</td>
 								</tr>
 
 								<tr *ngIf="accountRaw">
