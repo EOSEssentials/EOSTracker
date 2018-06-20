@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
 import {Subscription} from 'rxjs/Subscription';
+import {AccountService} from '../../services/account.service';
+import {CmcService} from '../../services/cmc.service';
 import {EosService} from '../../services/eos.service';
 
 @Component({
@@ -12,7 +12,7 @@ import {EosService} from '../../services/eos.service';
 })
 export class AccountComponent implements OnInit {
 
-  public name: number;
+  public name: string;
   public tables = null;
   public account = null;
   public accountRaw = null;
@@ -23,8 +23,13 @@ export class AccountComponent implements OnInit {
   private subscriber: Subscription;
   page = 1;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private eosService: EosService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router, 
+    private eosService: EosService,
+    private accountService: AccountService,
+    private cmcService: CmcService
+  ) { }
 
   ngOnInit() {
 
@@ -36,7 +41,7 @@ export class AccountComponent implements OnInit {
       this.tables = null;
       this.name = params['id'];
 
-      this.http.get(environment.apiUrl + '/accounts/' + this.name).subscribe(data => {
+      this.accountService.getAccount(this.name).subscribe(data => {
         this.account = data;
         if (this.account.abi && this.account.abi.tables) {
           this.tables = this.account.abi.tables;
@@ -75,7 +80,7 @@ export class AccountComponent implements OnInit {
         }
       });
 
-      this.http.get('https://api.coinmarketcap.com/v2/ticker/1765/').subscribe(result => {
+      this.cmcService.getEOSTicker().subscribe(result => {
         if (result['data']) {
           this.eosPrice = result['data'].quotes.USD.price;
         }
@@ -84,7 +89,7 @@ export class AccountComponent implements OnInit {
       this.subscriber = this.route.queryParams.subscribe(params => {
         this.page = params['page'] || 1;
 
-        this.http.get(environment.apiUrl + '/accounts/' + this.name + '/actions?page=' + this.page).subscribe(data => {
+        this.accountService.getAccountActions(this.name, this.page).subscribe(data => {
           data = (data[0]) ? data : [];
           this.actions = data;
         });

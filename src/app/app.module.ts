@@ -33,6 +33,7 @@ import {Ng2Webstorage} from 'ngx-webstorage';
 import { SettingsComponent } from './components/settings/settings.component';
 import {ProducerComponent} from './components/producer/producer.component';
 import {ToKbPipes} from './pipes/tokb.pipes';
+import {CmcService} from './services/cmc.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -99,6 +100,7 @@ const appRoutes: Routes = [
     EosService,
     AccountService,
     ProducerService,
+    CmcService,
     {provide: JsonPipe, useClass: SafeJsonPipe}
   ],
   bootstrap: [AppComponent]
