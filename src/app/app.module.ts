@@ -4,8 +4,6 @@ import {SharedModule} from './shared/shared.module';
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {BlocksComponent} from './components/blocks/blocks.component';
-import {BlockComponent} from './components/block/block.component';
 import {TransactionsComponent} from './components/transactions/transactions.component';
 import {TransactionComponent} from './components/transaction/transaction.component';
 import {ProducersComponent} from './components/producers/producers.component';
@@ -38,12 +36,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 const appRoutes: Routes = [
   {path: '', component: DashboardComponent},
-  {path: 'blocks', component: BlocksComponent},
-  {path: 'blocks/:id', component: BlockComponent},
-  {path: 'blocks/:id/transactions', component: BlockComponent},
   {path: 'transactions', component: TransactionsComponent},
   {path: 'transactions/:id', component: TransactionComponent},
   {path: 'accounts', loadChildren: './account/account.module#AccountModule'},
+  {path: 'blocks', loadChildren: './block/block.module#BlockModule'},
   {path: 'settings', component: SettingsComponent},
   {path: 'actions', component: ContractsComponent},
   {path: 'actions/:id', component: ContractComponent},
@@ -56,8 +52,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     DashboardComponent,
-    BlocksComponent,
-    BlockComponent,
     TransactionsComponent,
     TransactionComponent,
     ProducersComponent,
