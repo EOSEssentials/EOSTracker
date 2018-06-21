@@ -7,8 +7,6 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {TransactionsComponent} from './components/transactions/transactions.component';
 import {TransactionComponent} from './components/transaction/transaction.component';
 import {ProducersComponent} from './components/producers/producers.component';
-import {ContractsComponent} from './components/contracts/contracts.component';
-import {ContractComponent} from './components/contract/contract.component';
 import {SearchComponent} from './components/search/search.component';
 import {BlockService} from './services/block.service';
 import {TransactionService} from './services/transaction.service';
@@ -40,9 +38,8 @@ const appRoutes: Routes = [
   {path: 'transactions/:id', component: TransactionComponent},
   {path: 'accounts', loadChildren: './account/account.module#AccountModule'},
   {path: 'blocks', loadChildren: './block/block.module#BlockModule'},
+  {path: 'actions', loadChildren: './contract/contract.module#ContractModule'},
   {path: 'settings', component: SettingsComponent},
-  {path: 'actions', component: ContractsComponent},
-  {path: 'actions/:id', component: ContractComponent},
   {path: 'search', component: SearchComponent},
   {path: 'producers', component: ProducersComponent},
   {path: 'producers/:id', component: ProducerComponent}
@@ -55,8 +52,6 @@ const appRoutes: Routes = [
     TransactionsComponent,
     TransactionComponent,
     ProducersComponent,
-    ContractsComponent,
-    ContractComponent,
     SearchComponent,
     SettingsComponent,
     ProducerComponent
