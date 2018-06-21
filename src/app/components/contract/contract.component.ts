@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
 import {EosService} from '../../services/eos.service';
+import {ActionService} from '../../services/action.service';
 
 @Component({
   selector: 'app-contract',
@@ -13,12 +12,15 @@ export class ContractComponent implements OnInit {
   public action = null;
   public actionRaw = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private eosService: EosService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private eosService: EosService,
+    private actionService: ActionService
+  ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.http.get(environment.apiUrl + '/actions/' + this.id).subscribe(data => {
+    this.actionService.getAction(this.id).subscribe(data => {
       this.action = data;
       console.log(this.action);
 

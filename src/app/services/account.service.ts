@@ -19,6 +19,16 @@ export class AccountService {
     );
   }
 
+  getAccounts(page = 1): Observable<Account[]> {
+    return this.http.get(`${environment.apiUrl}/accounts`, {
+      params: new HttpParams({
+        fromString: `page=${page}`
+      })
+    }).pipe(
+      map((accounts: any) => accounts.map(account => account as Account))
+    );
+  }
+
   getAccountActions(name: string, page = 1): Observable<Action[]> {
     return this.http.get(`${environment.apiUrl}/accounts/${name}/actions`, {
       params: new HttpParams({

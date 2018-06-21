@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BlockService} from '../../services/block.service';
-import {HttpClient} from '@angular/common/http';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-blocks',
@@ -16,7 +14,7 @@ export class BlocksComponent implements OnInit {
   page = 1;
 
 
-  constructor(private blockService: BlockService, private http: HttpClient,private route: ActivatedRoute, private router: Router) {
+  constructor(private blockService: BlockService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -24,7 +22,7 @@ export class BlocksComponent implements OnInit {
     this.subscriber = this.route.queryParams.subscribe(params => {
       this.page = params['page'] || 1;
 
-      this.http.get(environment.apiUrl + '/blocks?page=' + this.page).subscribe(data => {
+      this.blockService.getBlocks(this.page).subscribe(data => {
         this.blocks = data;
         console.log(data);
       });

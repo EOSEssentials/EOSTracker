@@ -1,16 +1,30 @@
-import {Injectable} from '@angular/core';
-import {Transaction} from '../models/Transaction';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Transaction } from '../models/Transaction';
 
 @Injectable()
 export class TransactionService {
-  items: Transaction[] = [];
 
-  constructor() {
-    //this.items = data.items;
+  constructor(
+    private http: HttpClient
+  ) { }
 
+  getTransaction(id: string): Observable<Transaction> {
+    return this.http.get(`${environment.apiUrl}/transactions/${id}`).pipe(
+      map(transaction => transaction as Transaction)
+    );
   }
 
-  get (id: number) {
-    return this.items[id];
+  getTransactions(page = 1, size = 30): Observable<Transaction[]> {
+    return this.http.get(`${environment.apiUrl}/transactions`, {
+      params: new HttpParams({
+        fromString: `page=${page}&size=${size}`
+      })
+    }).pipe(
+      map((transactions: any) => transactions.map(transaction => transaction as Transaction))
+    );
   }
 }
