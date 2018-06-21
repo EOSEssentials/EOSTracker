@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
-import {environment} from '../../../environments/environment';
 import {EosService} from '../../services/eos.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TransactionService} from '../../services/transaction.service';
 
 @Component({
   selector: 'app-transaction',
@@ -17,20 +16,23 @@ export class TransactionComponent implements OnInit {
   private subscriber: Subscription;
   page = 1;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private eosService: EosService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private eosService: EosService,
+    private transactionService: TransactionService
+  ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
 
-    this.http.get(environment.apiUrl + '/transactions/' + this.id).subscribe(data => {
+    this.transactionService.getTransaction(this.id).subscribe(data => {
       this.transaction = data;
       console.log(this.transaction);
 
       this.subscriber = this.route.queryParams.subscribe(params => {
         this.page = params['page'] || 1;
-
-        this.http.get(environment.apiUrl + '/transactions/' + this.id + '/actions?' + 'page=' + this.page).subscribe(data => {
+        
+        this.transactionService.getTransactionActions(this.id, this.page).subscribe(data => {
           this.actions = data;
           console.log(data);
         });

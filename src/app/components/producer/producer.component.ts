@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
 import {Subscription} from 'rxjs/Subscription';
 import {EosService} from '../../services/eos.service';
+import {AccountService} from '../../services/account.service';
+import {VoteService} from '../../services/vote.service';
+import {BpService} from '../../services/bp.service';
 import {} from '@types/googlemaps';
 
 @Component({
@@ -24,20 +25,26 @@ export class ProducerComponent implements OnInit {
   private subscriber: Subscription;
   page = 0;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private eosService: EosService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router, 
+    private eosService: EosService,
+    private accountService: AccountService,
+    private voteService: VoteService,
+    private bpService: BpService
+  ) { }
 
   ngOnInit() {
     this.name = this.route.snapshot.params['id'];
 
-    this.http.get(environment.apiUrl + '/accounts/' + this.name).subscribe(data => {
+    this.accountService.getAccount(this.name).subscribe(data => {
       this.account = data;
     });
 
     this.subscriber = this.route.queryParams.subscribe(params => {
       this.page = params['page'] || 0;
-
-      this.http.get(environment.apiUrl + '/votes/' + this.name + '?page=' + this.page).subscribe(data => {
+      
+      this.voteService.getVote(this.name, this.page).subscribe(data => {
         this.votes = data;
       });
     });
@@ -103,8 +110,8 @@ export class ProducerComponent implements OnInit {
           this.producer.reward = reward.toFixed(0);
           this.producer.votes = percentageVotes.toFixed(2);
           console.log(this.producer);
-
-          this.http.get(environment.apiUrl + '/bps/' + this.producer.url).subscribe(data => {
+          
+          this.bpService.getBP(this.producer.url).subscribe(data => {
             this.bpJson = data;
 
             if (this.bpJson && this.bpJson.nodes && this.bpJson.nodes[0].location) {

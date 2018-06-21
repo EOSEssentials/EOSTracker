@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TransactionService} from '../../services/transaction.service';
-import {HttpClient} from '@angular/common/http';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
 
 declare let jquery: any;
 declare let $: any;
@@ -18,15 +16,18 @@ export class TransactionsComponent implements OnInit {
   private subscriber: Subscription;
   page = 1;
 
-  constructor(private transactionService: TransactionService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
-  }
+  constructor(
+    private transactionService: TransactionService, 
+    private route: ActivatedRoute, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
     this.subscriber = this.route.queryParams.subscribe(params => {
       this.page = params['page'] || 1;
-
-      this.http.get(environment.apiUrl + '/transactions?page=' + this.page).subscribe(data => {
+      
+      this.transactionService.getTransactions(this.page).subscribe(data => {
         this.transactions = data;
         console.log(data);
       });

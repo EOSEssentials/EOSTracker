@@ -36,6 +36,8 @@ import {ToKbPipes} from './pipes/tokb.pipes';
 import {CmcService} from './services/cmc.service';
 import {ActionService} from './services/action.service';
 import {StatService} from './services/stat.service';
+import {VoteService} from './services/vote.service';
+import {BpService} from './services/bp.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -105,6 +107,8 @@ const appRoutes: Routes = [
     CmcService,
     ActionService,
     StatService,
+    VoteService,
+    BpService,
     {provide: JsonPipe, useClass: SafeJsonPipe}
   ],
   bootstrap: [AppComponent]
