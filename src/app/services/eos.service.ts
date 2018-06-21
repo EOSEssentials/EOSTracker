@@ -7,6 +7,6 @@ export class EosService {
   public eos: any;
 
   constructor() {
-    this.eos = Eos.Localnet({httpEndpoint: environment.blockchainUrl});
+    this.eos = Eos({httpEndpoint: environment.blockchainUrl});
   }
 }
