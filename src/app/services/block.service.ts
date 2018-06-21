@@ -19,6 +19,12 @@ export class BlockService {
     );
   }
 
+  getBlockId(id: string): Observable<Block> {
+    return this.http.get(`${environment.apiUrl}/blocks/id/${id}`).pipe(
+      map(block => block as Block)
+    );
+  }
+
   getBlocks(page = 1, size = 30): Observable<Block[]> {
     return this.http.get(`${environment.apiUrl}/blocks`, {
       params: new HttpParams({

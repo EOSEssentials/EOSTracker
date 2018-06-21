@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {EosService} from '../../services/eos.service';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
 
@@ -17,7 +16,7 @@ export class ProducersComponent implements OnInit, OnDestroy {
   chainNumber: number;
   private alive: boolean; // used to unsubscribe from the TimerObservable
 
-  constructor(private http: HttpClient, private eosService: EosService) {
+  constructor(private eosService: EosService) {
     this.alive = true;
   }
 

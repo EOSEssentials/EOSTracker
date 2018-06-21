@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import {TransactionService} from '../../services/transaction.service';
+import {BlockService} from '../../services/block.service';
+import {AccountService} from '../../services/account.service';
 
 @Component({
   selector: 'app-search',
@@ -14,8 +15,13 @@ export class SearchComponent implements OnInit {
   public query: string;
   result = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
-  }
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private transactionService: TransactionService,
+    private blockService: BlockService,
+    private accountService: AccountService
+  ) { }
 
   ngOnInit() {
     this.subscriber = this.route.queryParams.subscribe(params => {
@@ -25,15 +31,15 @@ export class SearchComponent implements OnInit {
       if (!isNaN(queryInt)) {
         this.router.navigateByUrl('/blocks/' + this.query);
       } else if (this.query.length === 64) {
-
-        this.http.get(environment.apiUrl + '/transactions/' + this.query).subscribe(data => {
+        
+        this.transactionService.getTransaction(this.query).subscribe(data => {
           console.log(data);
           if (data) {
             this.router.navigateByUrl('/transactions/' + this.query);
           }
         });
-
-        this.http.get(environment.apiUrl + '/blocks/id/' + this.query).subscribe(data => {
+        
+        this.blockService.getBlockId(this.query).subscribe(data => {
           console.log(data);
           if (data) {
             this.router.navigateByUrl('/blocks/' + data['blockNumber']);
@@ -41,7 +47,7 @@ export class SearchComponent implements OnInit {
         });
       } else if (this.query.length == 53) {
         // TODO: allow this
-        this.http.get(environment.apiUrl + '/accounts/key/' + this.query).subscribe(data => {
+        this.accountService.getAccountKey(this.query).subscribe(data => {
           console.log(data);
           if (data) {
             this.router.navigateByUrl('/accounts/' + data["name"]);
