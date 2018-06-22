@@ -3,4 +3,5 @@ export interface Block {
   time: string;
   transactions: number;
   producer: string;
+  version: number;
 }
