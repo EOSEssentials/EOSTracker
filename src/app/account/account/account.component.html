@@ -157,7 +157,7 @@
 								</thead>
 								<tbody>
 								<tr *ngFor="let action of actions">
-									<td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:16}}...</a></td>
+									<td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
 									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
 									<td>{{action.createdAt * 1000 | date:'medium'}}</td>
 									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:16}}...</a></td>
