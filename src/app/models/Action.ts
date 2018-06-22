@@ -4,7 +4,8 @@ export interface Action {
   blockId: number;
   createdAt: number;
   data?: any;
-  id: string;
+  id: number;
+  seq: number;
   name: string;
   transaction: string;
 }
