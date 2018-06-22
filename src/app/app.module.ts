@@ -6,7 +6,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {TransactionsComponent} from './components/transactions/transactions.component';
 import {TransactionComponent} from './components/transaction/transaction.component';
-import {ProducersComponent} from './components/producers/producers.component';
 import {SearchComponent} from './components/search/search.component';
 import {BlockService} from './services/block.service';
 import {TransactionService} from './services/transaction.service';
@@ -21,7 +20,6 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {Ng2Webstorage} from 'ngx-webstorage';
 import { SettingsComponent } from './components/settings/settings.component';
-import {ProducerComponent} from './components/producer/producer.component';
 import {CmcService} from './services/cmc.service';
 import {ActionService} from './services/action.service';
 import {StatService} from './services/stat.service';
@@ -39,10 +37,9 @@ const appRoutes: Routes = [
   {path: 'accounts', loadChildren: './account/account.module#AccountModule'},
   {path: 'blocks', loadChildren: './block/block.module#BlockModule'},
   {path: 'actions', loadChildren: './contract/contract.module#ContractModule'},
+  {path: 'producers', loadChildren: './producer/producer.module#ProducerModule'},
   {path: 'settings', component: SettingsComponent},
-  {path: 'search', component: SearchComponent},
-  {path: 'producers', component: ProducersComponent},
-  {path: 'producers/:id', component: ProducerComponent}
+  {path: 'search', component: SearchComponent}
 ];
 
 @NgModule({
@@ -51,10 +48,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     TransactionsComponent,
     TransactionComponent,
-    ProducersComponent,
     SearchComponent,
-    SettingsComponent,
-    ProducerComponent
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
