@@ -100,7 +100,7 @@
 								</thead>
 								<tbody>
 								<tr *ngFor="let action of actions">
-									<td><a routerLink="/actions/{{action.id}}">{{action.id|slice:0:28}}...</a></td>
+									<td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
 									<td>
 					                    <span *ngFor="let authorization of action.authorizations">
 					                          <a routerLink="/accounts/{{authorization.actor}}">{{authorization.actor}}</a>
