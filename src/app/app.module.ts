@@ -4,8 +4,6 @@ import {SharedModule} from './shared/shared.module';
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {TransactionsComponent} from './components/transactions/transactions.component';
-import {TransactionComponent} from './components/transaction/transaction.component';
 import {SearchComponent} from './components/search/search.component';
 import {BlockService} from './services/block.service';
 import {TransactionService} from './services/transaction.service';
@@ -32,12 +30,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 const appRoutes: Routes = [
   {path: '', component: DashboardComponent},
-  {path: 'transactions', component: TransactionsComponent},
-  {path: 'transactions/:id', component: TransactionComponent},
   {path: 'accounts', loadChildren: './account/account.module#AccountModule'},
   {path: 'blocks', loadChildren: './block/block.module#BlockModule'},
   {path: 'actions', loadChildren: './contract/contract.module#ContractModule'},
   {path: 'producers', loadChildren: './producer/producer.module#ProducerModule'},
+  {path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule'},
   {path: 'settings', component: SettingsComponent},
   {path: 'search', component: SearchComponent}
 ];
@@ -46,8 +43,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     DashboardComponent,
-    TransactionsComponent,
-    TransactionComponent,
     SearchComponent,
     SettingsComponent
   ],
