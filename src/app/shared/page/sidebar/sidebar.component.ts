@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {environment} from '../../../../../environments/environment';
+import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
 
   onSubmit() {
     if (this.query && this.query.length > 0) {
-      this.router.navigate(['/search'], {queryParams: {q: this.query}});
+      this.router.navigate(['/search'], { queryParams: { q: this.query } });
     }
     this.query = '';
   }
