@@ -133,18 +133,17 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						{{ 'Actions' | translate }}
+						{{ 'Actions Received' | translate }}
 
 						<div class="pull-right">
 							<button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
-							<button *ngIf="actions && actions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
+							<button *ngIf="actionsReceived && actionsReceived.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
 						</div>
 
 					</div>
-					<!-- /.panel-heading -->
 					<div class="panel-body">
-						<app-loading *ngIf="!actions"></app-loading>
-						<div *ngIf="actions" class="table-responsive">
+						<app-loading *ngIf="!actionsReceived"></app-loading>
+						<div *ngIf="actionsReceived" class="table-responsive">
 							<table class="table table-striped">
 								<thead>
 								<tr>
@@ -156,7 +155,7 @@
 								</tr>
 								</thead>
 								<tbody>
-								<tr *ngFor="let action of actions">
+								<tr *ngFor="let action of actionsReceived">
 									<td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
 									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
 									<td>{{action.createdAt * 1000 | date:'medium'}}</td>
@@ -166,15 +165,52 @@
 								</tbody>
 							</table>
 						</div>
-						<!-- /.table-responsive -->
 					</div>
-					<!-- /.panel-body -->
 				</div>
-				<!-- /.panel -->
 			</div>
 		</div>
 
-		<!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						{{ 'Actions Sent' | translate }}
+
+						<div class="pull-right">
+							<button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
+							<button *ngIf="actionsSent && actionsSent.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
+						</div>
+
+					</div>
+					<div class="panel-body">
+						<app-loading *ngIf="!actionsSent"></app-loading>
+						<div *ngIf="actionsSent" class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>{{ 'Account' | translate }}</th>
+									<th>{{ 'Timestamp' | translate }}</th>
+									<th>{{ 'Transaction' | translate }}</th>
+									<th>{{ 'Name' | translate }}</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr *ngFor="let action of actionsSent">
+									<td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
+									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
+									<td>{{action.createdAt * 1000 | date:'medium'}}</td>
+									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:16}}...</a></td>
+									<td>{{action.name}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
-	<!-- /#page-wrapper -->
 </app-page>

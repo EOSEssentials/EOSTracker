@@ -25,7 +25,6 @@ export class ContractComponent implements OnInit {
       console.log(this.action);
 
       this.eosService.eos.getBlock(this.action.blockId).then(result => {
-        console.log(result);
         for (let index in result.transactions) {
             if (result.transactions[index].trx.id == this.action.transaction) {
               this.actionRaw = result.transactions[index];

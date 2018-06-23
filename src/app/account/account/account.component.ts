@@ -17,7 +17,8 @@ export class AccountComponent implements OnInit {
   public account = null;
   public accountRaw = null;
   public balance = null;
-  public actions = null;
+  public actionsSent = null;
+  public actionsReceived = null;
   public ramPrice = null;
   public eosPrice = null;
   private subscriber: Subscription;
@@ -35,7 +36,8 @@ export class AccountComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.page = 1;
-      this.actions = null;
+      this.actionsSent = null;
+      this.actionsReceived = null;
       this.accountRaw = null;
       this.account = null;
       this.tables = null;
@@ -89,13 +91,17 @@ export class AccountComponent implements OnInit {
       this.subscriber = this.route.queryParams.subscribe(params => {
         this.page = params['page'] || 1;
 
-        this.accountService.getAccountActions(this.name, this.page).subscribe(data => {
+        this.accountService.getAccountActionsSent(this.name, this.page).subscribe(data => {
           data = (data[0]) ? data : [];
-          this.actions = data;
+          this.actionsSent = data;
+        });
+
+        this.accountService.getAccountActionsReceived(this.name, this.page).subscribe(data => {
+          data = (data[0]) ? data : [];
+          this.actionsReceived = data;
         });
       });
     });
-    //this.name = this.route.snapshot.params['id'];
   }
 
   nextPage() {
