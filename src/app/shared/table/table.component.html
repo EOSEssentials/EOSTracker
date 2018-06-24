@@ -1,0 +1,15 @@
+<div *ngIf="dataSource; else loading">
+  <div *ngIf="(page$ | async) as page" style="display:block;text-align:right;">
+    <button mat-icon-button [disabled]="page <= 1" (click)="previous(page)">
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+    <button mat-icon-button (click)="next(page)">
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
+  <ng-content></ng-content>
+</div>
+<ng-template #loading>
+  <mat-progress-spinner color="primary" mode="indeterminate" value="50">
+  </mat-progress-spinner>
+</ng-template>
