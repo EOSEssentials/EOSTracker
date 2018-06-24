@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { PageComponent } from './page/page.component';
 import { LoadingComponent } from './page/loading/loading.component';
@@ -36,7 +37,8 @@ const sharedMaterialModules = [
   MatIconModule,
   MatToolbarModule,
   MatButtonModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatProgressBarModule
 ];
 
 const sharedComponents = [

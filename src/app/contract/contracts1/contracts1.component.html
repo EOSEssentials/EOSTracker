@@ -5,49 +5,51 @@
         <a routerLink=".">{{ 'Actions' | translate }}</a>
       </h1>
     </mat-toolbar>
-    <app-table [dataSource]="actions$ | async" style="display:block;padding:20px;">
-      <mat-table [dataSource]="actions$ | async" class="mat-elevation-z2">
-        <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columnHeaders;"></mat-row>
-        <ng-container matColumnDef="actionId">
-          <mat-header-cell fxFlex="80px" *matHeaderCellDef>{{ 'ActionId' | translate }}</mat-header-cell>
-          <mat-cell fxFlex="80px" *matCellDef="let action">
-            <a [routerLink]="['/actions',action.id]">{{action.id}}</a>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="transactionId">
-          <mat-header-cell *matHeaderCellDef>{{ 'TransactionId' | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let action" class="truncate">
-            <a [routerLink]="['/transactions',action.transaction]">{{action.transaction|slice:0:28}}...</a>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="createdAt">
-          <mat-header-cell *matHeaderCellDef>{{ 'CreatedAt' | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let action">
-            {{action.createdAt * 1000 | date:'medium'}}
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="authorization">
-          <mat-header-cell *matHeaderCellDef>{{ 'Authorization' | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let action">
-            <span *ngFor="let authorization of action.authorizations">
-              <a [routerLink]="['/accounts',authorization.actor]">{{authorization.actor}}</a>
-            </span>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="handler">
-          <mat-header-cell *matHeaderCellDef>{{ 'Handler' | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let action">
-            <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let action">
-            {{action.name}}
-          </mat-cell>
-        </ng-container>
-      </mat-table>
-    </app-table>
+    <div style="overflow:scroll;">
+      <app-table [dataSource]="actions$ | async" style="display:block;margin:20px auto;width:960px;">
+        <mat-table [dataSource]="actions$ | async" class="mat-elevation-z2">
+          <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnHeaders;"></mat-row>
+          <ng-container matColumnDef="actionId">
+            <mat-header-cell fxFlex="80px" *matHeaderCellDef>{{ 'ActionId' | translate }}</mat-header-cell>
+            <mat-cell fxFlex="80px" *matCellDef="let action">
+              <a [routerLink]="['/actions',action.id]">{{action.id}}</a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="transactionId">
+            <mat-header-cell *matHeaderCellDef>{{ 'TransactionId' | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let action" class="truncate">
+              <a [routerLink]="['/transactions',action.transaction]">{{action.transaction|slice:0:28}}...</a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="createdAt">
+            <mat-header-cell fxFlex="200px" *matHeaderCellDef>{{ 'CreatedAt' | translate }}</mat-header-cell>
+            <mat-cell fxFlex="200px" *matCellDef="let action">
+              {{action.createdAt * 1000 | date:'medium'}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="authorization">
+            <mat-header-cell fxFlex="120px" *matHeaderCellDef>{{ 'Authorization' | translate }}</mat-header-cell>
+            <mat-cell fxFlex="120px" *matCellDef="let action">
+              <span *ngFor="let authorization of action.authorizations">
+                <a [routerLink]="['/accounts',authorization.actor]">{{authorization.actor}}</a>
+              </span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="handler">
+            <mat-header-cell fxFlex="120px" *matHeaderCellDef>{{ 'Handler' | translate }}</mat-header-cell>
+            <mat-cell fxFlex="120px" *matCellDef="let action">
+              <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell fxFlex="120px" *matHeaderCellDef>{{ 'Name' | translate }}</mat-header-cell>
+            <mat-cell fxFlex="120px" *matCellDef="let action">
+              {{action.name}}
+            </mat-cell>
+          </ng-container>
+        </mat-table>
+      </app-table>
+    </div>
   </div>
 </app-page>

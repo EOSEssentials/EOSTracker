@@ -1,13 +1,27 @@
 <div *ngIf="dataSource; else loading">
-  <div *ngIf="(page$ | async) as page" style="display:block;text-align:right;">
-    <button mat-icon-button [disabled]="page <= 1" (click)="previous(page)">
+  <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="(page$ | async) as page">
+    <button mat-button color="primary" [disabled]="page <= 1" (click)="previous(page)">
       <mat-icon>navigate_before</mat-icon>
+      Previous
     </button>
-    <button mat-icon-button (click)="next(page)">
+    <button mat-button color="primary" (click)="next(page)">
+      Next
       <mat-icon>navigate_next</mat-icon>
     </button>
   </div>
+  <mat-progress-bar [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
   <ng-content></ng-content>
+  <mat-progress-bar [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
+  <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="(page$ | async) as page">
+    <button mat-button color="primary" [disabled]="page <= 1" (click)="previous(page)">
+      <mat-icon>navigate_before</mat-icon>
+      Previous
+    </button>
+    <button mat-button color="primary" (click)="next(page)">
+      Next
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
 </div>
 <ng-template #loading>
   <mat-progress-spinner color="primary" mode="indeterminate" value="50">

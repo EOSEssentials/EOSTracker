@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,10 +8,11 @@ import { map } from 'rxjs/operators';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
   @Input() dataSource: any;
   page$ = Observable.of(1);
+  visibility = 'hidden';
 
   constructor(
     private route: ActivatedRoute,
@@ -24,7 +25,14 @@ export class TableComponent implements OnInit {
     );
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.dataSource.firstChange) {
+      this.visibility = 'hidden';
+    }
+  }
+
   next(currentPage) {
+    this.visibility = 'visible';
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: currentPage + 1 }
@@ -32,6 +40,7 @@ export class TableComponent implements OnInit {
   }
 
   previous(currentPage) {
+    this.visibility = 'visible';
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: currentPage - 1 }
