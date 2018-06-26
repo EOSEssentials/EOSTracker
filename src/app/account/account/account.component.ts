@@ -17,6 +17,7 @@ export class AccountComponent implements OnInit {
   public account = null;
   public accountRaw = null;
   public balance = null;
+  public tokens = [];
   public actionsSent = null;
   public actionsReceived = null;
   public ramPrice = null;
@@ -80,6 +81,16 @@ export class AccountComponent implements OnInit {
         if (result && result[0]) {
           this.balance = parseFloat(result[0].replace(' EOS', ''));
         }
+      });
+
+      this.accountService.getTokens().subscribe(data => {
+        data.forEach((item, index) => {
+          this.eosService.eos.getCurrencyBalance(data[index].account, this.name, data[index].symbol).then(result => {
+            if (data[index].symbol !== 'EOS' && result && result[0]) {
+                this.tokens.push(result[0]);
+            }
+          });
+        });
       });
 
       this.cmcService.getEOSTicker().subscribe(result => {

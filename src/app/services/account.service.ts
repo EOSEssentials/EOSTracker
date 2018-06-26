@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Account } from '../models/Account';
 import { Action } from '../models/Action';
+import {Token} from '../models/Token';
 
 @Injectable()
 export class AccountService {
@@ -52,6 +53,12 @@ export class AccountService {
       })
     }).pipe(
       map((actions: any) => actions.map(action => action as Action))
+    );
+  }
+
+  getTokens(): Observable<Token[]> {
+    return this.http.get(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`).pipe(
+      map((tokens: any) => tokens.map(token => token as Token))
     );
   }
 }
