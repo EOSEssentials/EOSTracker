@@ -5,9 +5,9 @@
         <a routerLink=".">{{ 'Actions' | translate }}</a>
       </h1>
     </mat-toolbar>
-    <div style="overflow:scroll;">
-      <app-table [dataSource]="actions$ | async" style="display:block;margin:20px auto;width:960px;">
-        <mat-table [dataSource]="actions$ | async" class="mat-elevation-z2">
+    <app-table [dataSource]="actions$ | async">
+      <div style="width:980px;margin:0 auto;">
+        <mat-table style="width:960px;margin:10px;" [dataSource]="actions$ | async" class="mat-elevation-z2">
           <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
           <mat-row *matRowDef="let row; columns: columnHeaders;"></mat-row>
           <ng-container matColumnDef="actionId">
@@ -49,7 +49,7 @@
             </mat-cell>
           </ng-container>
         </mat-table>
-      </app-table>
-    </div>
+      </div>
+    </app-table>
   </div>
 </app-page>

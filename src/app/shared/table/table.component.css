@@ -1,3 +1,15 @@
+:host {
+  display: block;
+}
+
 .mat-progress-spinner {
-    margin: 50px auto;
+  margin: 50px auto;
+}
+
+.table-pager {
+  padding: 10px;
+}
+
+.table-wrapper {
+  overflow: scroll;
 }
