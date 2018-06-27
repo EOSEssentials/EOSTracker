@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContractsComponent } from './contracts/contracts.component';
 import { Contracts1Component } from './contracts1/contracts1.component';
 import { ContractComponent } from './contract/contract.component';
+import { Contract1Component } from './contract1/contract1.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: ContractComponent
+  },
+  {
+    path: ':id/v1',
+    component: Contract1Component
   }
 ];
 
