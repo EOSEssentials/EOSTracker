@@ -38,6 +38,13 @@
 									<td>{{balance | number:'1.0-4' }} EOS</td>
 								</tr>
 
+								<tr *ngIf="tokens.length > 0">
+									<td>{{ 'Other tokens' | translate }}:</td>
+									<td>
+										<div *ngFor="let token of tokens">{{token}}</div>
+									</td>
+								</tr>
+
 								<tr *ngIf="accountRaw">
 									<td>{{ 'RAM' | translate }}:</td>
 									<td>{{accountRaw.ram_usage | toKB | number:'1.0-2'}} KB / {{accountRaw.ram_quota | toKB | number:'1.0-2'}} KB <span *ngIf="ramPrice">({{(ramPrice * accountRaw.ram_quota) | number:'1.0-4'}} EOS)</span></td>
