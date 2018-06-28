@@ -7,48 +7,48 @@
     </mat-toolbar>
     <app-table [dataSource]="actions$ | async">
       <div style="width:980px;margin:0 auto;">
-        <mat-table style="width:960px;margin:10px;" [dataSource]="actions$ | async" class="mat-elevation-z2">
-          <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: columnHeaders;"></mat-row>
+        <table mat-table style="width:960px;margin:10px;" [dataSource]="actions$ | async" class="mat-elevation-z2">
+          <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
           <ng-container matColumnDef="actionId">
-            <mat-header-cell fxFlex="80px" *matHeaderCellDef>{{ 'ActionId' | translate }}</mat-header-cell>
-            <mat-cell fxFlex="80px" *matCellDef="let action">
+            <th mat-header-cell *matHeaderCellDef>{{ 'ActionId' | translate }}</th>
+            <td mat-cell *matCellDef="let action">
               <a [routerLink]="['/actions',action.id]">{{action.id}}</a>
-            </mat-cell>
+            </td>
           </ng-container>
           <ng-container matColumnDef="transactionId">
-            <mat-header-cell *matHeaderCellDef>{{ 'TransactionId' | translate }}</mat-header-cell>
-            <mat-cell *matCellDef="let action" class="truncate">
+            <th mat-header-cell *matHeaderCellDef>{{ 'TransactionId' | translate }}</th>
+            <td mat-cell *matCellDef="let action" class="truncate">
               <a [routerLink]="['/transactions',action.transaction]">{{action.transaction|slice:0:28}}...</a>
-            </mat-cell>
+            </td>
           </ng-container>
           <ng-container matColumnDef="createdAt">
-            <mat-header-cell fxFlex="200px" *matHeaderCellDef>{{ 'CreatedAt' | translate }}</mat-header-cell>
-            <mat-cell fxFlex="200px" *matCellDef="let action">
+            <th mat-header-cell *matHeaderCellDef>{{ 'CreatedAt' | translate }}</th>
+            <td mat-cell *matCellDef="let action">
               {{action.createdAt * 1000 | date:'medium'}}
-            </mat-cell>
+            </td>
           </ng-container>
           <ng-container matColumnDef="authorization">
-            <mat-header-cell fxFlex="120px" *matHeaderCellDef>{{ 'Authorization' | translate }}</mat-header-cell>
-            <mat-cell fxFlex="120px" *matCellDef="let action">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Authorization' | translate }}</th>
+            <td mat-cell *matCellDef="let action">
               <span *ngFor="let authorization of action.authorizations">
                 <a [routerLink]="['/accounts',authorization.actor]">{{authorization.actor}}</a>
               </span>
-            </mat-cell>
+            </td>
           </ng-container>
           <ng-container matColumnDef="handler">
-            <mat-header-cell fxFlex="120px" *matHeaderCellDef>{{ 'Handler' | translate }}</mat-header-cell>
-            <mat-cell fxFlex="120px" *matCellDef="let action">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Handler' | translate }}</th>
+            <td mat-cell *matCellDef="let action">
               <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
-            </mat-cell>
+            </td>
           </ng-container>
           <ng-container matColumnDef="name">
-            <mat-header-cell fxFlex="120px" *matHeaderCellDef>{{ 'Name' | translate }}</mat-header-cell>
-            <mat-cell fxFlex="120px" *matCellDef="let action">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+            <td mat-cell *matCellDef="let action">
               {{action.name}}
-            </mat-cell>
+            </td>
           </ng-container>
-        </mat-table>
+        </table>
       </div>
     </app-table>
   </div>
