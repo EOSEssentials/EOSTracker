@@ -34,7 +34,7 @@ export class ProducersComponent implements OnInit, OnDestroy {
             code: "eosio",
             scope: "eosio",
             table: "producers",
-            limit: 500,
+            limit: 700,
             table_key: ""
           }
         ).then(result => {
