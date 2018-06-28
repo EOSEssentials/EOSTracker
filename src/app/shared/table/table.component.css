@@ -1,5 +1,6 @@
 :host {
   display: block;
+  margin: 10px;
 }
 
 .mat-progress-spinner {
@@ -7,9 +8,9 @@
 }
 
 .table-pager {
-  padding: 10px;
+  margin: 10px 0;
 }
 
 .table-wrapper {
-  overflow: scroll;
+  overflow-x: auto;
 }
