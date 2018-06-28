@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EosService} from '../../services/eos.service';
-import {TimerObservable} from 'rxjs/observable/TimerObservable';
+import {timer} from 'rxjs';
+import {takeWhile} from 'rxjs/operators';
 
 declare let jquery: any;
 declare let $: any;
@@ -22,9 +23,9 @@ export class ProducersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    TimerObservable.create(0, 60000)
-      .takeWhile(() => this.alive)
-      .subscribe(() => {
+    timer(0, 60000).pipe(
+      takeWhile(() => this.alive)
+    ).subscribe(() => {
 
 
         this.eosService.eos.getTableRows(
@@ -33,7 +34,7 @@ export class ProducersComponent implements OnInit, OnDestroy {
             code: "eosio",
             scope: "eosio",
             table: "producers",
-            limit: 500,
+            limit: 700,
             table_key: ""
           }
         ).then(result => {
@@ -85,9 +86,9 @@ export class ProducersComponent implements OnInit, OnDestroy {
 
       });
 
-    TimerObservable.create(0, 5000)
-      .takeWhile(() => this.alive)
-      .subscribe(() => {
+    timer(0, 5000).pipe(
+      takeWhile(() => this.alive)
+    ).subscribe(() => {
 
         this.eosService.eos.getTableRows(
           {

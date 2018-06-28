@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 export class TableComponent implements OnInit, OnChanges {
 
   @Input() dataSource: any;
-  page$ = Observable.of(1);
+  page$ = of(1);
   visibility = 'hidden';
 
   constructor(

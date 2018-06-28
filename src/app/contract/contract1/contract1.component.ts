@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EosService } from '../../services/eos.service';
 import { ActionService } from '../../services/action.service';
-import { Action } from '../../models/action';
-import { Observable } from 'rxjs';
+import { Action } from '../../models/Action';
+import { Observable, from } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
 interface ActionRaw extends Action {
@@ -29,7 +29,7 @@ export class Contract1Component implements OnInit {
     this.action$ = this.route.params.pipe(
       switchMap(params => this.actionService.getAction(params.id)),
       switchMap(action => {
-        return Observable.from(this.eosService.eos.getBlock(action.blockId)).pipe(
+        return from(this.eosService.eos.getBlock(action.blockId)).pipe(
           map((block: any) => block.transactions.find(transaction => transaction.trx.id === action.transaction))
         );
       }, (action, actionRaw) => ({
