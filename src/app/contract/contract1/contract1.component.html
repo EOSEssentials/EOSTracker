@@ -12,12 +12,12 @@
             {{ 'Action' | translate }}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div style="overflow:scroll">
+        <div class="table-responsive">
           <table class="table table-striped">
             <tr>
               <td>{{ 'TransactionId' | translate }}:</td>
               <td>
-                <a routerLink="/transactions/{{action.transaction}}">{{action.transaction}}</a>
+                <a [routerLink]="['/transactions',action.transaction]">{{action.transaction}}</a>
               </td>
             </tr>
             <tr>
@@ -31,7 +31,7 @@
             <tr>
               <td>{{ 'HandlerAccount' | translate }}:</td>
               <td>
-                <a routerLink="/accounts/{{action.account}}">{{action.account}}</a>
+                <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
               </td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
               <td>{{ 'Authorization' | translate }}:</td>
               <td>
                 <span *ngFor="let account of action.authorizations">
-                  <a routerLink="/accounts/{{account.actor}}">{{account.actor}}</a>
+                  <a [routerLink]="['/accounts',account.actor]">{{account.actor}}</a>
                 </span>
               </td>
             </tr>

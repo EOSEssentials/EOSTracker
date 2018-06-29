@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: ContractsComponent
+    component: Contracts1Component
   },
   {
     path: 'v1',
@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: ContractComponent
+    component: Contract1Component
   },
   {
     path: ':id/v1',
