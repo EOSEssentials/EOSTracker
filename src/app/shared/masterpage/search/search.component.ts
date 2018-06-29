@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  query: FormControl;
+
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.query = new FormControl();
+  }
+
+  search() {
+    if (this.query.value) {
+      this.router.navigate(['/search'], {
+        queryParams: { q: this.query.value },
+        skipLocationChange: true
+      });
+      this.query.reset();
+    }
   }
 
 }

@@ -1,3 +1,4 @@
-<div>
-  search control here
-</div>
+<form (submit)="search()" novalidate>
+  <mat-icon>search</mat-icon>
+  <input type="search" placeholder="{{ 'SearchBy' | translate }}" [formControl]="query" class="mat-elevation-z1">
+</form>
