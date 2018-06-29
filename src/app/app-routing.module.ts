@@ -14,7 +14,8 @@ const appRoutes: Routes = [
   { path: 'blocks', loadChildren: './block/block.module#BlockModule' },
   { path: 'actions', loadChildren: './contract/contract.module#ContractModule' },
   { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
-  { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' }
+  { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' },
+  { path: 'support', loadChildren: './support/support.module#SupportModule' }
 ];
 
 @NgModule({

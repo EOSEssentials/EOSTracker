@@ -27,68 +27,21 @@ export class ProducersComponent implements OnInit, OnDestroy {
       takeWhile(() => this.alive)
     ).subscribe(() => {
 
-
-        this.eosService.eos.getTableRows(
-          {
-            json: true,
-            code: "eosio",
-            scope: "eosio",
-            table: "producers",
-            limit: 700,
-            table_key: ""
-          }
-        ).then(result => {
-          this.producers = result.rows;
-          this.producers.sort(function (a, b) {
-            return (parseFloat(a.total_votes) < parseFloat(b.total_votes)) ? 1 : ((parseFloat(b.total_votes) < parseFloat(a.total_votes)) ? -1 : 0);
-          })
-          this.eosService.eos.getTableRows(
-            {
-              json: true,
-              code: "eosio",
-              scope: "eosio",
-              table: "global",
-              limit: 1
-            }
-          ).then(result => {
-            let chainStatus = result.rows[0];
-            let votesToRemove: number = 0;
-            for (let index in this.producers) {
-              let percentageVotes = (this.producers[index].total_votes / chainStatus.total_producer_vote_weight * 100);
-              if (percentageVotes * 200 < 100) {
-                votesToRemove += parseFloat(this.producers[index].total_votes);
-              }
-            }
-
-            for (let index in this.producers) {
-              let position: number = parseInt(index) + 1;
-              let reward = 0;
-              if (position < 22) {
-                reward += 318;
-              }
-              let percentageVotes = (this.producers[index].total_votes / (chainStatus.total_producer_vote_weight) * 100);
-              let percentageVotesRewarded = (this.producers[index].total_votes / (chainStatus.total_producer_vote_weight - votesToRemove) * 100);
-
-              reward += percentageVotesRewarded * 200;
-
-              if (percentageVotes * 200 < 100) {
-                reward = 0;
-              }
-
-              this.producers[index].reward = reward.toFixed(0);
-              this.producers[index].votes = percentageVotes.toFixed(2);
-              this.producers[index].numVotes = (this.producers[index].total_votes / this.calculateVoteWeight() / 10000).toFixed(0);
-            }
-
-          });
-
+      this.eosService.eos.getTableRows(
+        {
+          json: true,
+          code: "eosio",
+          scope: "eosio",
+          table: "producers",
+          limit: 700,
+          table_key: ""
+        }
+      ).then(result => {
+        console.log(result);
+        this.producers = result.rows;
+        this.producers.sort(function (a, b) {
+          return (parseFloat(a.total_votes) < parseFloat(b.total_votes)) ? 1 : ((parseFloat(b.total_votes) < parseFloat(a.total_votes)) ? -1 : 0);
         });
-
-      });
-
-    timer(0, 5000).pipe(
-      takeWhile(() => this.alive)
-    ).subscribe(() => {
 
         this.eosService.eos.getTableRows(
           {
@@ -100,44 +53,58 @@ export class ProducersComponent implements OnInit, OnDestroy {
           }
         ).then(result => {
           let chainStatus = result.rows[0];
-          this.chainPercentage = (chainStatus.total_activated_stake  / 10000 / 1000011818 * 100).toFixed(2);
-          this.chainNumber = (chainStatus.total_activated_stake  / 1000011818 * 100000);
-        });
-      });
-
-    /*
-    this.http.get(environment.apiUrl + '/producers').subscribe(data => {
-      this.producers = data;
-      console.log(this.producers);
-
-      let dataPie = [];
-
-      for (let producer of this.producers) {
-        dataPie.push({label: producer.name, data: producer.num})
-      }
-
-      $.plot($("#flot-pie-chart"), dataPie, {
-        series: {
-          pie: {
-            show: true
+          let votesToRemove: number = 0;
+          for (let index in this.producers) {
+            let percentageVotes = (this.producers[index].total_votes / chainStatus.total_producer_vote_weight * 100);
+            if (percentageVotes * 200 < 100) {
+              votesToRemove += parseFloat(this.producers[index].total_votes);
+            }
           }
-        },
-        grid: {
-          hoverable: true
-        },
-        tooltip: true,
-        tooltipOpts: {
-          content: "%p.0%, %s",
-          shifts: {
-            x: 20,
-            y: 0
-          },
-          defaultTheme: false
-        }
+
+          for (let index in this.producers) {
+            let position: number = parseInt(index) + 1;
+            let reward = 0;
+            if (position < 22) {
+              reward += 318;
+            }
+            let percentageVotes = (this.producers[index].total_votes / (chainStatus.total_producer_vote_weight) * 100);
+            let percentageVotesRewarded = (this.producers[index].total_votes / (chainStatus.total_producer_vote_weight - votesToRemove) * 100);
+
+            reward += percentageVotesRewarded * 200;
+
+            if (percentageVotes * 200 < 100) {
+              reward = 0;
+            }
+
+            this.producers[index].reward = reward.toFixed(0);
+            this.producers[index].votes = percentageVotes.toFixed(2);
+            this.producers[index].numVotes = (this.producers[index].total_votes / this.calculateVoteWeight() / 10000).toFixed(0);
+          }
+
+        });
+
       });
+
     });
 
-    */
+    timer(0, 60000).pipe(
+      takeWhile(() => this.alive)
+    ).subscribe(() => {
+
+      this.eosService.eos.getTableRows(
+        {
+          json: true,
+          code: "eosio",
+          scope: "eosio",
+          table: "global",
+          limit: 1
+        }
+      ).then(result => {
+        let chainStatus = result.rows[0];
+        this.chainPercentage = (chainStatus.total_activated_stake / 10000 / 1000011818 * 100).toFixed(2);
+        this.chainNumber = (chainStatus.total_activated_stake / 1000011818 * 100000);
+      });
+    });
   }
 
   calculateVoteWeight() {

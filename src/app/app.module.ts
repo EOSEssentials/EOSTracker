@@ -20,6 +20,7 @@ import { ActionService } from './services/action.service';
 import { StatService } from './services/stat.service';
 import { VoteService } from './services/vote.service';
 import { BpService } from './services/bp.service';
+import {ScatterService} from './services/scatter.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TransactionService,
     DashboardService,
     EosService,
+    ScatterService,
     AccountService,
     ProducerService,
     CmcService,
