@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { ContractRoutingModule } from './contract-routing.module';
+import { Contract1RoutingModule } from './contract1-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -10,7 +10,7 @@ import { ContractComponent } from './contract/contract.component';
 @NgModule({
   imports: [
     SharedModule,
-    ContractRoutingModule,
+    Contract1RoutingModule,
     MatTableModule,
     MatExpansionModule
   ],
@@ -19,4 +19,4 @@ import { ContractComponent } from './contract/contract.component';
     ContractComponent
   ]
 })
-export class ContractModule { }
+export class Contract1Module { }

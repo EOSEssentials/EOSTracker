@@ -5,6 +5,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { SearchComponent } from './dashboard/search/search.component';
 import { SettingsComponent } from './dashboard/settings/settings.component';
+import { MasterpageComponent } from './shared/masterpage/masterpage.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', component: DashboardComponent },
@@ -14,7 +15,21 @@ const appRoutes: Routes = [
   { path: 'blocks', loadChildren: './block/block.module#BlockModule' },
   { path: 'actions', loadChildren: './contract/contract.module#ContractModule' },
   { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
-  { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' }
+  { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' },
+  {
+    path: 'v1',
+    component: MasterpageComponent,
+    children: [
+      // { path: '', pathMatch: 'full', component: DashboardComponent },
+      // { path: 'search', component: SearchComponent },
+      // { path: 'settings', component: SettingsComponent },
+      // { path: 'accounts', loadChildren: './account/account.module#AccountModule' },
+      // { path: 'blocks', loadChildren: './block/block.module#BlockModule' },
+      { path: 'actions', loadChildren: './contract1/contract1.module#Contract1Module' },
+      // { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
+      // { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' }
+    ]
+  }
 ];
 
 @NgModule({

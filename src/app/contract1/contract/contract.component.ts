@@ -11,11 +11,10 @@ interface ActionRaw extends Action {
 }
 
 @Component({
-  selector: 'app-contract1',
-  templateUrl: './contract1.component.html',
-  styleUrls: ['./contract1.component.css']
+  templateUrl: './contract.component.html',
+  styleUrls: ['./contract.component.css']
 })
-export class Contract1Component implements OnInit {
+export class ContractComponent implements OnInit {
 
   action$: Observable<ActionRaw>;
 

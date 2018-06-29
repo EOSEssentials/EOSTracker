@@ -1,0 +1,7 @@
+<mat-nav-list>
+  <mat-list-item *ngFor="let nav of navs">
+    <mat-icon matListIcon>{{nav.icon}}</mat-icon>
+    <a *ngIf="!nav.external" matLine [routerLink]="nav.link" routerLinkActive="active">{{nav.name}}</a>
+    <a *ngIf="nav.external" matLine [href]="nav.link" target="_blank">{{nav.name}}</a>
+  </mat-list-item>
+</mat-nav-list>

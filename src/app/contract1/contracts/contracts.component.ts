@@ -7,10 +7,10 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, share, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  templateUrl: './contracts1.component.html',
-  styleUrls: ['./contracts1.component.css']
+  templateUrl: './contracts.component.html',
+  styleUrls: ['./contracts.component.css']
 })
-export class Contracts1Component implements OnInit {
+export class ContractsComponent implements OnInit {
 
   columnHeaders$: Observable<string[]> = of(CONTRACT_COLUMNS);
   actions$: Observable<Action[]>;

@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+header {
+  height: 100%;
+  padding: 0 20px;
+}
+
+.brand img {
+  width: 30px;
+}

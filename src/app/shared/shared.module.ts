@@ -19,6 +19,10 @@ import { LoadingComponent } from './page/loading/loading.component';
 import { NavbarComponent } from './page/navbar/navbar.component';
 import { SidebarComponent } from './page/sidebar/sidebar.component';
 import { TableComponent } from './table/table.component';
+import { MasterpageComponent } from './masterpage/masterpage.component';
+import { HeaderComponent } from './masterpage/header/header.component';
+import { SearchComponent } from './masterpage/search/search.component';
+import { SidenavComponent } from './masterpage/sidenav/sidenav.component';
 
 import { ToKbPipes } from './pipes/tokb.pipes';
 
@@ -46,7 +50,11 @@ const sharedComponents = [
   LoadingComponent,
   NavbarComponent,
   SidebarComponent,
-  TableComponent
+  TableComponent,
+  MasterpageComponent,
+  HeaderComponent,
+  SearchComponent,
+  SidenavComponent
 ];
 
 const sharedPipes = [
