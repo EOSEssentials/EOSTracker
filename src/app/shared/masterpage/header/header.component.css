@@ -10,8 +10,13 @@
 header {
   height: 100%;
   padding: 0 20px;
+  background-color: #fafafa;
 }
 
-.brand img {
+header .mat-icon-button {
+  margin-right: 10px;
+}
+
+header .brand img {
   width: 30px;
 }

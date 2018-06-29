@@ -2,6 +2,7 @@ form {
     position: relative;
     width: 100%;
     height: 40px;
+    min-width: 360px;
 }
 
 form .mat-icon {

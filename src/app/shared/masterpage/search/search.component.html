@@ -1,4 +1,7 @@
-<form (submit)="search()" novalidate>
+<button mat-icon-button fxShow.xs fxHide.gt-xs>
+  <mat-icon>search</mat-icon>
+</button>
+<form (submit)="search()" novalidate fxShow.gt-xs fxHide.xs>
   <mat-icon>search</mat-icon>
   <input type="search" placeholder="{{ 'SearchBy' | translate }}" [formControl]="query" class="mat-elevation-z1">
 </form>

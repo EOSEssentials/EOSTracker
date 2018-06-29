@@ -1,7 +1,10 @@
-<header fxLayout="row" fxLayoutAlign="start center" class="mat-elevation-z4">
+<header fxLayout="row" fxLayoutAlign="start center">
+  <button mat-icon-button fxHide.gt-sm (click)="onMenuToggle.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
   <a class="brand" routerLink="/v1">
     <img [src]="logoUrl" />{{ appName | translate }}
   </a>
   <span fxFlex></span>
-  <app-search style="width:400px;"></app-search>
+  <app-search></app-search>
 </header>
