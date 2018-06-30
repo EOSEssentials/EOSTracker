@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MediaService } from '@angular/flex-layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ActionService } from '../../services/action.service';
 import { Action } from '../../models/Action';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, share, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
   templateUrl: './contracts.component.html',
@@ -17,15 +17,13 @@ export class ContractsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private mediaService: MediaService,
+    private breakpointObserver: BreakpointObserver,
     private actionService: ActionService
   ) { }
 
   ngOnInit() {
-    this.columnHeaders$ = this.mediaService.asObservable().pipe(
-      map(media => media.mqAlias),
-      distinctUntilChanged(),
-      map(mqAlias => mqAlias === 'xs' ? CONTRACT_COLUMNS.filter(c => c !== 'transactionId') : CONTRACT_COLUMNS)
+    this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
+      map(result => result.matches ? CONTRACT_COLUMNS.filter(c => c !== 'transactionId') : CONTRACT_COLUMNS)
     );
     this.actions$ = this.route.queryParams.pipe(
       map(queryParams => queryParams.page ? Number(queryParams.page) : 1),

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MediaService } from '@angular/flex-layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, of } from 'rxjs';
-import { map, distinctUntilChanged } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-masterpage',
@@ -14,19 +14,21 @@ export class MasterpageComponent implements OnInit {
   sidenavOpen$: Observable<boolean> = of(false);
 
   constructor(
-    private mediaService: MediaService
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit() {
-    const mqAlias$: Observable<string> = this.mediaService.asObservable().pipe(
-      map(media => media.mqAlias),
-      distinctUntilChanged()
+    this.sidenavMode$ = this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).pipe(
+      map(result => result.matches ? 'over' : 'side')
     );
-    this.sidenavMode$ = mqAlias$.pipe(
-      map(mqAlias => (mqAlias === 'xs' || mqAlias === 'sm') ? 'over' : 'side')
-    );
-    this.sidenavOpen$ = mqAlias$.pipe(
-      map(mqAlias => (mqAlias === 'xs' || mqAlias === 'sm') ? false : true)
+    this.sidenavOpen$ = this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).pipe(
+      map(result => result.matches ? false : true)
     );
   }
 
