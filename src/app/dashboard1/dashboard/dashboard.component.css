@@ -1,0 +1,12 @@
+.mat-card-subtitle {
+  text-align: right;
+}
+
+.mat-table {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, .12);
+}
+
+.mat-subheading-2 {
+  margin: 0;
+}

@@ -24,31 +24,31 @@ export class SidenavComponent implements OnInit {
     this.navs = [
       {
         icon: 'dashboard',
-        link: '/',
+        link: '/v1',
         name: this.translate.instant('Dashboard')
       },
       {
-        icon: 'help',
+        icon: 'link',
         link: '/blocks',
         name: this.translate.instant('Blocks')
       },
       {
-        icon: 'help',
+        icon: 'list_alt',
         link: '/transactions',
         name: this.translate.instant('Transactions')
       },
       {
-        icon: 'help',
+        icon: 'people',
         link: '/accounts',
         name: this.translate.instant('Accounts')
       },
       {
-        icon: 'help',
+        icon: 'gavel',
         link: '/producers',
         name: this.translate.instant('Producers')
       },
       {
-        icon: 'help',
+        icon: 'list',
         link: '/v1/actions',
         name: this.translate.instant('Actions')
       },

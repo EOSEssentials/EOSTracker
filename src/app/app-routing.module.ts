@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { Dashboard1Module } from './dashboard1/dashboard1.module';
 
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { SearchComponent } from './dashboard/search/search.component';
 import { SettingsComponent } from './dashboard/settings/settings.component';
 import { MasterpageComponent } from './shared/masterpage/masterpage.component';
+
+import { DashboardComponent as DC1 } from './dashboard1/dashboard/dashboard.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', component: DashboardComponent },
@@ -20,7 +23,7 @@ const appRoutes: Routes = [
     path: 'v1',
     component: MasterpageComponent,
     children: [
-      // { path: '', pathMatch: 'full', component: DashboardComponent },
+      { path: '', pathMatch: 'full', component: DC1 },
       // { path: 'search', component: SearchComponent },
       // { path: 'settings', component: SettingsComponent },
       // { path: 'accounts', loadChildren: './account/account.module#AccountModule' },
@@ -35,6 +38,7 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [
     DashboardModule,
+    Dashboard1Module,
     RouterModule.forRoot(appRoutes)
   ],
   exports: [
