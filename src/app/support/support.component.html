@@ -17,10 +17,12 @@
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<div class="alert alert-info" role="alert">✨️ Here you can find the list of our AWESOME supporters.</div>
+						<br>
 						<ul>
 							<li>💰 Each 7 days project will be able to claim 10% from each patron.</li>
 							<li>💳 Patrons can refund anytime their remaining money if they want.</li>
 							<li>🏆 A list of all times patrons will appear in the History.</li>
+							<li>🔑 Transfer EOS to <a routerLink="/accounts/{{contract}}">{{contract}}</a> or use the Login button.</li>
 						</ul>
 						<br>
 						<div class="panel-group" id="accordion-roadmap">
@@ -82,6 +84,9 @@
 						</div>
 					</div>
 					<div class="panel-body" *ngIf="!isLogged()">
+						<div class="alert alert-info" role="alert">
+							<i class="fa fa-info-circle"></i> To become a Patron please login or transfer EOS to <a routerLink="/accounts/{{contract}}">{{contract}}</a>
+						</div>
 						<button (click)="login()" class="btn btn-primary" style="width: 100%" type="submit">Login 🚀️</button>
 					</div>
 				</div>
