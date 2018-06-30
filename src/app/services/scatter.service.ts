@@ -28,6 +28,10 @@ export class ScatterService {
   login() {
     this.load();
     const requirements = {accounts: [this.network]};
+    if (!this.scatter) {
+      alert("You need to install Scatter to use the form.");
+      return;
+    }
     return this.scatter.getIdentity(requirements);
   }
 
@@ -50,7 +54,7 @@ export class ScatterService {
   support(amount: string) {
     this.load();
     const account = this.scatter.identity.accounts.find(acc => acc.blockchain === 'eos');
-    return this.eos.transfer(account.name, 'trackeraegis', amount, 'Aegis Support');
+    return this.eos.transfer(account.name, 'trackeraegis', amount + " EOS", 'Aegis Support');
   }
 
   refund() {
