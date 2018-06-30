@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
@@ -9,7 +9,9 @@ import { FormControl } from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
 
+  @Output() onSearchExpanded = new EventEmitter<boolean>();
   query: FormControl;
+  expanded = false;
 
   constructor(
     private router: Router
@@ -27,6 +29,16 @@ export class SearchComponent implements OnInit {
       });
       this.query.reset();
     }
+  }
+
+  expand() {
+    this.expanded = true;
+    this.onSearchExpanded.emit(this.expanded);
+  }
+
+  collapse() {
+    this.expanded = false;
+    this.onSearchExpanded.emit(this.expanded);
   }
 
 }

@@ -20,3 +20,11 @@ header .mat-icon-button {
 header .brand img {
   width: 30px;
 }
+
+header .search-collapsed {
+  width: auto;
+}
+
+header .search-expanded {
+  width: 100%;
+}
