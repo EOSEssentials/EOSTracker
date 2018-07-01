@@ -28,7 +28,7 @@ const appRoutes: Routes = [
       // { path: 'search', component: SearchComponent },
       // { path: 'settings', component: SettingsComponent },
       // { path: 'accounts', loadChildren: './account/account.module#AccountModule' },
-      // { path: 'blocks', loadChildren: './block/block.module#BlockModule' },
+      { path: 'blocks', loadChildren: './block1/block1.module#Block1Module' },
       { path: 'actions', loadChildren: './contract1/contract1.module#Contract1Module' },
       // { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
       // { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' }

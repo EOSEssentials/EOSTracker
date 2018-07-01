@@ -1,0 +1,99 @@
+<mat-toolbar>
+  <h1 class="mat-headline">
+    {{ 'Block' | translate }} #{{id$ | async}}
+  </h1>
+</mat-toolbar>
+<div>
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'BlockInformation' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="table-responsive" *ngIf="block$ | async as block">
+      <table class="table table-striped">
+        <tr>
+          <td>{{ 'Number' | translate }}:</td>
+          <td>{{block.blockNumber}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Producer' | translate }}:</td>
+          <td>
+            <a routerLink="../../producers/{{block.producer}}">{{block.producer}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'Timestamp' | translate }}:</td>
+          <td>{{block.timestamp * 1000 | date:'medium'}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'BlockId' | translate }}:</td>
+          <td>{{block.id}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Previous' | translate }} {{ 'BlockInformation' | translate }}:</td>
+          <td>
+            <a routerLink="../../search" [queryParams]="{q: block.prevBlockId}">{{block.prevBlockId}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'Transaction' | translate }} {{ 'MerkleRoot' | translate }}:</td>
+          <td>{{block.transactionMerkleRoot}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Action' | translate }} {{ 'MerkleRoot' | translate }}:</td>
+          <td>{{block.actionMerkleRoot}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Transactions' | translate }}:</td>
+          <td>{{block.numTransactions}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Confirmations' | translate }}:</td>
+          <td>{{block.confirmed}}</td>
+        </tr>
+      </table>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'BlockchainRawData' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <prettyjson [obj]="blockRaw" *ngIf="blockRaw$ | async as blockRaw"></prettyjson>
+  </mat-expansion-panel>
+  <div *ngIf="blockTransactions$ | async as transactions" style="margin:20px;">
+    <h3 class="mat-subheading-2">{{ 'Transactions' | translate }}</h3>
+    <app-table [dataSource]="transactions" [enablePager]="false">
+      <table mat-table [dataSource]="transactions">
+        <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let transaction">
+            <a [routerLink]="['../../transactions',transaction.id]">{{transaction.id | slice:0:32}}...</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="blockId">
+          <th mat-header-cell *matHeaderCellDef>{{ 'BlockId' | translate }}</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{transaction.blockId}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{transaction.createdAt * 1000 | date:'medium'}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="numActions">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Actions' | translate }}</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{transaction.numActions}}
+          </td>
+        </ng-container>
+      </table>
+    </app-table>
+  </div>
+</div>
