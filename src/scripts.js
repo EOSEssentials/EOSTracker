@@ -3,7 +3,7 @@ $(function () {
 })
 
 $(function () {
-		$(window).bind('load resize', function () {
-        $('div.navbar-collapse').addClass('collapse');
-		})
+    $(window).bind('load resize', function () {
+        $('div.navbar-collapse').addClass('collapse')
+    })
 })

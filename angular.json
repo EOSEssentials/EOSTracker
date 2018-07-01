@@ -24,7 +24,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/scripts.js"
+              "src/scripts.js",
+              "node_modules/confetti-js/dist/index.min.js"
             ]
           },
           "configurations": {

@@ -1,0 +1,167 @@
+<app-page>
+	<canvas *ngIf="showConfetti" id="confetti-holder"></canvas>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">{{ 'Support' | translate }} <a routerLink="/accounts/{{contract}}">{{contract}}</a></h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						❤️ {{ 'Support' | translate }}
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="alert alert-info" role="alert">✨️ Here you can find the list of our AWESOME supporters.</div>
+						<br>
+						<ul>
+							<li>💰 Each 7 days project will be able to claim 10% from each patron.</li>
+							<li>💳 Patrons can refund anytime their remaining money if they want.</li>
+							<li>🏆 A list of all times patrons will appear in the History.</li>
+							<li>🔑 Transfer EOS to <a routerLink="/accounts/{{contract}}">{{contract}}</a> or use the Login button.</li>
+						</ul>
+						<br>
+						<div class="panel-group" id="accordion-roadmap">
+							<div class="panel panel-default">
+								<a data-toggle="collapse" data-parent="#accordion-roadmap" href="#collapseRoadmap" aria-expanded="false" class="collapsed">
+
+								<div class="panel-heading">
+									<h4 class="panel-title">
+											{{ 'Roadmap' | translate }}
+									</h4>
+								</div>
+								</a>
+
+								<div id="collapseRoadmap" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+									<div class="panel-body">
+										<ul>
+											<li>SQL Plugin maintenance</li>
+											<li>Contract verification</li>
+											<li>Token curation</li>
+											<li>Allow execute code from ABI</li>
+											<li>Charts</li>
+											<li>Notifications / Email Alerts</li>
+											<li>IPFS search</li>
+											<li>DEX search</li>
+											<li>API usable for third parties</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+
+			<div class="col-lg-4">
+				<div class="panel panel-default hidden-xs">
+					<div class="panel-heading">
+						🛠 {{ 'Actions' | translate }}
+					</div>
+					<div class="panel-body" *ngIf="isLogged()">
+
+						<form class="ng-untouched ng-pristine ng-invalid">
+							<div class="input-group">
+								<div class="input-group">
+									<span class="input-group-addon">EOS</span>
+									<input aria-label="..." [(ngModel)]="amount" class="form-control ng-untouched ng-pristine ng-invalid" name="msg" placeholder="5" required type="text" [disabled]="!isLogged() || alive">
+								</div>
+								<div class="input-group-btn">
+									<button (click)="support(amount)" class="btn btn-primary" id="btnSupport" type="submit" [disabled]="!isLogged() || alive">Support 🚀</button>
+								</div>
+							</div>
+						</form>
+						<div style="margin-top: 20px; ">
+							<form class="ng-untouched ng-pristine ng-invalid">
+								<button (click)="refund()" class="btn btn-default" style="width: 100%" type="submit" [disabled]="!isLogged() || alive">Refund ✂️</button>
+							</form>
+						</div>
+					</div>
+					<div class="panel-body" *ngIf="!isLogged()">
+						<div class="alert alert-info" role="alert">
+							<i class="fa fa-info-circle"></i> To become a Patron please login or transfer EOS to <a routerLink="/accounts/{{contract}}">{{contract}}</a>
+						</div>
+						<button (click)="login()" class="btn btn-primary" style="width: 100%" type="submit">Login 🚀️</button>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						💎 {{ 'Info' | translate }}
+					</div>
+					<div class="panel-body">
+						<app-loading *ngIf="!info"></app-loading>
+						<div *ngIf="info" class="table-responsive">
+							<div><b>Receiver</b>: <a routerLink="/accounts/{{info.receiver}}">{{info.receiver}}</a></div>
+							<div><b>Last Claim</b>: {{info.last_claim}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						💰 {{ 'History (Paid)' | translate }}
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!history"></app-loading>
+						<div *ngIf="history" class="table-responsive">
+							<table class="table table-striped">
+								<tr *ngIf="history">
+									<td>{{ 'Name' | translate }}:</td>
+									<td>{{ 'Amount' | translate }}</td>
+								</tr>
+
+								<tr *ngFor="let account of history">
+									<td><a routerLink="/accounts/{{account.name}}">{{account.name}}</a></td>
+									<td>{{account.balance}}</td>
+								</tr>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						💸 {{ 'Patrons (Pending)' | translate }}
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<app-loading *ngIf="!patrons"></app-loading>
+						<div *ngIf="patrons" class="table-responsive">
+							<table class="table table-striped">
+								<tr *ngIf="history">
+									<td>{{ 'Name' | translate }}</td>
+									<td>{{ 'Amount' | translate }}</td>
+								</tr>
+
+								<tr *ngFor="let account of patrons">
+									<td><a routerLink="/accounts/{{account.name}}">{{account.name}}</a></td>
+									<td>{{account.balance}}</td>
+								</tr>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+
+	</div>
+</app-page>
