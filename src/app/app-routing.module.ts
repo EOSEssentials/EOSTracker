@@ -31,7 +31,7 @@ const appRoutes: Routes = [
       { path: 'blocks', loadChildren: './block1/block1.module#Block1Module' },
       { path: 'actions', loadChildren: './contract1/contract1.module#Contract1Module' },
       // { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
-      // { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' }
+      { path: 'transactions', loadChildren: './transaction1/transaction1.module#Transaction1Module' }
     ]
   }
 ];

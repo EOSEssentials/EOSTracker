@@ -1,0 +1,91 @@
+<mat-toolbar>
+  <h1 class="mat-headline">
+    {{ 'Transaction' | translate }}
+  </h1>
+</mat-toolbar>
+<div>
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'Transaction' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="table-responsive" *ngIf="transaction$ | async as transaction">
+      <table class="table table-striped">
+        <tr>
+          <td>{{ 'Id' | translate }}:</td>
+          <td>{{transaction.id}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Block' | translate }}:</td>
+          <td>
+            <a [routerLink]="['../../blocks',transaction.blockId]">{{transaction.blockId}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'CreatedAt' | translate }}:</td>
+          <td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Pending' | translate }}:</td>
+          <td>{{transaction.pending}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Actions' | translate }}:</td>
+          <td>{{transaction.numActions}}</td>
+        </tr>
+        <tr *ngIf="transaction.raw">
+          <td>{{ 'CPU Usage' | translate }}:</td>
+          <td>{{transaction.raw.cpu_usage_us | number }} µs</td>
+        </tr>
+        <tr *ngIf="transaction.raw">
+          <td>{{ 'Net Usage' | translate }}:</td>
+          <td>{{transaction.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
+        </tr>
+      </table>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'BlockchainRawData' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <prettyjson [obj]="transaction.raw" *ngIf="transaction$ | async as transaction"></prettyjson>
+  </mat-expansion-panel>
+  <div *ngIf="transactionActions$ | async as actions" style="margin:20px;">
+    <h3 class="mat-subheading-2">{{ 'Actions' | translate }}</h3>
+    <app-table [dataSource]="actions" [enablePager]="false">
+      <table mat-table [dataSource]="actions">
+        <tr mat-header-row *matHeaderRowDef="actionsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: actionsColumns;"></tr>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let action">
+            <a [routerLink]="['../../actions',action.id]">{{action.id}}</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="authorizations">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Authorization' | translate }}</th>
+          <td mat-cell *matCellDef="let action">
+            <span *ngFor="let authorization of action.authorizations">
+              <a [routerLink]="['../../accounts',authorization.actor]">{{authorization.actor}}</a>
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="account">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Handler' | translate }}</th>
+          <td mat-cell *matCellDef="let action">
+            <a [routerLink]="['../../accounts',action.account]">{{action.account}}</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+          <td mat-cell *matCellDef="let action">
+            {{action.name}}
+          </td>
+        </ng-container>
+      </table>
+    </app-table>
+  </div>
+</div>
