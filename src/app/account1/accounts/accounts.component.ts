@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
 import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-accounts1',
-  templateUrl: './accounts1.component.html',
-  styleUrls: ['./accounts1.component.css']
+  templateUrl: './accounts.component.html',
+  styleUrls: ['./accounts.component.css']
 })
-export class Accounts1Component implements OnInit {
+export class AccountsComponent implements OnInit {
 
   columnHeaders = [
     'name',

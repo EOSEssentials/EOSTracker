@@ -27,7 +27,7 @@ const appRoutes: Routes = [
       { path: '', pathMatch: 'full', component: DC1 },
       // { path: 'search', component: SearchComponent },
       // { path: 'settings', component: SettingsComponent },
-      // { path: 'accounts', loadChildren: './account/account.module#AccountModule' },
+      { path: 'accounts', loadChildren: './account1/account1.module#Account1Module' },
       { path: 'blocks', loadChildren: './block1/block1.module#Block1Module' },
       { path: 'actions', loadChildren: './contract1/contract1.module#Contract1Module' },
       // { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
