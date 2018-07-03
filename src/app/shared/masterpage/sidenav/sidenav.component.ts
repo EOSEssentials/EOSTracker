@@ -54,7 +54,7 @@ export class SidenavComponent implements OnInit {
       },
       {
         icon: 'settings',
-        link: '/settings',
+        link: '/v1/settings',
         name: this.translate.instant('Settings')
       },
       {

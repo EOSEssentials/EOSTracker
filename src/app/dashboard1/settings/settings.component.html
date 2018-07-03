@@ -1,0 +1,14 @@
+<mat-toolbar>
+  <h1 class="mat-headline">
+    {{ 'Settings' | translate }}
+  </h1>
+</mat-toolbar>
+<div style="margin:20px;">
+  <mat-form-field>
+    <mat-select placeholder="Preferred Language" [formControl]="languageControl">
+      <mat-option *ngFor="let language of languages" [value]="language.code">
+        {{language.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

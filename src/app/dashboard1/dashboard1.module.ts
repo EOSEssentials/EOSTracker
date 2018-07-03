@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   imports: [
     SharedModule,
-    MatTableModule
+    MatFormFieldModule,
+    MatSelectModule
   ],
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    SettingsComponent
   ]
 })
 export class Dashboard1Module { }
