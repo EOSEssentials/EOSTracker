@@ -33,9 +33,9 @@
 			<li>
 				<a routerLink="/settings" routerLinkActive="active"><i class="fa fa-cogs fa-fw"></i> {{ 'Settings' | translate }}</a>
 			</li>
-			<!-- <li>
+			<li>
 				<a routerLink="/support" routerLinkActive="active"><i class="fa fa-money fa-fw"></i> {{ 'Support' | translate }}</a>
-			</li> -->
+			</li>
 			<li *ngIf="walletUrl">
 				<a target="_blank" href="{{ walletUrl }}"><i class="fa fa-credit-card fa-fw"></i> {{ 'Wallet' | translate }}</a>
 			</li>
