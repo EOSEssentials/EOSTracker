@@ -8,8 +8,9 @@ import { SearchComponent } from './dashboard/search/search.component';
 import { SettingsComponent } from './dashboard/settings/settings.component';
 import { MasterpageComponent } from './shared/masterpage/masterpage.component';
 
-import { DashboardComponent as DC1 } from './dashboard1/dashboard/dashboard.component';
-import { SettingsComponent as SC1 } from './dashboard1/settings/settings.component';
+import { DashboardComponent as DashboardComponent1 } from './dashboard1/dashboard/dashboard.component';
+import { SettingsComponent as SettingsComponent1 } from './dashboard1/settings/settings.component';
+import { SearchComponent as SearchComponent1 } from './dashboard1/search/search.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', component: DashboardComponent },
@@ -25,9 +26,9 @@ const appRoutes: Routes = [
     path: 'v1',
     component: MasterpageComponent,
     children: [
-      { path: '', pathMatch: 'full', component: DC1 },
-      // { path: 'search', component: SearchComponent },
-      { path: 'settings', component: SC1 },
+      { path: '', pathMatch: 'full', component: DashboardComponent1 },
+      { path: 'search', component: SearchComponent1 },
+      { path: 'settings', component: SettingsComponent1 },
       { path: 'accounts', loadChildren: './account1/account1.module#Account1Module' },
       { path: 'blocks', loadChildren: './block1/block1.module#Block1Module' },
       { path: 'actions', loadChildren: './contract1/contract1.module#Contract1Module' },
