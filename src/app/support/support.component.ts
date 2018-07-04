@@ -14,7 +14,7 @@ export class SupportComponent implements OnInit {
   public history = null;
   public patrons = null;
   public info = null;
-  public amount = null;
+  public amount = 5;
   public alive = false;
   public showConfetti = true;
 
@@ -100,7 +100,7 @@ export class SupportComponent implements OnInit {
 
   support(amount: string) {
     this.alive = true;
-    this.scatterService.support(amount).then(transaction => {
+    this.scatterService.support(parseFloat(amount).toFixed(4)).then(transaction => {
       console.log(transaction);
       timer(0, 3000).pipe(
         takeWhile(() => this.alive)
