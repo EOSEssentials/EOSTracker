@@ -1,0 +1,9 @@
+<p>
+  producers works!
+</p>
+<div *ngIf="producers$ | async as x">
+  {{x | json}}
+</div>
+<div *ngIf="chainStatus$ | async as x">
+  {{x | json}}
+</div>

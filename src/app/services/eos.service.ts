@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as Eos from 'eosjs';
 import { environment } from '../../environments/environment';
 import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class EosService {
@@ -40,6 +40,36 @@ export class EosService {
         let quote = parseFloat(result.rows[0].quote.balance.replace(' EOS', ''));
         return quote / base;
       })
+    );
+  }
+
+  getProducers() {
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "eosio",
+      scope: "eosio",
+      table: "producers",
+      limit: 700,
+      table_key: ""
+    })).pipe(
+      map((result: any) => {
+        return result.rows
+          .map(row => ({ ...row, total_votes: parseFloat(row.total_votes) }))
+          .sort((a, b) => b.total_votes - a.total_votes);
+      }),
+      tap(x => console.log(x))
+    );
+  }
+
+  getChainStatus() {
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "eosio",
+      scope: "eosio",
+      table: "global",
+      limit: 1
+    })).pipe(
+      map((result: any) => result.rows[0])
     );
   }
 }

@@ -44,7 +44,7 @@ export class SidenavComponent implements OnInit {
       },
       {
         icon: 'gavel',
-        link: '/producers',
+        link: '/v1/producers',
         name: this.translate.instant('Producers')
       },
       {

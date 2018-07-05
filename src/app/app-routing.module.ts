@@ -32,7 +32,7 @@ const appRoutes: Routes = [
       { path: 'accounts', loadChildren: './account1/account1.module#Account1Module' },
       { path: 'blocks', loadChildren: './block1/block1.module#Block1Module' },
       { path: 'actions', loadChildren: './contract1/contract1.module#Contract1Module' },
-      // { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
+      { path: 'producers', loadChildren: './producer1/producer1.module#Producer1Module' },
       { path: 'transactions', loadChildren: './transaction1/transaction1.module#Transaction1Module' }
     ]
   }
