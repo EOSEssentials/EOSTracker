@@ -1,3 +1,51 @@
-<p>
-  producer works!
-</p>
+<mat-toolbar>
+  <h1 class="mat-headline">
+    {{ 'Producer' | translate }}
+    <span *ngIf="account$ | async as account">{{account.name}}</span>
+  </h1>
+</mat-toolbar>
+<div>
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'Producer' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="table-responsive" *ngIf="producer$ | async as producer">
+      <table class="table table-striped">
+        <tr *ngIf="producer.bpJson?.org?.candidate_name">
+          <td>{{ 'Name' | translate }}:</td>
+          <td>{{producer.bpJson.org.candidate_name}}</td>
+        </tr>
+        <tr *ngIf="account$ | async as account">
+          <td>{{ 'Account' | translate }}:</td>
+          <td>{{account.name}}
+            <i *ngIf="validated" class="fa fa-check" style="color: green" aria-hidden="true"></i>
+          </td>
+        </tr>
+        <tr *ngIf="producer">
+          <td>{{ 'Public Key' | translate }}:</td>
+          <td>{{producer.producer_key}}
+            <i *ngIf="validated" class="fa fa-check" style="color: green" aria-hidden="true"></i>
+          </td>
+        </tr>
+        <tr *ngIf="producer">
+          <td>{{ 'Votes' | translate }}:</td>
+          <td>{{producer.votes}}%</td>
+        </tr>
+        <tr *ngIf="producer">
+          <td>{{ 'Url' | translate }}:</td>
+          <td>{{producer.url}}</td>
+        </tr>
+        <tr *ngIf="producer">
+          <td>{{ 'Position' | translate }}:</td>
+          <td>#{{producer.position}}</td>
+        </tr>
+        <tr *ngIf="producer">
+          <td>{{ 'Daily Reward' | translate }}:</td>
+          <td>{{producer.reward}} EOS</td>
+        </tr>
+      </table>
+    </div>
+  </mat-expansion-panel>
+</div>

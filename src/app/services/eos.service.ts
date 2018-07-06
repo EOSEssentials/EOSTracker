@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as Eos from 'eosjs';
 import { environment } from '../../environments/environment';
 import { Observable, from } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class EosService {
@@ -56,8 +56,7 @@ export class EosService {
         return result.rows
           .map(row => ({ ...row, total_votes: parseFloat(row.total_votes) }))
           .sort((a, b) => b.total_votes - a.total_votes);
-      }),
-      tap(x => console.log(x))
+      })
     );
   }
 

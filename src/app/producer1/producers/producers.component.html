@@ -1,9 +1,57 @@
-<p>
-  producers works!
-</p>
-<div *ngIf="producers$ | async as x">
-  {{x | json}}
-</div>
-<div *ngIf="chainStatus$ | async as x">
-  {{x | json}}
+<mat-toolbar>
+  <h1 class="mat-headline">
+    {{ 'Producers' | translate }}
+  </h1>
+</mat-toolbar>
+<div style="margin:10px;">
+  <div class="vote-progress" *ngIf="chainStatus$ | async as chainStatus">
+    <mat-progress-bar mode="determinate" [value]="chainStatus.chainPercentage"></mat-progress-bar>
+    <span>Votes: {{ (chainStatus.chainNumber) | number }} ({{chainStatus.chainPercentage}}%)</span>
+  </div>
+  <app-table [dataSource]="producers$ | async" [enablePager]="false">
+    <table mat-table [dataSource]="producers$ | async">
+      <ng-container *ngIf="columnHeaders$ | async as columnHeaders">
+        <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
+      </ng-container>
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let producer">
+          {{producer.position}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+        <td mat-cell *matCellDef="let producer">
+          <a [routerLink]="['./',producer.owner]">{{producer.owner}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="url">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Url' | translate }}</th>
+        <td mat-cell *matCellDef="let producer">
+          {{producer.url}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="numVotes">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Votes' | translate }}</th>
+        <td mat-cell *matCellDef="let producer">
+          {{producer.numVotes | number}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="votes">
+        <th mat-header-cell *matHeaderCellDef>{{ '%' | translate }}</th>
+        <td mat-cell *matCellDef="let producer">
+          {{producer.votes}}
+          <span *ngIf="producer.votes">%</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="reward">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Daily Reward' | translate }}</th>
+        <td mat-cell *matCellDef="let producer">
+          {{producer.reward}}
+          <span *ngIf="producer.reward">EOS</span>
+        </td>
+      </ng-container>
+    </table>
+  </app-table>
 </div>
