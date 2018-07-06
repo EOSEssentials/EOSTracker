@@ -1,18 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, share } from 'rxjs/operators';
 import { EosService } from '../../services/eos.service';
 import { AccountService } from '../../services/account.service';
 import { VoteService } from '../../services/vote.service';
 import { BpService } from '../../services/bp.service';
-import { Account } from '../../models/Account';
 import { Producer } from '../../models/Producer';
 import { Vote } from '../../models/Vote';
-
-interface AccountRaw extends Account {
-  raw: any;
-}
 
 @Component({
   selector: 'app-producer',
@@ -21,8 +16,8 @@ interface AccountRaw extends Account {
 })
 export class ProducerComponent implements OnInit {
 
+  columnHeaders = VOTE_COLUMNS;
   name$: Observable<string>;
-  account$: Observable<AccountRaw>;
   producer$: Observable<Producer>;
   votes$: Observable<Vote>;
 
@@ -38,24 +33,25 @@ export class ProducerComponent implements OnInit {
     this.name$ = this.route.params.pipe(
       map(params => params.id)
     );
-    this.account$ = this.name$.pipe(
-      switchMap(name => this.accountService.getAccount(name)),
-      switchMap(account => this.eosService.getAccount(account.name).pipe(
-        map(accountRaw => ({ ...account, raw: accountRaw }))
-      ))
-    );
     this.votes$ = combineLatest(
       this.name$,
       this.route.queryParams.pipe(map(queryParams => queryParams.page || 0))
     ).pipe(
-      switchMap(([name, page]) => this.voteService.getVote(name, page))
+      switchMap(([name, page]) => this.voteService.getVote(name, page)),
+      share()
     );
     this.producer$ = combineLatest(
       this.name$,
       this.eosService.getChainStatus(),
-      this.eosService.getProducers()
+      this.eosService.getProducers(),
+      this.name$.pipe(
+        switchMap(name => this.accountService.getAccount(name)),
+        switchMap(account => this.eosService.getAccount(account.name).pipe(
+          map(accountRaw => ({ ...account, raw: accountRaw }))
+        ))
+      )
     ).pipe(
-      map(([name, chainStatus, producers]) => {
+      map(([name, chainStatus, producers, account]) => {
         const producer = producers.find(producer => producer.owner === name);
         const index = producers.findIndex(producer => producer.owner === name);
         const votesToRemove = producers.reduce((acc, cur) => {
@@ -78,6 +74,7 @@ export class ProducerComponent implements OnInit {
         }
         return {
           ...producer,
+          account: account,
           position: position,
           reward: reward.toFixed(0),
           votes: percentageVotes.toFixed(2)
@@ -93,8 +90,14 @@ export class ProducerComponent implements OnInit {
           };
         })
       )),
-      tap(x => console.log(x))
+      share()
     );
   }
 
 }
+
+export const VOTE_COLUMNS = [
+  'account',
+  'staked',
+  'votes'
+];
