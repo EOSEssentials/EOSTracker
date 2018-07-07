@@ -1,0 +1,23 @@
+<div fxLayout.gt-xs="row wrap" fxLayout.xs="column" *ngIf="stats$ | async as stats; else loading">
+  <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.gt-md="25" style="padding:10px;" *ngFor="let stat of stats">
+    <div class="mat-elevation-z4">
+      <div fxLayout="row" fxLayout="space-between center" class="info" [style.background-color]="stat.color">
+        <div fxFlex="100px">
+          <mat-icon>{{stat.icon}}</mat-icon>
+        </div>
+        <div fxFlex="auto">
+          <div class="mat-display-1">{{stat.count | number}}</div>
+          <div class="mat-subheading-2">{{stat.name}}</div>
+        </div>
+      </div>
+      <div style="padding:10px;">
+        <a mat-stroked-button [routerLink]="[stat.link]" [style.color]="stat.color">
+          {{ 'ViewDetails' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

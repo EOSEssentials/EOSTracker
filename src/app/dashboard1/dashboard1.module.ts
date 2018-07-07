@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SearchComponent } from './search/search.component';
+import { StatsComponent } from './dashboard/stats/stats.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { SearchComponent } from './search/search.component';
   declarations: [
     DashboardComponent,
     SettingsComponent,
-    SearchComponent
+    SearchComponent,
+    StatsComponent
   ]
 })
 export class Dashboard1Module { }

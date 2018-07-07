@@ -1,71 +1,10 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
   <h1 class="mat-headline">
     {{ 'Dashboard' | translate }}
   </h1>
 </mat-toolbar>
-<div style="margin:10px;">
-  <div fxLayout.gt-xs="row wrap" fxLayout.xs="column" *ngIf="stats$ | async as stats">
-    <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.gt-md="25" style="padding:10px;">
-      <mat-card>
-        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-          <mat-icon>link</mat-icon>
-          {{stats[0] | number}}
-        </mat-card-title>
-        <mat-card-subtitle>{{ 'Blocks' | translate }}</mat-card-subtitle>
-        <mat-card-actions align="end">
-          <a mat-stroked-button [routerLink]="['./blocks']">
-            {{ 'ViewDetails' | translate }}
-            <mat-icon>arrow_forward</mat-icon>
-          </a>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.gt-md="25" style="padding:10px;">
-      <mat-card>
-        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-          <mat-icon>list_alt</mat-icon>
-          {{stats[1] | number}}
-        </mat-card-title>
-        <mat-card-subtitle>{{ 'Transactions' | translate }}</mat-card-subtitle>
-        <mat-card-actions align="end">
-          <a mat-stroked-button [routerLink]="['./transactions']">
-            {{ 'ViewDetails' | translate }}
-            <mat-icon>arrow_forward</mat-icon>
-          </a>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.gt-md="25" style="padding:10px;">
-      <mat-card>
-        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-          <mat-icon>people</mat-icon>
-          {{stats[2] | number}}
-        </mat-card-title>
-        <mat-card-subtitle>{{ 'Accounts' | translate }}</mat-card-subtitle>
-        <mat-card-actions align="end">
-          <a mat-stroked-button [routerLink]="['./accounts']">
-            {{ 'ViewDetails' | translate }}
-            <mat-icon>arrow_forward</mat-icon>
-          </a>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.gt-md="25" style="padding:10px;">
-      <mat-card>
-        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-          <mat-icon>list</mat-icon>
-          {{stats[3] | number}}
-        </mat-card-title>
-        <mat-card-subtitle>{{ 'Actions' | translate }}</mat-card-subtitle>
-        <mat-card-actions align="end">
-          <a mat-stroked-button [routerLink]="['./actions']">
-            {{ 'ViewDetails' | translate }}
-            <mat-icon>arrow_forward</mat-icon>
-          </a>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
+<div>
+  <app-dashboard-stats></app-dashboard-stats>
   <div fxLayout.gt-md="row" fxLayout="column">
     <div fxFlex style="padding:10px;">
       <div fxLayout="row" fxLayoutAlign="space-between center">

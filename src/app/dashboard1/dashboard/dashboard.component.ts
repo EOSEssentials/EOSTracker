@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StatService } from '../../services/stat.service';
 import { BlockService } from '../../services/block.service';
 import { TransactionService } from '../../services/transaction.service';
 import { Block } from '../../models/Block';
@@ -13,7 +12,6 @@ import { switchMap, share } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
 
-  stats$: Observable<number[]>;
   blocks$: Observable<Block[]>;
   transactions$: Observable<Transaction[]>;
   blocksColumns = [
@@ -29,15 +27,11 @@ export class DashboardComponent implements OnInit {
   ];
 
   constructor(
-    private statService: StatService,
     private blockService: BlockService,
     private transactionService: TransactionService
   ) { }
 
   ngOnInit() {
-    this.stats$ = timer(0, 5000).pipe(
-      switchMap(() => this.statService.getStats())
-    );
     this.blocks$ = timer(0, 5000).pipe(
       switchMap(() => this.blockService.getBlocks(undefined, 20)),
       share()
