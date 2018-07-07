@@ -19,7 +19,7 @@
       <ng-container matColumnDef="blockId">
         <th mat-header-cell *matHeaderCellDef>{{ 'BlockId' | translate }}</th>
         <td mat-cell *matCellDef="let transaction">
-          <a [routerLink]="['../../blocks',transaction.blockId]">{{transaction.blockId}}</a>
+          <a [routerLink]="['../blocks',transaction.blockId]">{{transaction.blockId}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
