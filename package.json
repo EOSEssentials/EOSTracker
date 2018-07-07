@@ -38,6 +38,7 @@
     "eosjs": "^15.0.3",
     "express": "^4.16.3",
     "ngx-webstorage": "^2.0.1",
+    "normalize.css": "^8.0.0",
     "npm": "^5.10.0",
     "path": "^0.12.7",
     "rxjs": "^6.2.1",
