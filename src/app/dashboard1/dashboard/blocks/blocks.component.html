@@ -15,7 +15,7 @@
     <ng-container matColumnDef="timestamp">
       <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
       <td mat-cell *matCellDef="let block">
-        {{block.timestamp * 1000 | date:'medium'}}
+        {{block.timestamp | amFromUnix | amTimeAgo}}
       </td>
     </ng-container>
     <ng-container matColumnDef="producer">

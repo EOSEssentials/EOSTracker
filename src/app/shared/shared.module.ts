@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from '@ngx-translate/core';
+import { MomentModule } from 'ngx-moment';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -37,6 +38,7 @@ const sharedModules = [
   RouterModule,
   FlexLayoutModule,
   TranslateModule,
+  MomentModule,
   PrettyJsonModule
 ];
 

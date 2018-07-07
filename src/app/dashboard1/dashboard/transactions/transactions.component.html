@@ -15,7 +15,7 @@
     <ng-container matColumnDef="createdAt">
       <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
       <td mat-cell *matCellDef="let transaction">
-        {{transaction.createdAt * 1000 | date:'medium'}}
+        {{transaction.createdAt | amFromUnix | amTimeAgo}}
       </td>
     </ng-container>
     <ng-container matColumnDef="numActions">
