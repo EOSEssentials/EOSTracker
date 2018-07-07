@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'app-blocks',
   templateUrl: './blocks.component.html',
-  styleUrls: ['./blocks.component.css']
+  styleUrls: ['./blocks.component.scss']
 })
 export class BlocksComponent implements OnInit {
   blocks = null;

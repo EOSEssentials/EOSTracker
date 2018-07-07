@@ -8,7 +8,7 @@ import {TransactionService} from '../services/transaction.service';
 @Component({
   selector: 'app-support',
   templateUrl: './support.component.html',
-  styleUrls: ['./support.component.css']
+  styleUrls: ['./support.component.scss']
 })
 export class SupportComponent implements OnInit {
   public history = null;

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-masterpage',
   templateUrl: './masterpage.component.html',
-  styleUrls: ['./masterpage.component.css']
+  styleUrls: ['./masterpage.component.scss']
 })
 export class MasterpageComponent implements OnInit {
 

@@ -8,7 +8,7 @@ import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
   templateUrl: './contracts.component.html',
-  styleUrls: ['./contracts.component.css']
+  styleUrls: ['./contracts.component.scss']
 })
 export class ContractsComponent implements OnInit {
 

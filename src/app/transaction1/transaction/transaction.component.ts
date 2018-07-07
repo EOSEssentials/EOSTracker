@@ -13,7 +13,7 @@ interface TransactionRaw extends Transaction {
 
 @Component({
   templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.css']
+  styleUrls: ['./transaction.component.scss']
 })
 export class TransactionComponent implements OnInit {
 

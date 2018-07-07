@@ -20,7 +20,7 @@ interface AccountRaw extends Account {
 
 @Component({
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
 

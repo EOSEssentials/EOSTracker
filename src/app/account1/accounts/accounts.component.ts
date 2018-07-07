@@ -7,7 +7,7 @@ import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
   templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.css']
+  styleUrls: ['./accounts.component.scss']
 })
 export class AccountsComponent implements OnInit {
 

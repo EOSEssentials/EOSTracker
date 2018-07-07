@@ -5,7 +5,7 @@ import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
 

@@ -9,7 +9,7 @@ import { switchMap, share } from 'rxjs/operators';
 
 @Component({
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 

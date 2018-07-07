@@ -7,7 +7,7 @@ import { map, share, switchMap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './producers.component.html',
-  styleUrls: ['./producers.component.css']
+  styleUrls: ['./producers.component.scss']
 })
 export class ProducersComponent implements OnInit {
 

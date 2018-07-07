@@ -12,7 +12,7 @@ import { Vote } from '../../models/Vote';
 @Component({
   selector: 'app-producer',
   templateUrl: './producer.component.html',
-  styleUrls: ['./producer.component.css']
+  styleUrls: ['./producer.component.scss']
 })
 export class ProducerComponent implements OnInit {
 
