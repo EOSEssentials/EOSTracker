@@ -7,6 +7,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SearchComponent } from './search/search.component';
 import { StatsComponent } from './dashboard/stats/stats.component';
+import { BlocksComponent } from './dashboard/blocks/blocks.component';
+import { TransactionsComponent } from './dashboard/transactions/transactions.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { StatsComponent } from './dashboard/stats/stats.component';
     DashboardComponent,
     SettingsComponent,
     SearchComponent,
-    StatsComponent
+    StatsComponent,
+    BlocksComponent,
+    TransactionsComponent
   ]
 })
 export class Dashboard1Module { }
