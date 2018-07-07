@@ -1,24 +1,25 @@
 .vote-progress {
-    display: block;
-    margin: 20px 0;
-    position: relative;
-    height: 24px;
+  display: block;
+  margin: 20px 0;
+  position: relative;
+  height: 24px;
 }
 
 .vote-progress .mat-progress-bar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
 }
 
 .vote-progress span {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 100%;
-    line-height: 24px;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  line-height: 24px;
+  text-align: center;
+  color: #fff;
 }

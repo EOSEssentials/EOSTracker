@@ -19,7 +19,7 @@ export class StatsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stats$ = timer(0, 500000).pipe(
+    this.stats$ = timer(0, 5000).pipe(
       switchMap(() => this.statService.getStats()),
       map(stats => stats.map((stat, index) => {
         switch (index) {

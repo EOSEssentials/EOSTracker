@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
 
   search() {
     if (this.query.value) {
-      this.router.navigate(['/v1/search'], {
+      this.router.navigate(['/search'], {
         queryParams: { q: this.query.value },
         skipLocationChange: true
       });
