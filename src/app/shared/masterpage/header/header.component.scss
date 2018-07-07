@@ -1,3 +1,5 @@
+@import '../../../../themes';
+;
 :host {
   display: block;
   position: fixed;
@@ -10,21 +12,21 @@
 header {
   height: 100%;
   padding: 0 20px;
-  background-color: #fafafa;
-}
-
-header .mat-icon-button {
-  margin-right: 10px;
-}
-
-header .brand img {
-  width: 30px;
-}
-
-header .search-collapsed {
-  width: auto;
-}
-
-header .search-expanded {
-  width: 100%;
+  .mat-icon-button {
+    margin-right: 10px;
+  }
+  .brand {
+    color: mat-color($mat-eosio, 500);
+    img {
+      width: 30px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+  }
+  .search-collapsed {
+    width: auto;
+  }
+  .search-expanded {
+    width: 100%;
+  }
 }

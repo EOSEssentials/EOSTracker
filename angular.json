@@ -22,6 +22,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/themes.scss",
               "src/material.scss"
             ],
             "scripts": [
