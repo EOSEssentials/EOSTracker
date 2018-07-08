@@ -1,0 +1,35 @@
+<table *ngIf="transaction; else loading">
+  <tr>
+    <td>{{ 'Id' | translate }}:</td>
+    <td>{{transaction.id}}</td>
+  </tr>
+  <tr>
+    <td>{{ 'Block' | translate }}:</td>
+    <td>
+      <a [routerLink]="['/blocks',transaction.blockId]">{{transaction.blockId}}</a>
+    </td>
+  </tr>
+  <tr>
+    <td>{{ 'CreatedAt' | translate }}:</td>
+    <td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
+  </tr>
+  <tr>
+    <td>{{ 'Pending' | translate }}:</td>
+    <td>{{transaction.pending}}</td>
+  </tr>
+  <tr>
+    <td>{{ 'Actions' | translate }}:</td>
+    <td>{{transaction.numActions}}</td>
+  </tr>
+  <tr *ngIf="transaction.raw">
+    <td>{{ 'CPU Usage' | translate }}:</td>
+    <td>{{transaction.raw.cpu_usage_us | number }} µs</td>
+  </tr>
+  <tr *ngIf="transaction.raw">
+    <td>{{ 'Net Usage' | translate }}:</td>
+    <td>{{transaction.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
+  </tr>
+</table>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

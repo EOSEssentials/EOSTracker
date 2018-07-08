@@ -17,6 +17,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { PageComponent } from './page/page.component';
 import { LoadingComponent } from './page/loading/loading.component';
@@ -52,7 +54,9 @@ const sharedMaterialModules = [
   MatProgressBarModule,
   MatCardModule,
   MatTableModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatTabsModule,
+  MatBadgeModule
 ];
 
 const sharedComponents = [

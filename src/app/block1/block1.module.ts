@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { Block1RoutingModule } from './block1-routing.module';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatBadgeModule } from '@angular/material/badge';
 
 import { BlocksComponent } from './blocks/blocks.component';
 import { BlockComponent } from './block/block.component';
@@ -13,9 +11,7 @@ import { TransactionsComponent } from './block/transactions/transactions.compone
 @NgModule({
   imports: [
     SharedModule,
-    Block1RoutingModule,
-    MatTabsModule,
-    MatBadgeModule
+    Block1RoutingModule
   ],
   declarations: [
     BlocksComponent,

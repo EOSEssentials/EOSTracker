@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  padding: 10px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  overflow: auto;
+  td {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
