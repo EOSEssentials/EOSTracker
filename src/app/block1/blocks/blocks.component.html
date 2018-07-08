@@ -1,6 +1,6 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
   <h1 class="mat-headline">
-    <a routerLink=".">{{ 'Blocks' | translate }}</a>
+    {{ 'Blocks' | translate }}
   </h1>
 </mat-toolbar>
 <div style="margin:10px;">
@@ -19,7 +19,7 @@
       <ng-container matColumnDef="timestamp">
         <th mat-header-cell *matHeaderCellDef>{{ 'Timestamp' | translate }}</th>
         <td mat-cell *matCellDef="let block" class="truncate">
-          {{block.timestamp * 1000 | date:'medium'}}
+          {{block.timestamp | amFromUnix | date:'medium'}}
         </td>
       </ng-container>
       <ng-container matColumnDef="irreversible">

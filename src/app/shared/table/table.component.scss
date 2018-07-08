@@ -2,8 +2,12 @@
   display: block;
 }
 
-.table-pager {
-  margin: 10px 0;
+.table-pager-top {
+  margin: 10px 0 5px;
+}
+
+.table-pager-bottom {
+  margin: 5px 0 10px;
 }
 
 .table-wrapper {

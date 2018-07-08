@@ -1,0 +1,35 @@
+<ng-container *ngIf="blockTransactions$ | async as transactions; else loading">
+  <app-table [dataSource]="transactions">
+    <table mat-table [dataSource]="transactions">
+      <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let transaction">
+          <a [routerLink]="['../../transactions',transaction.id]">{{transaction.id | slice:0:32}}...</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="blockId">
+        <th mat-header-cell *matHeaderCellDef>{{ 'BlockId' | translate }}</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction.blockId}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction.createdAt * 1000 | date:'medium'}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="numActions">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Actions' | translate }}</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction.numActions}}
+        </td>
+      </ng-container>
+    </table>
+  </app-table>
+</ng-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

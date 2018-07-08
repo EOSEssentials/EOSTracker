@@ -1,28 +1,28 @@
 <ng-container *ngIf="dataSource; else loading">
   <ng-container *ngIf="enablePager">
-    <div class="table-pager" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="(page$ | async) as page">
-      <button mat-button color="primary" [disabled]="page <= 1" (click)="previous(page)">
+    <div class="table-pager-top" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="(page$ | async) as page">
+      <button mat-button color="accent" [disabled]="page <= 1" (click)="previous(page)">
         <mat-icon>navigate_before</mat-icon>
         Previous
       </button>
-      <button mat-button color="primary" (click)="next(page)">
+      <button mat-button color="accent" [disabled]="dataSource?.length < 30" (click)="next(page)">
         Next
         <mat-icon>navigate_next</mat-icon>
       </button>
     </div>
-    <mat-progress-bar [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar color="accent" [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
   </ng-container>
   <div class="table-wrapper">
     <ng-content></ng-content>
   </div>
   <ng-container *ngIf="enablePager">
-    <mat-progress-bar [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
-    <div class="table-pager" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="(page$ | async) as page">
-      <button mat-button color="primary" [disabled]="page <= 1" (click)="previous(page)">
+    <mat-progress-bar color="accent" [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
+    <div class="table-pager-bottom" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="(page$ | async) as page">
+      <button mat-button color="accent" [disabled]="page <= 1" (click)="previous(page)">
         <mat-icon>navigate_before</mat-icon>
         Previous
       </button>
-      <button mat-button color="primary" (click)="next(page)">
+      <button mat-button color="accent" [disabled]="dataSource?.length < 30" (click)="next(page)">
         Next
         <mat-icon>navigate_next</mat-icon>
       </button>

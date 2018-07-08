@@ -1,0 +1,6 @@
+<div *ngIf="blockRaw$ | async as blockRaw; else loading">
+  <prettyjson [obj]="blockRaw"></prettyjson>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
