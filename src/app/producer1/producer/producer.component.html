@@ -4,100 +4,26 @@
     <span *ngIf="producer$ | async as producer">{{producer.account?.name}}</span>
   </h1>
 </mat-toolbar>
-<div>
-  <mat-expansion-panel expanded="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ 'Producer' | translate }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="table-responsive" *ngIf="producer$ | async as producer">
-      <table class="table table-striped">
-        <tr *ngIf="producer.bpJson?.org?.candidate_name">
-          <td>{{ 'Name' | translate }}:</td>
-          <td>{{producer.bpJson.org.candidate_name}}</td>
-        </tr>
-        <tr *ngIf="producer.account">
-          <td>{{ 'Account' | translate }}:</td>
-          <td>{{producer.account.name}}
-            <mat-icon *ngIf="producer.validated" style="color: green">check</mat-icon>
-          </td>
-        </tr>
-        <tr *ngIf="producer">
-          <td>{{ 'Public Key' | translate }}:</td>
-          <td>{{producer.producer_key}}
-            <mat-icon *ngIf="producer.validated" style="color: green">check</mat-icon>
-          </td>
-        </tr>
-        <tr *ngIf="producer">
-          <td>{{ 'Votes' | translate }}:</td>
-          <td>{{producer.votes}}%</td>
-        </tr>
-        <tr *ngIf="producer">
-          <td>{{ 'Url' | translate }}:</td>
-          <td>{{producer.url}}</td>
-        </tr>
-        <tr *ngIf="producer">
-          <td>{{ 'Position' | translate }}:</td>
-          <td>#{{producer.position}}</td>
-        </tr>
-        <tr *ngIf="producer">
-          <td>{{ 'Daily Reward' | translate }}:</td>
-          <td>{{producer.reward}} EOS</td>
-        </tr>
-      </table>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel expanded="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ 'Nodes' | translate }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div *ngIf="producer$ | async as producer">
-      <agm-map [latitude]="producer.location.latitude" [longitude]="producer.location.longitude" [zoom]="15" mapTypeId="roadmap"
-        style="width:100%;height:300px"></agm-map>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel expanded="false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ 'BlockchainRawData' | translate }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div *ngIf="producer$ | async as producer">
-      <prettyjson [obj]="producer.account?.raw"></prettyjson>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel expanded="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
+<div *ngIf="producer$ | async as producer; else loading">
+  <app-producer-information [producer]="producer" style="margin:10px;"></app-producer-information>
+  <app-producer-nodes [location]="producer.location" style="margin:10px;"></app-producer-nodes>
+  <mat-tab-group color="primary" dynamicHeight="true">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon style="margin-right:5px;">how_to_vote</mat-icon>
         {{ 'Votes' | translate }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <app-table [dataSource]="votes$ | async">
-      <table mat-table [dataSource]="votes$ | async">
-        <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
-        <ng-container matColumnDef="account">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Account' | translate }}</th>
-          <td mat-cell *matCellDef="let vote">
-            <a [routerLink]="['../../account',vote.account]">{{vote.account}}</a>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="staked">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Staked' | translate }}</th>
-          <td mat-cell *matCellDef="let vote">
-            {{vote.staked | number}} EOS
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="votes">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Number of BPs' | translate }}}</th>
-          <td mat-cell *matCellDef="let vote">
-            {{vote.votes.length}}
-          </td>
-        </ng-container>
-      </table>
-    </app-table>
-  </mat-expansion-panel>
+      </ng-template>
+      <app-producer-votes [name]="producer.account?.name"></app-producer-votes>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon style="margin-right:5px;">code</mat-icon>
+        {{ 'BlockchainRawData' | translate }}
+      </ng-template>
+      <prettyjson [obj]="producer.account?.raw" *ngIf="producer.account?.raw"></prettyjson>
+    </mat-tab>
+  </mat-tab-group>
 </div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

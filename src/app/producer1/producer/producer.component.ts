@@ -7,19 +7,15 @@ import { AccountService } from '../../services/account.service';
 import { VoteService } from '../../services/vote.service';
 import { BpService } from '../../services/bp.service';
 import { Producer } from '../../models/Producer';
-import { Vote } from '../../models/Vote';
 
 @Component({
-  selector: 'app-producer',
   templateUrl: './producer.component.html',
   styleUrls: ['./producer.component.scss']
 })
 export class ProducerComponent implements OnInit {
 
-  columnHeaders = VOTE_COLUMNS;
   name$: Observable<string>;
   producer$: Observable<Producer>;
-  votes$: Observable<Vote>;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,13 +28,6 @@ export class ProducerComponent implements OnInit {
   ngOnInit() {
     this.name$ = this.route.params.pipe(
       map(params => params.id)
-    );
-    this.votes$ = combineLatest(
-      this.name$,
-      this.route.queryParams.pipe(map(queryParams => queryParams.page || 0))
-    ).pipe(
-      switchMap(([name, page]) => this.voteService.getVote(name, page)),
-      share()
     );
     this.producer$ = combineLatest(
       this.name$,
@@ -95,9 +84,3 @@ export class ProducerComponent implements OnInit {
   }
 
 }
-
-export const VOTE_COLUMNS = [
-  'account',
-  'staked',
-  'votes'
-];
