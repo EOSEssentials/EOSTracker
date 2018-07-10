@@ -4,6 +4,9 @@ import { Account1RoutingModule } from './account1-routing.module';
 
 import { AccountsComponent } from './accounts/accounts.component';
 import { AccountComponent } from './account/account.component';
+import { InformationComponent } from './account/information/information.component';
+import { TablesComponent } from './account/tables/tables.component';
+import { ActionsComponent } from './account/actions/actions.component';
 
 @NgModule({
   imports: [
@@ -12,7 +15,10 @@ import { AccountComponent } from './account/account.component';
   ],
   declarations: [
     AccountsComponent,
-    AccountComponent
+    AccountComponent,
+    InformationComponent,
+    TablesComponent,
+    ActionsComponent
   ]
 })
 export class Account1Module { }

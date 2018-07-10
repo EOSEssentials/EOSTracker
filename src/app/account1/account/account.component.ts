@@ -4,9 +4,8 @@ import { AccountService } from '../../services/account.service';
 import { CmcService } from '../../services/cmc.service';
 import { EosService } from '../../services/eos.service';
 import { Account } from '../../models/Account';
-import { Action } from '../../models/Action';
-import { Observable, combineLatest, from } from 'rxjs';
-import { map, switchMap, share, filter } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map, switchMap, share } from 'rxjs/operators';
 
 interface AccountRaw extends Account {
   raw: any;
@@ -27,9 +26,6 @@ export class AccountComponent implements OnInit {
   name$: Observable<string>;
   eosPrice$: Observable<number>;
   account$: Observable<AccountRaw>;
-  accountTables$: Observable<any[]>;
-  accountActionsSent$: Observable<Action[]>;
-  accountActionsReceived$: Observable<Action[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -64,25 +60,6 @@ export class AccountComponent implements OnInit {
         );
       }),
       share()
-    );
-    this.accountTables$ = this.account$.pipe(
-      filter(account => !!account.abi && !!account.abi.tables),
-      switchMap(account => {
-        const table$s: Observable<any>[] = account.abi.tables.map(table => {
-          return from(
-            this.eosService.eos.getTableRows(true, account.name, account.name, table.name, table.key_names[0])
-          ).pipe(
-            map(tableRows => ({ ...table, ...tableRows }))
-          );
-        });
-        return combineLatest(table$s);
-      })
-    );
-    this.accountActionsSent$ = this.name$.pipe(
-      switchMap(name => this.accountService.getAccountActionsSent(name))
-    );
-    this.accountActionsReceived$ = this.name$.pipe(
-      switchMap(name => this.accountService.getAccountActionsReceived(name))
     );
   }
 

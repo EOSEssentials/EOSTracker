@@ -1,0 +1,70 @@
+<div *ngIf="account; else loading" style="margin:10px;">
+  <table class="mat-elevation-z2">
+    <tr>
+      <td>{{ 'Name' | translate }}:</td>
+      <td>{{account.name}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'CreatedAt' | translate }}:</td>
+      <td>{{account.createdAt * 1000 | date:'medium'}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'UpdatedAt' | translate }}:</td>
+      <td>{{account.updatedAt * 1000 | date:'medium'}}</td>
+    </tr>
+    <tr *ngIf="account.balance != null">
+      <td>{{ 'Balance' | translate }}:</td>
+      <td>{{account.balance | number:'1.0-4' }} EOS</td>
+    </tr>
+    <tr *ngIf="account.tokens">
+      <td>{{ 'Other tokens' | translate }}:</td>
+      <td>
+        <div *ngFor="let token of account.tokens">{{token.balance}}</div>
+      </td>
+    </tr>
+    <tr *ngIf="account.raw">
+      <td>{{ 'RAM' | translate }}:</td>
+      <td>{{account.raw.ram_usage | toKB | number:'1.0-2'}} KB / {{account.raw.ram_quota | toKB | number:'1.0-2'}} KB
+        <span *ngIf="account.ramPrice">({{(account.ramPrice * account.raw.ram_quota) | number:'1.0-4'}} EOS)</span>
+      </td>
+    </tr>
+    <tr *ngIf="account.raw">
+      <td>{{ 'CPU' | translate }}:</td>
+      <td>
+        Staked: {{(account.raw.cpu_weight / 10000) | number:'1.0-4'}} EOS
+        <br /> Used: {{account.raw.cpu_limit.used | number}} µs
+        <br /> Available: {{account.raw.cpu_limit.available | number}} µs
+        <br /> Max: {{account.raw.cpu_limit.max | number}} µs
+      </td>
+    </tr>
+    <tr *ngIf="account.raw">
+      <td>{{ 'NET' | translate }}:</td>
+      <td>
+        Staked: {{(account.raw.net_weight / 10000) | number:'1.0-4'}} EOS
+        <br /> Used: {{(account.raw.net_limit.used) | toKB | number:'1.0-2'}} KB
+        <br /> Available: {{(account.raw.net_limit.available) | toKB | number:'1.0-2'}} KB
+        <br /> Max: {{(account.raw.net_limit.max) | toKB | number:'1.0-2'}} KB
+      </td>
+    </tr>
+    <tr *ngIf="account.raw && account.balance != null && account.ramPrice">
+      <td>{{ 'Value' | translate }}:</td>
+      <td>
+        {{((account.raw.cpu_weight / 10000) + (account.raw.net_weight / 10000) + account.balance + (account.ramPrice * account.raw.ram_quota))
+        | number:'1.0-4'}} EOS
+        <span *ngIf="eosPrice">(${{(((account.raw.cpu_weight / 10000) + (account.raw.net_weight / 10000) + account.balance + (account.ramPrice *
+          account.raw.ram_quota)) * eosPrice) | number:'1.0-2'}})</span>
+      </td>
+    </tr>
+  </table>
+  <div style="margin-top:15px;" *ngIf="accountActionsReceived$ | async as actionsReceived">
+    <h3 class="mat-subheading-2" style="margin:10px;">{{ 'Actions Received' | translate }}</h3>
+    <app-account-actions [actions]="actionsReceived"></app-account-actions>
+  </div>
+  <div style="margin-top:15px;" *ngIf="accountActionsSent$ | async as actionsSent">
+    <h3 class="mat-subheading-2" style="margin:10px;">{{ 'Actions Sent' | translate }}</h3>
+    <app-account-actions [actions]="actionsSent"></app-account-actions>
+  </div>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

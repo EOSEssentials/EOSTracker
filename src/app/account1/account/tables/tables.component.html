@@ -1,0 +1,13 @@
+<mat-accordion *ngIf="accountTables$ | async as tables; else loading">
+  <mat-expansion-panel *ngFor="let table of tables">
+    <mat-expansion-panel-header>
+      {{ 'Table' | translate }} - {{table.name}}
+    </mat-expansion-panel-header>
+    <div *ngFor="let row of table.rows">
+      <prettyjson [obj]="row"></prettyjson>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
