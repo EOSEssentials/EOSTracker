@@ -1,78 +1,24 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
   <h1 class="mat-headline">
     {{ 'Action' | translate }}
   </h1>
 </mat-toolbar>
-<ng-container *ngIf="(action$ | async) as action; else loading">
-  <mat-expansion-panel expanded="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ 'Action' | translate }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <tr>
-          <td>{{ 'TransactionId' | translate }}:</td>
-          <td>
-            <a [routerLink]="['/transactions',action.transaction]">{{action.transaction}}</a>
-          </td>
-        </tr>
-        <tr>
-          <td>{{ 'ActionIndex' | translate }}:</td>
-          <td>{{action.id}}</td>
-        </tr>
-        <tr>
-          <td>{{ 'CreatedAt' | translate }}:</td>
-          <td>{{action.createdAt * 1000 | date:'medium'}}</td>
-        </tr>
-        <tr>
-          <td>{{ 'HandlerAccount' | translate }}:</td>
-          <td>
-            <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
-          </td>
-        </tr>
-        <tr>
-          <td>{{ 'Name' | translate }}:</td>
-          <td>{{action.name}}</td>
-        </tr>
-        <tr>
-          <td>{{ 'Authorization' | translate }}:</td>
-          <td>
-            <span *ngFor="let account of action.authorizations">
-              <a [routerLink]="['/accounts',account.actor]">{{account.actor}}</a>
-            </span>
-          </td>
-        </tr>
-        <tr *ngIf="action.raw">
-          <td>{{ 'CPU Usage' | translate }}:</td>
-          <td>{{action.raw.cpu_usage_us | number }} µs</td>
-        </tr>
-        <tr *ngIf="action.raw">
-          <td>{{ 'Net Usage' | translate }}:</td>
-          <td>{{action.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
-        </tr>
-      </table>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel expanded="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ 'Data' | translate }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <prettyjson [obj]="action.data"></prettyjson>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ 'BlockchainRawData' | translate }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
+<mat-tab-group color="primary" dynamicHeight="true" *ngIf="action$ | async as action; else loading">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="margin-right:5px;">info</mat-icon>
+      {{ 'Action Information' | translate }}
+    </ng-template>
+    <app-contract-information [action]="action"></app-contract-information>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="margin-right:5px;">code</mat-icon>
+      {{ 'BlockchainRawData' | translate }}
+    </ng-template>
     <prettyjson [obj]="action.raw"></prettyjson>
-  </mat-expansion-panel>
-</ng-container>
+  </mat-tab>
+</mat-tab-group>
 <ng-template #loading>
-  <mat-progress-spinner color="primary" mode="indeterminate" value="50">
-  </mat-progress-spinner>
+  <app-spinner></app-spinner>
 </ng-template>
