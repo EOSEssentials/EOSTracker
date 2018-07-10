@@ -1,45 +1,51 @@
-<table *ngIf="block; else loading">
-  <tr>
-    <td>{{ 'Number' | translate }}:</td>
-    <td>{{block.blockNumber}}</td>
-  </tr>
-  <tr>
-    <td>{{ 'Producer' | translate }}:</td>
-    <td>
-      <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
-    </td>
-  </tr>
-  <tr>
-    <td>{{ 'Timestamp' | translate }}:</td>
-    <td>{{block.timestamp * 1000 | date:'medium'}}</td>
-  </tr>
-  <tr>
-    <td>{{ 'BlockId' | translate }}:</td>
-    <td>{{block.id}}</td>
-  </tr>
-  <tr>
-    <td>{{ 'Previous' | translate }} {{ 'BlockInformation' | translate }}:</td>
-    <td>
-      <a [routerLink]="['/search']" [queryParams]="{q: block.prevBlockId}">{{block.prevBlockId}}</a>
-    </td>
-  </tr>
-  <tr>
-    <td>{{ 'Transaction' | translate }} {{ 'MerkleRoot' | translate }}:</td>
-    <td>{{block.transactionMerkleRoot}}</td>
-  </tr>
-  <tr>
-    <td>{{ 'Action' | translate }} {{ 'MerkleRoot' | translate }}:</td>
-    <td>{{block.actionMerkleRoot}}</td>
-  </tr>
-  <tr>
-    <td>{{ 'Transactions' | translate }}:</td>
-    <td>{{block.numTransactions}}</td>
-  </tr>
-  <tr>
-    <td>{{ 'Confirmations' | translate }}:</td>
-    <td>{{block.confirmed}}</td>
-  </tr>
-</table>
+<div *ngIf="block; else loading" style="margin:10px;">
+  <table class="mat-elevation-z2">
+    <tr>
+      <td>{{ 'Number' | translate }}:</td>
+      <td>{{block.blockNumber}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Producer' | translate }}:</td>
+      <td>
+        <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'Timestamp' | translate }}:</td>
+      <td>{{block.timestamp * 1000 | date:'medium'}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'BlockId' | translate }}:</td>
+      <td>{{block.id}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Previous' | translate }} {{ 'BlockInformation' | translate }}:</td>
+      <td>
+        <a [routerLink]="['/search']" [queryParams]="{q: block.prevBlockId}">{{block.prevBlockId}}</a>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'Transaction' | translate }} {{ 'MerkleRoot' | translate }}:</td>
+      <td>{{block.transactionMerkleRoot}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Action' | translate }} {{ 'MerkleRoot' | translate }}:</td>
+      <td>{{block.actionMerkleRoot}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Transactions' | translate }}:</td>
+      <td>{{block.numTransactions}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Confirmations' | translate }}:</td>
+      <td>{{block.confirmed}}</td>
+    </tr>
+  </table>
+  <div *ngIf="block.numTransactions > 0" style="margin-top:15px;">
+    <h3 class="mat-subheading-2" style="margin:10px;">{{ 'Transactions' | translate }}</h3>
+    <app-block-transactions [id]="block?.blockNumber"></app-block-transactions>
+  </div>
+</div>
 <ng-template #loading>
   <app-spinner></app-spinner>
 </ng-template>

@@ -3,7 +3,7 @@
     {{ 'Transaction' | translate }}
   </h1>
 </mat-toolbar>
-<mat-tab-group color="primary" dynamicHeight="true" *ngIf="transaction$ | async as transaction">
+<mat-tab-group color="primary" dynamicHeight="true" *ngIf="transaction$ | async as transaction; else loading">
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon style="margin-right:5px;">info</mat-icon>
@@ -18,7 +18,7 @@
     </ng-template>
     <app-transaction-data [transaction]="transaction"></app-transaction-data>
   </mat-tab>
-  <mat-tab [disabled]="transaction.numActions == 0">
+  <!-- <mat-tab [disabled]="transaction.numActions == 0">
     <ng-template mat-tab-label>
       <mat-icon style="margin-right:5px;">list</mat-icon>
       <span [matBadge]="transaction.numActions" matBadgeOverlap="false">{{ 'Actions' | translate }}</span>
@@ -26,5 +26,8 @@
     <ng-template matTabContent>
       <app-transaction-actions [id]="id$ | async"></app-transaction-actions>
     </ng-template>
-  </mat-tab>
+  </mat-tab> -->
 </mat-tab-group>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

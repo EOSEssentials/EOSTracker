@@ -3,7 +3,7 @@
     {{ 'Block' | translate }} #{{id$ | async}}
   </h1>
 </mat-toolbar>
-<mat-tab-group color="primary" dynamicHeight="true" *ngIf="block$ | async as block">
+<mat-tab-group color="primary" dynamicHeight="true" *ngIf="block$ | async as block; else loading">
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon style="margin-right:5px;">info</mat-icon>
@@ -20,7 +20,7 @@
       <app-block-data [id]="id$ | async"></app-block-data>
     </ng-template>
   </mat-tab>
-  <mat-tab [disabled]="block.numTransactions == 0">
+  <!-- <mat-tab [disabled]="block.numTransactions == 0">
     <ng-template mat-tab-label>
       <mat-icon style="margin-right:5px;">list_alt</mat-icon>
       <span [matBadge]="block.numTransactions" matBadgeOverlap="false">{{ 'Transactions' | translate }}</span>
@@ -28,5 +28,8 @@
     <ng-template matTabContent>
       <app-block-transactions [id]="id$ | async"></app-block-transactions>
     </ng-template>
-  </mat-tab>
+  </mat-tab> -->
 </mat-tab-group>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

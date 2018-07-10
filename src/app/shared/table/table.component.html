@@ -1,5 +1,5 @@
 <ng-container *ngIf="dataSource; else loading">
-  <ng-container *ngIf="enablePager">
+  <ng-container *ngIf="enablePager && showTopPager">
     <div class="table-pager-top" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="(page$ | async) as page">
       <button mat-button color="accent" [disabled]="page <= 1" (click)="previous(page)">
         <mat-icon>navigate_before</mat-icon>
