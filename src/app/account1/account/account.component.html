@@ -14,18 +14,18 @@
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon style="margin-right:5px;">code</mat-icon>
-      {{ 'Contract' | translate }}
-    </ng-template>
-    <prettyjson [obj]="account.abi" *ngIf="account.abi"></prettyjson>
-  </mat-tab>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon style="margin-right:5px;">code</mat-icon>
       {{ 'BlockchainRawData' | translate }}
     </ng-template>
     <prettyjson [obj]="account.raw" *ngIf="account.raw"></prettyjson>
   </mat-tab>
-  <mat-tab [disabled]="account.abi?.tables?.length === 0">
+  <mat-tab [disabled]="!account.abi">
+    <ng-template mat-tab-label>
+      <mat-icon style="margin-right:5px;">code</mat-icon>
+      {{ 'Contract' | translate }}
+    </ng-template>
+    <prettyjson [obj]="account.abi" *ngIf="account.abi"></prettyjson>
+  </mat-tab>
+  <mat-tab [disabled]="!account.abi || account.abi?.tables?.length === 0">
     <ng-template mat-tab-label>
       <mat-icon style="margin-right:5px;">table_chart</mat-icon>
       {{ 'Tables' | translate }}

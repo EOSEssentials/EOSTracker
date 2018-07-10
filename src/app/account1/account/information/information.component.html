@@ -16,7 +16,7 @@
       <td>{{ 'Balance' | translate }}:</td>
       <td>{{account.balance | number:'1.0-4' }} EOS</td>
     </tr>
-    <tr *ngIf="account.tokens">
+    <tr *ngIf="account.tokens.length">
       <td>{{ 'Other tokens' | translate }}:</td>
       <td>
         <div *ngFor="let token of account.tokens">{{token.balance}}</div>

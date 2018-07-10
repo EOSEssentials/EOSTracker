@@ -10,25 +10,25 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="account">
-        <th mat-header-cell *matHeaderCellDef>{{ 'BlockId' | translate }}</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Account' | translate }}</th>
         <td mat-cell *matCellDef="let action">
           <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Timestamp' | translate }}</th>
         <td mat-cell *matCellDef="let action">
           {{action.createdAt * 1000 | date:'medium'}}
         </td>
       </ng-container>
       <ng-container matColumnDef="transaction">
-        <th mat-header-cell *matHeaderCellDef>{{ 'Actions' | translate }}</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Transaction' | translate }}</th>
         <td mat-cell *matCellDef="let action">
           <a [routerLink]="['/transactions',action.transaction]">{{action.transaction|slice:0:16}}...</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>{{ 'Actions' | translate }}</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
         <td mat-cell *matCellDef="let action">
           {{action.name}}
         </td>
