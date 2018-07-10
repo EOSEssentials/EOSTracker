@@ -4,6 +4,7 @@ import { AccountService } from '../../services/account.service';
 import { CmcService } from '../../services/cmc.service';
 import { EosService } from '../../services/eos.service';
 import { Account } from '../../models/Account';
+import { Action } from '../../models/Action';
 import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap, share } from 'rxjs/operators';
 
@@ -26,6 +27,8 @@ export class AccountComponent implements OnInit {
   name$: Observable<string>;
   eosPrice$: Observable<number>;
   account$: Observable<AccountRaw>;
+  accountActionsSent$: Observable<Action[]>;
+  accountActionsReceived$: Observable<Action[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,6 +63,12 @@ export class AccountComponent implements OnInit {
         );
       }),
       share()
+    );
+    this.accountActionsSent$ = this.name$.pipe(
+      switchMap(name => this.accountService.getAccountActionsSent(name))
+    );
+    this.accountActionsReceived$ = this.name$.pipe(
+      switchMap(name => this.accountService.getAccountActionsReceived(name))
     );
   }
 
