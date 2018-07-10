@@ -4,10 +4,7 @@
   </h1>
 </mat-toolbar>
 <div style="margin:10px;">
-  <div class="vote-progress" *ngIf="chainStatus$ | async as chainStatus">
-    <mat-progress-bar color="accent" mode="determinate" [value]="chainStatus.chainPercentage"></mat-progress-bar>
-    <span>Votes: {{ (chainStatus.chainNumber) | number }} ({{chainStatus.chainPercentage}}%)</span>
-  </div>
+  <app-vote-progress-bar [chainStatus]="chainStatus$ | async"></app-vote-progress-bar>
   <app-table [dataSource]="producers$ | async" [enablePager]="false">
     <table mat-table [dataSource]="producers$ | async">
       <ng-container *ngIf="columnHeaders$ | async as columnHeaders">

@@ -1,0 +1,4 @@
+<div class="vote-progress" *ngIf="chainStatus">
+  <mat-progress-bar color="accent" mode="determinate" [value]="chainPercentage"></mat-progress-bar>
+  <span>Votes: {{ chainNumber | number }} ({{chainPercentage}}%)</span>
+</div>

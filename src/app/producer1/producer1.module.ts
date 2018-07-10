@@ -5,6 +5,7 @@ import { AgmCoreModule } from '@agm/core';
 
 import { ProducersComponent } from './producers/producers.component';
 import { ProducerComponent } from './producer/producer.component';
+import { VoteProgressBarComponent } from './vote-progress-bar/vote-progress-bar.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ProducerComponent } from './producer/producer.component';
   ],
   declarations: [
     ProducersComponent,
-    ProducerComponent
+    ProducerComponent,
+    VoteProgressBarComponent
   ]
 })
 export class Producer1Module { }

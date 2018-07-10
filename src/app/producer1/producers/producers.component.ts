@@ -25,15 +25,7 @@ export class ProducersComponent implements OnInit {
       map(result => result.matches ? PRODUCERS_COLUMNS.filter((c: any) => (c !== 'url' && c !== 'numVotes')) : PRODUCERS_COLUMNS)
     );
     this.chainStatus$ = timer(0, 60000).pipe(
-      switchMap(() => this.eosService.getChainStatus().pipe(
-        map(chainStatus => {
-          return {
-            ...chainStatus,
-            chainPercentage: (chainStatus.total_activated_stake / 10000 / 1000011818 * 100).toFixed(2),
-            chainNumber: (chainStatus.total_activated_stake / 1000011818 * 100000)
-          };
-        })
-      )),
+      switchMap(() => this.eosService.getChainStatus()),
       share()
     );
     this.producers$ = this.chainStatus$.pipe(
