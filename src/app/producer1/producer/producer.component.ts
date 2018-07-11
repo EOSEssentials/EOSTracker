@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, share } from 'rxjs/operators';
 import { EosService } from '../../services/eos.service';
 import { AccountService } from '../../services/account.service';
@@ -69,16 +69,20 @@ export class ProducerComponent implements OnInit {
           votes: percentageVotes.toFixed(2)
         }
       }),
-      switchMap(producer => this.bpService.getBP(producer.url).pipe(
-        map(bpJson => {
-          return {
-            ...producer,
-            bpJson,
-            location: bpJson && bpJson.nodes && bpJson.nodes[0] && bpJson.nodes[0].location,
-            validated: bpJson && bpJson.producer_public_key === producer.producer_key && bpJson.producer_account_name === producer.owner
-          };
-        })
-      )),
+      switchMap(producer => {
+        if (!producer.url) {
+          return of(producer);
+        } else {
+          return this.bpService.getBP(producer.url).pipe(
+            map(bpJson => ({
+              ...producer,
+              bpJson,
+              location: bpJson && bpJson.nodes && bpJson.nodes[0] && bpJson.nodes[0].location,
+              validated: bpJson && bpJson.producer_public_key === producer.producer_key && bpJson.producer_account_name === producer.owner
+            }))
+          );
+        }
+      }),
       share()
     );
   }
