@@ -3,7 +3,7 @@
     {{ 'Search' | translate }} "{{query$ | async}}"
   </h1>
 </mat-toolbar>
-<div style="margin:20px;">
+<div style="margin:20px;" *ngIf="result$ | async; else loading">
   <p class="mat-subheading-2">No Result Found!</p>
   <p class="mat-body-1">Here are the supported search queries.</p>
   <ul>
@@ -13,3 +13,6 @@
     <li>Account Name (e.g., eosio)</li>
   </ul>
 </div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
