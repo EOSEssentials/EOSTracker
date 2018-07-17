@@ -1,0 +1,161 @@
+<canvas *ngIf="showConfetti" id="confetti-holder"></canvas>
+<mat-toolbar color="primary">
+	<h1 class="mat-headline">
+		{{ 'Support' | translate }}
+		<a routerLink="/accounts/{{contract}}" style="color:inherit;text-decoration:underline;">{{contract}}</a>
+	</h1>
+</mat-toolbar>
+<div style="margin:10px;">
+	<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" style="margin:20px 0;">
+		<mat-card fxFlex>
+			<mat-card-title>
+				❤️ {{ 'Support' | translate }}
+			</mat-card-title>
+			<mat-card-subtitle>
+				✨️ Here you can find the list of our AWESOME supporters.
+			</mat-card-subtitle>
+			<mat-card-content>
+				<ul>
+					<li>💰 Each 7 days project will be able to claim 10% from each patron.</li>
+					<li>💳 Patrons can refund anytime their remaining money if they want.</li>
+					<li>🏆 A list of all times patrons will appear in the History.</li>
+					<li>🔑 Transfer EOS to
+						<a routerLink="/accounts/{{contract}}">{{contract}}</a> or use the Login button.</li>
+				</ul>
+			</mat-card-content>
+		</mat-card>
+		<mat-card fxFlex>
+			<mat-card-title>
+				🛠 {{ 'Actions' | translate }}
+			</mat-card-title>
+			<ng-container *ngIf="!isLogged()">
+				<mat-card-subtitle>
+					ℹ️ To become a Patron please login or transfer EOS to
+					<a routerLink="/accounts/{{contract}}">{{contract}}</a>
+				</mat-card-subtitle>
+				<mat-card-actions>
+					<button (click)="login()" mat-raised-button color="primary" style="width: 100%" type="submit">Login 🚀️</button>
+				</mat-card-actions>
+			</ng-container>
+			<mat-card-content *ngIf="isLogged()">
+				<form class="ng-untouched ng-pristine ng-invalid">
+					<div class="input-group">
+						<div class="input-group">
+							<span class="input-group-addon">EOS</span>
+							<input aria-label="..." [(ngModel)]="amount" class="form-control ng-untouched ng-pristine ng-invalid" name="msg" placeholder="5"
+							 required type="text" [disabled]="!isLogged() || alive">
+						</div>
+						<div class="input-group-btn">
+							<button (click)="support(amount)" mat-raised-button color="primary" id="btnSupport" type="submit" [disabled]="!isLogged() || alive">Support 🚀</button>
+						</div>
+					</div>
+				</form>
+				<div style="margin-top: 20px; ">
+					<form class="ng-untouched ng-pristine ng-invalid">
+						<button (click)="refund()" mat-raised-button style="width: 100%" type="submit" [disabled]="!isLogged() || alive">Refund ✂️</button>
+					</form>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" style="margin:20px 0;">
+		<mat-card fxFlex>
+			<mat-card-title>
+				{{ 'Roadmap' | translate }}
+			</mat-card-title>
+			<mat-card-content>
+				<ul>
+					<li>Migration to Material design</li>
+					<li>Multiple themes (dark mode)</li>
+					<li>Curated list of other external tools</li>
+					<li>SQL Plugin maintenance</li>
+					<li>Contract verification</li>
+					<li>Improve translations</li>
+					<li>Inline actions tracking</li>
+					<li>Charts</li>
+					<li>RAM info</li>
+					<li>Token lists</li>
+					<li>Allow execute code from ABI</li>
+					<li>Notifications / Email Alerts</li>
+					<li>IPFS search</li>
+					<li>API usable for third parties</li>
+					<li>DEX search</li>
+				</ul>
+			</mat-card-content>
+		</mat-card>
+		<mat-card fxFlex>
+			<mat-card-title>
+				💎 {{ 'Info' | translate }}
+			</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngIf="info; else loading">
+					<table style="width:100%;">
+						<tr>
+							<td>Receiver:</td>
+							<td>
+								<a routerLink="/accounts/{{info.receiver}}">{{info.receiver}}</a>
+							</td>
+						</tr>
+						<tr>
+							<td>Last Claim:</td>
+							<td>{{info.last_claim}}</td>
+						</tr>
+					</table>
+				</ng-container>
+				<ng-template #loading>
+					<app-spinner></app-spinner>
+				</ng-template>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" style="margin:20px 0;">
+		<mat-card fxFlex>
+			<mat-card-title>
+				💰 {{ 'History (Paid)' | translate }}
+			</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngIf="history; else loading">
+					<table style="width:100%;">
+						<tr *ngIf="history">
+							<td>{{ 'Name' | translate }}</td>
+							<td>{{ 'Amount' | translate }}</td>
+						</tr>
+						<tr *ngFor="let account of history">
+							<td>
+								<a routerLink="/accounts/{{account.name}}">{{account.name}}</a>
+							</td>
+							<td>{{account.balance}}</td>
+						</tr>
+					</table>
+				</ng-container>
+				<ng-template #loading>
+					<app-spinner></app-spinner>
+				</ng-template>
+			</mat-card-content>
+		</mat-card>
+		<mat-card fxFlex>
+			<mat-card-title>
+				💸 {{ 'Patrons (Pending)' | translate }}
+			</mat-card-title>
+			<mat-card-content>
+				<ng-container *ngIf="patrons; else loading">
+					<table style="width:100%;">
+						<tr *ngIf="history">
+							<td>{{ 'Name' | translate }}</td>
+							<td>{{ 'Amount' | translate }}</td>
+						</tr>
+						<tr *ngFor="let account of patrons">
+							<td>
+								<a routerLink="/accounts/{{account.name}}">{{account.name}}</a>
+							</td>
+							<td>{{account.balance}}</td>
+						</tr>
+					</table>
+				</ng-container>
+				<ng-template #loading>
+					<app-spinner></app-spinner>
+				</ng-template>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>
