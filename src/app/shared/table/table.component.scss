@@ -2,14 +2,10 @@
   display: block;
 }
 
-.table-pager-top {
-  margin: 10px 0 5px;
-}
-
-.table-pager-bottom {
-  margin: 5px 0 10px;
+.table-title {
+  margin: 0 0 5px 10px;
 }
 
 .table-wrapper {
-  overflow-x: auto;
+  overflow: auto;
 }

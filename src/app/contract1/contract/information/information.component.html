@@ -1,47 +1,51 @@
 <div *ngIf="action; else loading" style="margin:10px;">
-  <table class="mat-elevation-z2">
-    <tr>
-      <td>{{ 'TransactionId' | translate }}:</td>
-      <td>
-        <a [routerLink]="['/transactions',action.transaction]">{{action.transaction}}</a>
-      </td>
-    </tr>
-    <tr>
-      <td>{{ 'ActionIndex' | translate }}:</td>
-      <td>{{action.id}}</td>
-    </tr>
-    <tr>
-      <td>{{ 'CreatedAt' | translate }}:</td>
-      <td>{{action.createdAt * 1000 | date:'medium'}}</td>
-    </tr>
-    <tr>
-      <td>{{ 'HandlerAccount' | translate }}:</td>
-      <td>
-        <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
-      </td>
-    </tr>
-    <tr>
-      <td>{{ 'Name' | translate }}:</td>
-      <td>{{action.name}}</td>
-    </tr>
-    <tr>
-      <td>{{ 'Authorization' | translate }}:</td>
-      <td>
-        <span *ngFor="let account of action.authorizations">
-          <a [routerLink]="['/accounts',account.actor]">{{account.actor}}</a>
-        </span>
-      </td>
-    </tr>
-    <tr *ngIf="action.raw">
-      <td>{{ 'CPU Usage' | translate }}:</td>
-      <td>{{action.raw.cpu_usage_us | number }} µs</td>
-    </tr>
-    <tr *ngIf="action.raw">
-      <td>{{ 'Net Usage' | translate }}:</td>
-      <td>{{action.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
-    </tr>
-  </table>
-  <div *ngIf="action.data" style="margin-top:15px;">
+  <mat-card>
+    <mat-card-content class="table-container">
+      <table>
+        <tr>
+          <td>{{ 'TransactionId' | translate }}:</td>
+          <td>
+            <a [routerLink]="['/transactions',action.transaction]">{{action.transaction}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'ActionIndex' | translate }}:</td>
+          <td>{{action.id}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'CreatedAt' | translate }}:</td>
+          <td>{{action.createdAt * 1000 | date:'medium'}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'HandlerAccount' | translate }}:</td>
+          <td>
+            <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'Name' | translate }}:</td>
+          <td>{{action.name}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Authorization' | translate }}:</td>
+          <td>
+            <span *ngFor="let account of action.authorizations">
+              <a [routerLink]="['/accounts',account.actor]">{{account.actor}}</a>
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="action.raw">
+          <td>{{ 'CPU Usage' | translate }}:</td>
+          <td>{{action.raw.cpu_usage_us | number }} µs</td>
+        </tr>
+        <tr *ngIf="action.raw">
+          <td>{{ 'Net Usage' | translate }}:</td>
+          <td>{{action.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="action.data" style="margin-top:20px;">
     <h3 class="mat-subheading-2" style="margin:10px;">{{ 'Data' | translate }}</h3>
     <prettyjson [obj]="action.data"></prettyjson>
   </div>

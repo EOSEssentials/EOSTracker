@@ -1,5 +1,5 @@
 <ng-container *ngIf="transactionActions$ | async as actions; else loading">
-  <app-table [dataSource]="actions">
+  <app-table [dataSource]="actions" [title]="'Actions' | translate">
     <table mat-table [dataSource]="actions">
       <tr mat-header-row *matHeaderRowDef="actionsColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: actionsColumns;"></tr>

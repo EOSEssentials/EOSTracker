@@ -1,38 +1,41 @@
 <div *ngIf="transaction; else loading" style="margin:10px;">
-  <table class="mat-elevation-z2">
-    <tr>
-      <td>{{ 'Id' | translate }}:</td>
-      <td>{{transaction.id}}</td>
-    </tr>
-    <tr>
-      <td>{{ 'Block' | translate }}:</td>
-      <td>
-        <a [routerLink]="['/blocks',transaction.blockId]">{{transaction.blockId}}</a>
-      </td>
-    </tr>
-    <tr>
-      <td>{{ 'CreatedAt' | translate }}:</td>
-      <td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
-    </tr>
-    <tr>
-      <td>{{ 'Pending' | translate }}:</td>
-      <td>{{transaction.pending}}</td>
-    </tr>
-    <tr>
-      <td>{{ 'Actions' | translate }}:</td>
-      <td>{{transaction.numActions}}</td>
-    </tr>
-    <tr *ngIf="transaction.raw">
-      <td>{{ 'CPU Usage' | translate }}:</td>
-      <td>{{transaction.raw.cpu_usage_us | number }} µs</td>
-    </tr>
-    <tr *ngIf="transaction.raw">
-      <td>{{ 'Net Usage' | translate }}:</td>
-      <td>{{transaction.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
-    </tr>
-  </table>
-  <div *ngIf="transaction.numActions > 0" style="margin-top:15px;">
-    <h3 class="mat-subheading-2" style="margin:10px;">{{ 'Actions' | translate }}</h3>
+  <mat-card>
+    <mat-card-content class="table-container">
+      <table>
+        <tr>
+          <td>{{ 'Id' | translate }}:</td>
+          <td>{{transaction.id}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Block' | translate }}:</td>
+          <td>
+            <a [routerLink]="['/blocks',transaction.blockId]">{{transaction.blockId}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'CreatedAt' | translate }}:</td>
+          <td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Pending' | translate }}:</td>
+          <td>{{transaction.pending}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Actions' | translate }}:</td>
+          <td>{{transaction.numActions}}</td>
+        </tr>
+        <tr *ngIf="transaction.raw">
+          <td>{{ 'CPU Usage' | translate }}:</td>
+          <td>{{transaction.raw.cpu_usage_us | number }} µs</td>
+        </tr>
+        <tr *ngIf="transaction.raw">
+          <td>{{ 'Net Usage' | translate }}:</td>
+          <td>{{transaction.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="transaction.numActions > 0" style="margin-top:20px;">
     <app-transaction-actions [id]="transaction.id"></app-transaction-actions>
   </div>
 </div>

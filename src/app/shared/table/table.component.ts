@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
 export class TableComponent implements OnInit, OnChanges {
 
   @Input() dataSource: any;
+  @Input() title = '';
   @Input() enablePager = true;
-  @Input() showTopPager = false;
   page$ = of(1);
   visibility = 'hidden';
 

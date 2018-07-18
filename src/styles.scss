@@ -4,3 +4,19 @@ pre {
   font-size: 12px;
   overflow: auto;
 }
+
+.table-container {
+  overflow: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    td {
+      height: 40px;
+      padding: 0 10px;
+    }
+  }
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
