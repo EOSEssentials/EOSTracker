@@ -9,7 +9,10 @@ export class EosService {
   public eos: any;
 
   constructor() {
-    this.eos = Eos({ httpEndpoint: environment.blockchainUrl });
+    this.eos = Eos({
+      httpEndpoint: environment.blockchainUrl,
+      blockId: environment.chainId
+    });
   }
 
   getAccount(name: string): Observable<any> {
