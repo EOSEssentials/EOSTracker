@@ -14,7 +14,7 @@
       </button>
     </div>
   </div>
-  <mat-progress-bar color="accent" [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar *ngIf="enablePager" color="accent" [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
   <div class="table-wrapper">
     <ng-content></ng-content>
   </div>

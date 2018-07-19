@@ -4,7 +4,7 @@
   </h1>
 </mat-toolbar>
 <div *ngIf="account$ | async as account; else loading">
-  <app-account-information [account]="account" [eosPrice]="eosPrice$ | async" style="margin:10px;"></app-account-information>
+  <app-account-information [account]="account" [eosPrice]="eosPrice$ | async"></app-account-information>
   <mat-tab-group color="primary" dynamicHeight="true">
     <mat-tab>
       <ng-template mat-tab-label>
