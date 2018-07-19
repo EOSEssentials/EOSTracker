@@ -6,8 +6,10 @@
   <mat-card-content>
     <app-table [dataSource]="blocks$ | async" [enablePager]="false">
       <table mat-table [dataSource]="blocks$ | async">
-        <tr mat-header-row *matHeaderRowDef="blocksColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: blocksColumns;"></tr>
+        <ng-container *ngIf="blocksColumns$ | async as blocksColumns">
+          <tr mat-header-row *matHeaderRowDef="blocksColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: blocksColumns;"></tr>
+        </ng-container>
         <ng-container matColumnDef="blockNumber">
           <th mat-header-cell *matHeaderCellDef>#</th>
           <td mat-cell *matCellDef="let block">

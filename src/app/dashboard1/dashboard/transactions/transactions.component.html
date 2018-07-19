@@ -6,8 +6,10 @@
   <mat-card-content>
     <app-table [dataSource]="transactions$ | async" [enablePager]="false">
       <table mat-table [dataSource]="transactions$ | async">
-        <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>
+        <ng-container *ngIf="transactionsColumns$ | async as transactionsColumns">
+          <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>
+        </ng-container>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>#</th>
           <td mat-cell *matCellDef="let transaction">
