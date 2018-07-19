@@ -27,14 +27,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    timer(0, 5000).pipe(
+     /* timer(0, 5000).pipe(
       takeWhile(() => this.alive)
     ).subscribe(() => {
 
         this.statService.getStats().subscribe(data => {
           this.stats = data;
         });
-      });
+      }); */ // TODO: fix
 
     // TODO: move from here and conver to objects https://medium.com/codingthesmartway-com-blog/angular-4-3-httpclient-accessing-rest-web-services-with-angular-2305b8fd654b
     timer(0, 5000).pipe(
