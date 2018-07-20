@@ -3,6 +3,7 @@ import * as Eos from 'eosjs';
 import { environment } from '../../environments/environment';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Block } from '../models/Block';
 
 @Injectable()
 export class EosService {
@@ -17,6 +18,26 @@ export class EosService {
 
   getAccount(name: string): Observable<any> {
     return from(this.eos.getAccount(name));
+  }
+
+  getBlock(id: string | number): Observable<Block> {
+    return from(this.eos.getBlock(id)).pipe(
+      map((blockRaw: any) => {
+        return <Block>{
+          actionMerkleRoot: blockRaw.action_mroot,
+          blockNumber: blockRaw.block_num,
+          confirmed: blockRaw.confirmed,
+          id: blockRaw.id,
+          newProducers: blockRaw.new_producers,
+          numTransactions: blockRaw.transactions.length,
+          prevBlockId: blockRaw.previous,
+          producer: blockRaw.producer,
+          timestamp: new Date(blockRaw.timestamp).getTime(),
+          transactionMerkleRoot: blockRaw.transaction_mroot,
+          version: blockRaw.schedule_version
+        };
+      })
+    );
   }
 
   getCurrencyBalance(name: string): Observable<number> {

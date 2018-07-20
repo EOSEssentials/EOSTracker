@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Block } from '../models/Block';
 import { Transaction } from '../models/Transaction';
+import { EosService } from '../services/eos.service';
 
 @Injectable()
 export class BlockService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private eosService: EosService
   ) { }
 
   getBlock(id: number): Observable<Block> {
     return this.http.get(`${environment.apiUrl}/blocks/${id}`).pipe(
-      map(block => block as Block)
+      map(block => block as Block),
+      catchError(error => {
+        console.log('got error', error);
+        return this.eosService.getBlock(id);
+      })
     );
   }
 
