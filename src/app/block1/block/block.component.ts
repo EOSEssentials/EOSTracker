@@ -12,7 +12,7 @@ import { switchMap, map } from 'rxjs/operators';
 export class BlockComponent implements OnInit {
 
   id$: Observable<number>;
-  block$: Observable<Block>;
+  block$: Observable<Block | number>;
 
   constructor(
     private route: ActivatedRoute,

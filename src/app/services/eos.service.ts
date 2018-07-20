@@ -32,7 +32,7 @@ export class EosService {
           numTransactions: blockRaw.transactions.length,
           prevBlockId: blockRaw.previous,
           producer: blockRaw.producer,
-          timestamp: new Date(blockRaw.timestamp).getTime(),
+          timestamp: new Date(blockRaw.timestamp).getTime() / 1000,
           transactionMerkleRoot: blockRaw.transaction_mroot,
           version: blockRaw.schedule_version
         };
