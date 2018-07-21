@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, from, combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, from, combineLatest, of } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Account } from '../models/Account';
-import { Action } from '../models/Action';
-import { Token } from '../models/Token';
+import { Account, Action, Token } from '../models';
 import { EosService } from './eos.service';
 
 @Injectable()
@@ -71,7 +69,8 @@ export class AccountService {
           .filter(token => token.symbol !== 'EOS')
           .map(token => {
             return from(this.eosService.eos.getCurrencyBalance(token.account, name, token.symbol)).pipe(
-              map((balance: string[]) => ({ ...token, balance: balance[0] }))
+              map((balance: string[]) => ({ ...token, balance: balance[0] })),
+              catchError(() => of({ ...token, balance: 0 }))
             );
           });
         return combineLatest(token$s);

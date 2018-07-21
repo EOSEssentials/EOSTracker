@@ -3,10 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { CmcService } from '../../services/cmc.service';
 import { EosService } from '../../services/eos.service';
-import { Account } from '../../models/Account';
-import { Action } from '../../models/Action';
-import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap, share } from 'rxjs/operators';
+import { Account, Action } from '../../models';
+import { Observable, combineLatest, of } from 'rxjs';
+import { map, switchMap, share, catchError } from 'rxjs/operators';
 
 interface AccountRaw extends Account {
   raw: any;
@@ -43,7 +42,9 @@ export class AccountComponent implements OnInit {
     );
     this.eosPrice$ = this.cmcService.getEosPrice();
     this.account$ = this.name$.pipe(
-      switchMap(name => this.accountService.getAccount(name)),
+      switchMap(name => this.accountService.getAccount(name).pipe(
+        catchError(() => of({ name: name } as Account))
+      )),
       switchMap(account => {
         return combineLatest(
           this.eosService.getAccount(account.name),

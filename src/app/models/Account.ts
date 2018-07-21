@@ -1,6 +1,8 @@
 export interface Account {
-  name: string;
-  eos: number;
+  abi?: {
+    tables?: any[];
+  };
   createdAt: number;
+  name: string;
   updatedAt: number;
 }

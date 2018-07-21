@@ -3,9 +3,7 @@ import * as Eos from 'eosjs';
 import { environment } from '../../environments/environment';
 import { Observable, from, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Block } from '../models/Block';
-import { Transaction } from '../models/Transaction';
-import { Result } from '../models/Result';
+import { Block, Transaction, Result } from '../models';
 
 @Injectable()
 export class EosService {
