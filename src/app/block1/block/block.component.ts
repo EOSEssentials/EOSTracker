@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlockService } from '../../services/block.service';
-import { Block } from '../../models/Block';
+import { Block, Result } from '../../models';
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { switchMap, map } from 'rxjs/operators';
 export class BlockComponent implements OnInit {
 
   id$: Observable<number>;
-  block$: Observable<Block | number>;
+  block$: Observable<Result<Block>>;
 
   constructor(
     private route: ActivatedRoute,

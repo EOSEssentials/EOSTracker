@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as Eos from 'eosjs';
 import { environment } from '../../environments/environment';
-import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, from, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Block } from '../models/Block';
+import { Transaction } from '../models/Transaction';
+import { Result } from '../models/Result';
 
 @Injectable()
 export class EosService {
@@ -20,22 +22,58 @@ export class EosService {
     return from(this.eos.getAccount(name));
   }
 
-  getBlock(id: string | number): Observable<Block> {
+  getBlock(id: string | number): Observable<Result<Block>> {
     return from(this.eos.getBlock(id)).pipe(
-      map((blockRaw: any) => {
-        return <Block>{
-          actionMerkleRoot: blockRaw.action_mroot,
-          blockNumber: blockRaw.block_num,
-          confirmed: blockRaw.confirmed,
-          id: blockRaw.id,
-          newProducers: blockRaw.new_producers,
-          numTransactions: blockRaw.transactions.length,
-          prevBlockId: blockRaw.previous,
-          producer: blockRaw.producer,
-          timestamp: new Date(blockRaw.timestamp).getTime() / 1000,
-          transactionMerkleRoot: blockRaw.transaction_mroot,
-          version: blockRaw.schedule_version
+      map((block: any) => {
+        return <Result<Block>>{
+          isError: false,
+          value: {
+            actionMerkleRoot: block.action_mroot,
+            blockNumber: block.block_num,
+            confirmed: block.confirmed,
+            id: block.id,
+            newProducers: block.new_producers,
+            numTransactions: block.transactions.length,
+            prevBlockId: block.previous,
+            producer: block.producer,
+            timestamp: new Date(block.timestamp).getTime() / 1000,
+            transactionMerkleRoot: block.transaction_mroot,
+            version: block.schedule_version
+          }
         };
+      }),
+      catchError(error => {
+        console.log('TODO: Log Chain Error', error);
+        return of(<Result<Block>>{
+          isError: true,
+          error: error
+        });
+      })
+    );
+  }
+
+  getTransaction(id: string): Observable<Result<Transaction>> {
+    return from(this.eos.getTransaction({ id })).pipe(
+      map((transaction: any) => {
+        return <Result<Transaction>>{
+          isError: false,
+          value: {
+            blockId: transaction.block_num,
+            createdAt: new Date(transaction.block_time).getTime() / 1000,
+            expiration: new Date(transaction.trx.trx.expiration).getTime() / 1000,
+            id: transaction.id,
+            numActions: transaction.trx.trx.actions.length,
+            pending: transaction.trx.trx.delay_sec > 0,
+            updatedAt: new Date(transaction.block_time).getTime() / 1000
+          }
+        };
+      }),
+      catchError(error => {
+        console.log('TODO: Log Chain Error', error);
+        return of(<Result<Transaction>>{
+          isError: true,
+          error: error
+        });
       })
     );
   }

@@ -1,21 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Transaction } from '../models/Transaction';
 import { Action } from '../models/Action';
+import { Result } from '../models/Result';
+import { EosService } from './eos.service';
 
 @Injectable()
 export class TransactionService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private eosService: EosService
   ) { }
 
-  getTransaction(id: string): Observable<Transaction> {
+  getTransaction(id: string): Observable<Result<Transaction>> {
     return this.http.get(`${environment.apiUrl}/transactions/${id}`).pipe(
-      map(transaction => transaction as Transaction)
+      map(transaction => {
+        return <Result<Transaction>>{
+          isError: false,
+          value: transaction as Transaction
+        };
+      }),
+      catchError(error => {
+        console.log('TODO: API Error', error);
+        return this.eosService.getTransaction(id);
+      })
     );
   }
 

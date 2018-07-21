@@ -3,8 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Block } from '../models/Block';
-import { Transaction } from '../models/Transaction';
+import { Block, Transaction, Result } from '../models';
 import { EosService } from './eos.service';
 
 @Injectable()
@@ -15,16 +14,17 @@ export class BlockService {
     private eosService: EosService
   ) { }
 
-  getBlock(id: number): Observable<Block | number> {
+  getBlock(id: number): Observable<Result<Block>> {
     return this.http.get(`${environment.apiUrl}/blocks/${id}`).pipe(
-      map(block => block as Block),
+      map(block => {
+        return <Result<Block>>{
+          isError: false,
+          value: block as Block
+        };
+      }),
       catchError(error => {
         console.log('TODO: API Error', error);
         return this.eosService.getBlock(id);
-      }),
-      catchError(error => {
-        console.log('TODO: Chain Error', error);
-        return of(-1);
       })
     );
   }

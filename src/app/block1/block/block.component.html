@@ -4,13 +4,13 @@
   </h1>
 </mat-toolbar>
 <ng-container *ngIf="block$ | async as block; else loading">
-  <mat-tab-group color="primary" dynamicHeight="true" *ngIf="block !== -1; else error">
+  <mat-tab-group color="primary" dynamicHeight="true" *ngIf="!block.isError; else error">
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon style="margin-right:5px;">info</mat-icon>
         {{ 'BlockInformation' | translate }}
       </ng-template>
-      <app-block-information [block]="block"></app-block-information>
+      <app-block-information [block]="block.value"></app-block-information>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
