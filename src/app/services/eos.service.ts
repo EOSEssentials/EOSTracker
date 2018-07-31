@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as Eos from 'eosjs';
 import { environment } from '../../environments/environment';
-import { Observable, from, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, from, of, timer } from 'rxjs';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { Block, Transaction, Result } from '../models';
 
 @Injectable()
@@ -14,6 +14,12 @@ export class EosService {
       httpEndpoint: environment.blockchainUrl,
       blockId: environment.chainId
     });
+  }
+
+  getInfo(interval = 5000): Observable<any> {
+    return timer(0, interval).pipe(
+      switchMap(() => from(this.eos.getInfo({})))
+    );
   }
 
   getAccount(name: string): Observable<any> {

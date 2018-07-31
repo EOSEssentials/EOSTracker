@@ -9,6 +9,7 @@ import { SearchComponent } from './search/search.component';
 import { StatsComponent } from './dashboard/stats/stats.component';
 import { BlocksComponent } from './dashboard/blocks/blocks.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
+import { ChainStatusComponent } from './dashboard/chain-status/chain-status.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { TransactionsComponent } from './dashboard/transactions/transactions.com
     SearchComponent,
     StatsComponent,
     BlocksComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    ChainStatusComponent
   ]
 })
 export class Dashboard1Module { }
