@@ -1,0 +1,20 @@
+:host {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+app-header {
+  height: 50px;
+}
+
+mat-sidenav-container {
+  padding-top: 50px;
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 200px;
+}

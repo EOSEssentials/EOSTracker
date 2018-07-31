@@ -1,0 +1,6 @@
+<div *ngIf="transaction?.raw; else loading">
+  <prettyjson [obj]="transaction.raw"></prettyjson>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

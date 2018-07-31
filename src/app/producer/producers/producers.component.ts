@@ -9,7 +9,7 @@ declare let $: any;
 @Component({
   selector: 'app-producers',
   templateUrl: './producers.component.html',
-  styleUrls: ['./producers.component.css']
+  styleUrls: ['./producers.component.scss']
 })
 export class ProducersComponent implements OnInit, OnDestroy {
   producers = null;

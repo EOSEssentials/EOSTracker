@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <h1 class="mat-headline">
+    {{ 'Search' | translate }} "{{query$ | async}}"
+  </h1>
+</mat-toolbar>
+<div style="margin:20px;" *ngIf="result$ | async; else loading">
+  <p class="mat-subheading-2">No Result Found!</p>
+  <p class="mat-body-1">Here are the supported search queries.</p>
+  <ul>
+    <li>Block Number (e.g., 12345)</li>
+    <li>Block ID (e.g., hash string of 64 characters)</li>
+    <li>Transaction ID (e.g., hash string of 64 characters)</li>
+    <li>Account Name (e.g., eosio)</li>
+  </ul>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

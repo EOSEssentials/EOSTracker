@@ -1,5 +1,10 @@
 export interface Transaction {
+  blockId: number;
+  createdAt: number;
+  expiration: number;
   id: string;
-  time: string;
-  type: string;
+  numActions: number;
+  pending: boolean;
+  refBlockPrefix: number;
+  updatedAt: number;
 }

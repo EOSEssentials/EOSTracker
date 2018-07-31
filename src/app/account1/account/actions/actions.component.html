@@ -1,0 +1,46 @@
+<ng-container *ngIf="actions; else loading">
+  <ng-container *ngIf="actions.length; else empty">
+    <app-table [dataSource]="actions" [enablePager]="false">
+      <table mat-table [dataSource]="actions">
+        <tr mat-header-row *matHeaderRowDef="actionsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: actionsColumns;"></tr>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let action">
+            <a [routerLink]="['/actions',action.id]">{{action.id}}</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="account">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Account' | translate }}</th>
+          <td mat-cell *matCellDef="let action">
+            <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Timestamp' | translate }}</th>
+          <td mat-cell *matCellDef="let action">
+            {{action.createdAt * 1000 | date:'medium'}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="transaction">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Transaction' | translate }}</th>
+          <td mat-cell *matCellDef="let action">
+            <a [routerLink]="['/transactions',action.transaction]">{{action.transaction|slice:0:16}}...</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+          <td mat-cell *matCellDef="let action">
+            {{action.name}}
+          </td>
+        </ng-container>
+      </table>
+    </app-table>
+  </ng-container>
+  <ng-template #empty>
+    <p class="mat-body-2" style="margin:10px;">No Actions</p>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

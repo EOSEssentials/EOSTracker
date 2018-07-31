@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+  <h1 class="mat-headline">
+    {{ 'Actions' | translate }}
+  </h1>
+</mat-toolbar>
+<div style="margin:10px;">
+  <app-table [dataSource]="actions$ | async">
+    <table mat-table [dataSource]="actions$ | async">
+      <ng-container *ngIf="columnHeaders$ | async as columnHeaders">
+        <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
+      </ng-container>
+      <ng-container matColumnDef="actionId">
+        <th mat-header-cell *matHeaderCellDef>{{ 'ActionId' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <a [routerLink]="['./',action.id]">{{action.id}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="transactionId">
+        <th mat-header-cell *matHeaderCellDef>{{ 'TransactionId' | translate }}</th>
+        <td mat-cell *matCellDef="let action" class="truncate">
+          <a [routerLink]="['/transactions',action.transaction]">{{action.transaction|slice:0:28}}...</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>{{ 'CreatedAt' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          {{action.createdAt * 1000 | date:'medium'}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="authorization">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Authorization' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <span *ngFor="let authorization of action.authorizations">
+            <a [routerLink]="['/accounts',authorization.actor]">{{authorization.actor}}</a>
+          </span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="handler">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Handler' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          {{action.name}}
+        </td>
+      </ng-container>
+    </table>
+  </app-table>
+</div>

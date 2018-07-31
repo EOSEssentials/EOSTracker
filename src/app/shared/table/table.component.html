@@ -1,0 +1,24 @@
+<ng-container *ngIf="dataSource; else loading">
+  <div class="table-title" fxLayout="row" fxLayoutAlign="start center" *ngIf="(page$ | async) as page">
+    <h3 class="mat-subheading-2" fxFlex>
+      {{ title }}
+    </h3>
+    <div *ngIf="enablePager">
+      <button mat-stroked-button color="accent" [disabled]="page <= 1" (click)="previous(page)">
+        <mat-icon>navigate_before</mat-icon>
+        Previous
+      </button>
+      <button mat-stroked-button color="accent" [disabled]="dataSource?.length < 30" (click)="next(page)" style="margin-left:10px;">
+        Next
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-progress-bar *ngIf="enablePager" color="accent" [style.visibility]="visibility" mode="indeterminate"></mat-progress-bar>
+  <div class="table-wrapper">
+    <ng-content></ng-content>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

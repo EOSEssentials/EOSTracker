@@ -1,0 +1,33 @@
+@import '~normalize.css/normalize.css';
+pre {
+  margin: 10px !important;
+  font-size: 12px;
+  overflow: auto;
+}
+
+.table-container {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  th,
+  td {
+    height: 40px;
+    padding: 0 10px !important;
+    white-space: nowrap;
+  }
+  th:first-child,
+  td:first-child {
+    padding-left: 15px !important;
+  }
+  th:last-child,
+  td:last-child {
+    padding-right: 15px !important;
+  }
+  tbody tr:nth-child(odd) {
+    background-color: #f5f5f5;
+  }
+}

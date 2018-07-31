@@ -1,0 +1,12 @@
+<mat-nav-list>
+  <ng-container *ngFor="let nav of navs">
+    <a *ngIf="!nav.external" mat-list-item [routerLink]="nav.link" routerLinkActive="active">
+      <mat-icon matListIcon>{{nav.icon}}</mat-icon>
+      <span matLine>{{nav.name}}</span>
+    </a>
+    <a *ngIf="nav.external" mat-list-item [href]="nav.link" target="_blank">
+      <mat-icon matListIcon>{{nav.icon}}</mat-icon>
+      <span matLine>{{nav.name}}</span>
+    </a>
+  </ng-container>
+</mat-nav-list>

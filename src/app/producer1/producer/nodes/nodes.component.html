@@ -1,0 +1,6 @@
+<mat-card *ngIf="location">
+  <mat-card-title>{{ 'Nodes' | translate }}</mat-card-title>
+  <mat-card-content>
+    <agm-map [latitude]="location.latitude" [longitude]="location.longitude" [zoom]="15" mapTypeId="roadmap" style="width:100%;height:300px"></agm-map>
+  </mat-card-content>
+</mat-card>

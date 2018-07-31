@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface CMCTicker {
   data?: {
@@ -26,6 +27,12 @@ export class CmcService {
 
   getEOSTicker(): Observable<CMCTicker> {
     return this.http.get('https://api.coinmarketcap.com/v2/ticker/1765/');
+  }
+
+  getEosPrice(): Observable<number> {
+    return this.http.get('https://api.coinmarketcap.com/v2/ticker/1765/').pipe(
+      map(result => result['data'].quotes.USD.price)
+    );
   }
 
 }

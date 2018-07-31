@@ -1,0 +1,12 @@
+<header fxLayout="row" fxLayoutAlign="start center">
+  <div fxFlex *ngIf="!searchExpanded">
+    <button mat-icon-button fxHide.gt-sm (click)="onMenuToggle.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="brand" routerLink="/">
+      <img [src]="logoUrl" />
+      <span>{{ appName | translate }}</span>
+    </a>
+  </div>
+  <app-search (onSearchExpanded)="searchExpanded = $event" [ngClass]="searchExpanded ? 'search-expanded' : 'search-collapsed'"></app-search>
+</header>

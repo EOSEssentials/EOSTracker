@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.vote-progress {
+  display: block;
+  position: relative;
+  height: 24px;
+  .mat-progress-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+  }
+}

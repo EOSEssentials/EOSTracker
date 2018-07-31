@@ -1,0 +1,20 @@
+<ng-container *ngIf="!expanded; else expandedView">
+  <button mat-icon-button fxShow.xs fxHide.gt-xs (click)="expand()">
+    <mat-icon>search</mat-icon>
+  </button>
+  <form (submit)="search()" novalidate fxShow.gt-xs fxHide.xs style="min-width:360px;">
+    <mat-icon>search</mat-icon>
+    <input type="search" placeholder="{{ 'SearchBy' | translate }}" [formControl]="query" class="mat-elevation-z1">
+  </form>
+</ng-container>
+<ng-template #expandedView>
+  <div fxLayout="row">
+    <form fxFlex (submit)="search()" novalidate>
+      <mat-icon>search</mat-icon>
+      <input type="search" placeholder="{{ 'SearchBy' | translate }}" [formControl]="query" class="mat-elevation-z1">
+    </form>
+    <button mat-icon-button (click)="collapse()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</ng-template>
