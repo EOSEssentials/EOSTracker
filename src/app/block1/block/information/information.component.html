@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <td>{{ 'Timestamp' | translate }}:</td>
-          <td>{{block.timestamp * 1000 | date:'medium'}}</td>
+          <td>{{block.timestamp | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
         </tr>
         <tr>
           <td>{{ 'BlockId' | translate }}:</td>
