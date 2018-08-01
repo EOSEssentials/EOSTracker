@@ -38,7 +38,7 @@
                 <tr *ngFor="let action of actions">
                   <td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
                   <td class="hidden-xs"><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:28}}...</a></td>
-                  <td>{{action.createdAt * 1000 | date:'medium'}}</td>
+                  <td>{{action.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
                   <td>
                     <span *ngFor="let authorization of action.authorizations">
                           <a routerLink="/accounts/{{authorization.actor}}">{{authorization.actor}}</a> 

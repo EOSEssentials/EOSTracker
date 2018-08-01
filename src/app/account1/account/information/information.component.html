@@ -9,11 +9,11 @@
         </tr>
         <tr>
           <td>{{ 'CreatedAt' | translate }}:</td>
-          <td>{{account.createdAt * 1000 | date:'medium'}}</td>
+          <td>{{account.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
         </tr>
         <tr>
           <td>{{ 'UpdatedAt' | translate }}:</td>
-          <td>{{account.updatedAt * 1000 | date:'medium'}}</td>
+          <td>{{account.updatedAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
         </tr>
         <tr *ngIf="account.balance != null">
           <td>{{ 'Balance' | translate }}:</td>

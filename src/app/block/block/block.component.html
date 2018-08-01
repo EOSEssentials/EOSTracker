@@ -28,7 +28,7 @@
 								</tr>
 								<tr>
 									<td>{{ 'Timestamp' | translate }}:</td>
-									<td>{{block.timestamp * 1000 | date:'medium'}}</td>
+									<td>{{block.timestamp | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'BlockId' | translate }}:</td>
@@ -108,7 +108,7 @@
 								<tr *ngFor="let transaction of transactions">
 									<td><a routerLink="/transactions/{{transaction.id}}">{{transaction.id|slice:0:32}}...</a></td>
 									<td><a routerLink="/blocks/{{transaction.blockId}}">{{transaction.blockId}}</a></td>
-									<td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{transaction.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 									<td>{{transaction.numActions}}</td>
 								</tr>
 								</tbody>

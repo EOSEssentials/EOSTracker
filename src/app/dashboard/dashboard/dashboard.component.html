@@ -36,7 +36,7 @@
 								<tbody>
 								<tr *ngFor="let block of blocks">
 									<td><a routerLink="/blocks/{{block.blockNumber}}">{{block.blockNumber}}</a></td>
-									<td class="hidden-xs">{{block.timestamp * 1000 | date:'medium'}}</td>
+									<td class="hidden-xs">{{block.timestamp | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 									<td><a routerLink="/producers/{{block.producer}}">{{block.producer}}</a></td>
 									<td>{{block.numTransactions}}</td>
 								</tr>
@@ -77,7 +77,7 @@
 								<tr *ngFor="let transaction of transactions">
 									<td><a routerLink="/transactions/{{transaction.id}}">{{transaction.id | slice:0:26}}...</a>
 									</td>
-									<td class="hidden-xs">{{transaction.createdAt * 1000 | date:'medium'}}</td>
+									<td class="hidden-xs">{{transaction.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 									<td>{{transaction.numActions}}</td>
 								</tr>
 								</tbody>

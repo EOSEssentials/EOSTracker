@@ -25,12 +25,12 @@
 
 								<tr>
 									<td>{{ 'CreatedAt' | translate }}:</td>
-									<td>{{account.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{account.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 								</tr>
 
 								<tr>
 									<td>{{ 'UpdatedAt' | translate }}:</td>
-									<td>{{account.updatedAt * 1000 | date:'medium'}}</td>
+									<td>{{account.updatedAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 								</tr>
 
 								<tr *ngIf="balance != null">
@@ -165,7 +165,7 @@
 								<tr *ngFor="let action of actionsReceived">
 									<td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
 									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
-									<td>{{action.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{action.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:16}}...</a></td>
 									<td>{{action.name}}</td>
 								</tr>
@@ -207,7 +207,7 @@
 								<tr *ngFor="let action of actionsSent">
 									<td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
 									<td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
-									<td>{{action.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{action.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 									<td><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:16}}...</a></td>
 									<td>{{action.name}}</td>
 								</tr>

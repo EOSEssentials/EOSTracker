@@ -29,7 +29,7 @@
 								</tr>
 								<tr>
 									<td>{{ 'CreatedAt' | translate }}:</td>
-									<td>{{transaction.createdAt * 1000 | date:'medium'}}</td>
+									<td>{{transaction.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
 								</tr>
 								<tr>
 									<td>{{ 'Pending' | translate }}:</td>
