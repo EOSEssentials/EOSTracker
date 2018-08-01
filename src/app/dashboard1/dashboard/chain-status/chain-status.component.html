@@ -22,7 +22,7 @@
       </tr>
       <tr>
         <td>{{ 'Latest Block Timestamp' | translate }}:</td>
-        <td>{{status.head_block_time | date:'medium'}}</td>
+        <td>{{status.head_block_time | amFromUtc | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
       </tr>
       <tr>
         <td>{{ 'Latest Block Producer' | translate }}:</td>
