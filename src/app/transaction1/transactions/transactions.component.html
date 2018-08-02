@@ -13,7 +13,9 @@
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>#</th>
         <td mat-cell *matCellDef="let transaction">
-          <a [routerLink]="['./',transaction.id]">{{transaction.id|slice:0:32}}...</a>
+          <a [routerLink]="['./',transaction.id]">
+            <id-64 [id]="transaction.id">{{transaction.id}}</id-64>
+          </a>
         </td>
       </ng-container>
       <ng-container matColumnDef="blockId">
