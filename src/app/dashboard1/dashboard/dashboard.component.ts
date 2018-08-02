@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../services/app.service';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -6,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  isMaintenance$: Observable<boolean>;
+
+  constructor(
+    private appService: AppService
+  ) { }
 
   ngOnInit() {
+    this.isMaintenance$ = this.appService.isMaintenance$;
   }
 
 }

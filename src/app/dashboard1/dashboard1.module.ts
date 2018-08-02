@@ -10,6 +10,7 @@ import { StatsComponent } from './dashboard/stats/stats.component';
 import { BlocksComponent } from './dashboard/blocks/blocks.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
 import { ChainStatusComponent } from './dashboard/chain-status/chain-status.component';
+import { MaintenanceComponent } from './dashboard/maintenance/maintenance.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ChainStatusComponent } from './dashboard/chain-status/chain-status.comp
     StatsComponent,
     BlocksComponent,
     TransactionsComponent,
-    ChainStatusComponent
+    ChainStatusComponent,
+    MaintenanceComponent
   ]
 })
 export class Dashboard1Module { }
