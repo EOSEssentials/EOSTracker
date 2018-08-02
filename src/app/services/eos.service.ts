@@ -82,6 +82,13 @@ export class EosService {
     );
   }
 
+  getTransactionHistory(id: string, blockNumber: number): Observable<any> {
+    return from(this.eos.getTransaction({
+      id: id,
+      block_num_hint: blockNumber
+    }));
+  }
+
   getCurrencyBalance(name: string): Observable<number> {
     return from(this.eos.getCurrencyBalance('eosio.token', name, 'EOS')).pipe(
       map(result => {
