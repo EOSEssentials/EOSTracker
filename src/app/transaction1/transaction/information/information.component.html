@@ -36,7 +36,7 @@
     </mat-card-content>
   </mat-card>
   <div *ngIf="transaction.numActions > 0" style="margin-top:20px;">
-    <app-transaction-actions [id]="transaction.id"></app-transaction-actions>
+    <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
   </div>
 </div>
 <ng-template #loading>
