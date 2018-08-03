@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EosService } from '../../../services/eos.service';
+import { AppService } from '../../../services/app.service';
 
 @Component({
   selector: 'app-dashboard-chain-status',
@@ -11,11 +11,11 @@ export class ChainStatusComponent implements OnInit {
   status$;
 
   constructor(
-    private eosService: EosService
+    private appService: AppService
   ) { }
 
   ngOnInit() {
-    this.status$ = this.eosService.getInfo();
+    this.status$ = this.appService.chainStatus$;
   }
 
 }

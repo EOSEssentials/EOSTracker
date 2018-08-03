@@ -31,6 +31,7 @@ import { SearchComponent } from './masterpage/search/search.component';
 import { SidenavComponent } from './masterpage/sidenav/sidenav.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ErrorComponent } from './error/error.component';
+import { Id64Component } from './id64/id64.component';
 
 import { ToKbPipes } from './pipes/tokb.pipes';
 
@@ -71,7 +72,8 @@ const sharedComponents = [
   SearchComponent,
   SidenavComponent,
   SpinnerComponent,
-  ErrorComponent
+  ErrorComponent,
+  Id64Component
 ];
 
 const sharedPipes = [

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AppService } from '../../../services/app.service';
 import { BlockService } from '../../../services/block.service';
 import { Block } from '../../../models/Block';
 import { Observable, timer, of } from 'rxjs';
-import { switchMap, share, map } from 'rxjs/operators';
+import { switchMap, share, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-blocks',
@@ -17,6 +18,7 @@ export class BlocksComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
+    private appService: AppService,
     private blockService: BlockService
   ) { }
 
@@ -26,7 +28,12 @@ export class BlocksComponent implements OnInit {
     );
     this.blocks$ = timer(0, 5000).pipe(
       switchMap(() => this.blockService.getBlocks(undefined, 20)),
-      share()
+      share(),
+      tap(blocks => {
+        if (blocks.length) {
+          this.appService.setLatestBlockNumber(blocks[0].blockNumber);
+        }
+      })
     );
   }
 
