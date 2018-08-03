@@ -23,7 +23,7 @@ export class AppService {
     this.isMaintenance$ = this.chainStatus$.pipe(
       withLatestFrom(this.latestBlockNumber$),
       map(([chainStatus, blockNumber]) => {
-        return (chainStatus.head_block_num - blockNumber) > 6;
+        return (chainStatus.head_block_num - blockNumber) > 600;
       }),
       share()
     );
