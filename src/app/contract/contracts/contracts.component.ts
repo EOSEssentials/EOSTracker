@@ -1,40 +1,44 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {ActionService} from '../../services/action.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ActionService } from '../../services/action.service';
+import { Action } from '../../models/Action';
+import { Observable, of } from 'rxjs';
+import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-contracts',
-  templateUrl: './contracts.component.html'
+  templateUrl: './contracts.component.html',
+  styleUrls: ['./contracts.component.scss']
 })
 export class ContractsComponent implements OnInit {
-  private subscriber: Subscription;
-  page = 1;
-  actions = null;
+
+  columnHeaders$: Observable<string[]> = of(CONTRACT_COLUMNS);
+  actions$: Observable<Action[]>;
 
   constructor(
-    private route: ActivatedRoute, 
-    private router: Router,
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
     private actionService: ActionService
   ) { }
 
   ngOnInit() {
-    this.subscriber = this.route.queryParams.subscribe(params => {
-      this.page = params['page'] || 1;
-      this.actionService.getActions(this.page).subscribe(data => {
-        this.actions = data;
-        console.log(data);
-      });
-    });
+    this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
+      map(result => result.matches ? CONTRACT_COLUMNS.filter(c => c !== 'transactionId') : CONTRACT_COLUMNS)
+    );
+    this.actions$ = this.route.queryParams.pipe(
+      map(queryParams => queryParams.page ? Number(queryParams.page) : 1),
+      switchMap(page => this.actionService.getActions(page)),
+      share()
+    );
   }
 
-  nextPage() {
-    this.page++;
-    this.router.navigate(['/actions'], {queryParams: {page: this.page}});
-  }
-
-  prevPage() {
-    this.page--;
-    this.router.navigate(['/actions'], {queryParams: {page: this.page}});
-  }
 }
+
+export const CONTRACT_COLUMNS = [
+  'actionId',
+  'transactionId',
+  'createdAt',
+  'authorization',
+  'handler',
+  'name'
+];

@@ -20,10 +20,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
 
-import { PageComponent } from './page/page.component';
-import { LoadingComponent } from './page/loading/loading.component';
-import { NavbarComponent } from './page/navbar/navbar.component';
-import { SidebarComponent } from './page/sidebar/sidebar.component';
 import { TableComponent } from './table/table.component';
 import { MasterpageComponent } from './masterpage/masterpage.component';
 import { HeaderComponent } from './masterpage/header/header.component';
@@ -62,10 +58,6 @@ const sharedMaterialModules = [
 ];
 
 const sharedComponents = [
-  PageComponent,
-  LoadingComponent,
-  NavbarComponent,
-  SidebarComponent,
   TableComponent,
   MasterpageComponent,
   HeaderComponent,

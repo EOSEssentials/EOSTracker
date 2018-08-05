@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {TransactionService} from '../../services/transaction.service';
-import {BlockService} from '../../services/block.service';
-import {AccountService} from '../../services/account.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of, empty } from 'rxjs';
+import { map, tap, switchMap, catchError } from 'rxjs/operators';
+import { TransactionService } from '../../services/transaction.service';
+import { BlockService } from '../../services/block.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-search',
@@ -11,12 +12,12 @@ import {AccountService} from '../../services/account.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  private subscriber: Subscription;
-  public query: string;
-  result = null;
+
+  query$: Observable<string>;
+  result$: Observable<string>;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     private transactionService: TransactionService,
     private blockService: BlockService,
@@ -24,38 +25,98 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscriber = this.route.queryParams.subscribe(params => {
-      this.query = <string>params['q'];
-      console.log(this.query);
-      let queryInt = Number(this.query);
-      if (!isNaN(queryInt)) {
-        this.router.navigateByUrl('/blocks/' + this.query);
-      } else if (this.query.length === 64) {
-        
-        this.transactionService.getTransaction(this.query).subscribe(data => {
-          console.log(data);
-          if (data) {
-            this.router.navigateByUrl('/transactions/' + this.query);
-          }
-        });
-        
-        this.blockService.getBlockId(this.query).subscribe(data => {
-          console.log(data);
-          if (data) {
-            this.router.navigateByUrl('/blocks/' + data['blockNumber']);
-          }
-        });
-      } else if (this.query.length == 53) {
-        // TODO: allow this
-        this.accountService.getAccountKey(this.query).subscribe(data => {
-          console.log(data);
-          if (data) {
-            this.router.navigateByUrl('/accounts/' + data["name"]);
-          }
-        });
-      } else {
-        this.router.navigateByUrl('/accounts/' + this.query);
-      }
-    });
+    this.query$ = this.route.queryParams.pipe(
+      map(queryParams => queryParams.q)
+    );
+    this.result$ = this.query$.pipe(
+      switchMap(query => this.tryBlockNumber(query)),
+      switchMap(query => this.tryTransaction(query)),
+      switchMap(query => this.tryBlockId(query)),
+      switchMap(query => this.tryAccountKey(query)),
+      switchMap(query => this.tryAccount(query)),
+      tap(query => console.log('no result', query))
+    );
   }
+
+  private tryBlockNumber(query: string): Observable<string> {
+    const blockNumber = Number(query);
+    if (!isNaN(blockNumber)) {
+      return this.blockService.getBlock(blockNumber).pipe(
+        catchError(() => of(null)),
+        switchMap(data => {
+          if (data) {
+            this.router.navigate(['/blocks', blockNumber], { replaceUrl: true });
+            return empty();
+          }
+          return of(query);
+        })
+      );
+    }
+    return of(query);
+  }
+
+  private tryTransaction(query: string): Observable<string> {
+    if (query.length === 64) {
+      return this.transactionService.getTransaction(query).pipe(
+        catchError(() => of(null)),
+        switchMap(data => {
+          if (data) {
+            this.router.navigate(['/transactions', query], { replaceUrl: true });
+            return empty();
+          }
+          return of(query);
+        })
+      );
+    }
+    return of(query);
+  }
+
+  private tryBlockId(query: string): Observable<string> {
+    if (query.length === 64) {
+      return this.blockService.getBlockId(query).pipe(
+        catchError(() => of(null)),
+        switchMap(data => {
+          if (data) {
+            this.router.navigate(['/blocks', data['blockNumber']], { replaceUrl: true });
+            return empty();
+          }
+          return of(query);
+        })
+      );
+    }
+    return of(query);
+  }
+
+  private tryAccountKey(query: string): Observable<string> {
+    if (query.length === 53) {
+      return this.accountService.getAccountKey(query).pipe(
+        catchError(() => of(null)),
+        switchMap(data => {
+          if (data) {
+            this.router.navigate(['/accounts', data['name']], { replaceUrl: true });
+            return empty();
+          }
+          return of(query);
+        })
+      );
+    }
+    return of(query);
+  }
+
+  private tryAccount(query: string): Observable<string> {
+    if (query.length <= 12) {
+      return this.accountService.getAccount(query).pipe(
+        catchError(() => of(null)),
+        switchMap(data => {
+          if (data) {
+            this.router.navigate(['/accounts', data['name']], { replaceUrl: true });
+            return empty();
+          }
+          return of(query);
+        })
+      );
+    }
+    return of(query);
+  }
+
 }

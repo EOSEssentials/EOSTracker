@@ -1,39 +1,34 @@
-import {Component, OnInit} from '@angular/core';
-import {AccountService} from '../../services/account.service';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../../services/account.service';
+import { Account } from '../../models/Account';
+import { Observable } from 'rxjs';
+import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss']
 })
 export class AccountsComponent implements OnInit {
-  accounts = null;
-  private subscriber: Subscription;
-  page = 1;
 
-  constructor(private accountService: AccountService, private route: ActivatedRoute, private router: Router) {
-  }
+  columnHeaders = [
+    'name',
+    'createdAt',
+    'updatedAt'
+  ];
+  accounts$: Observable<Account[]>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private accountService: AccountService
+  ) { }
 
   ngOnInit() {
-
-    this.subscriber = this.route.queryParams.subscribe(params => {
-      this.page = params['page'] || 1;
-      this.accountService.getAccounts(this.page).subscribe(data => {
-        this.accounts = data;
-      });
-    });
-  }
-
-  nextPage() {
-    this.page++;
-    this.router.navigate(['/accounts'], {queryParams: {page: this.page}});
-  }
-
-  prevPage() {
-    this.page--;
-    this.router.navigate(['/accounts'], {queryParams: {page: this.page}});
+    this.accounts$ = this.route.queryParams.pipe(
+      map(queryParams => queryParams.page ? Number(queryParams.page) : 1),
+      switchMap(page => this.accountService.getAccounts(page)),
+      share()
+    );
   }
 
 }

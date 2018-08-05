@@ -1,20 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {EosService} from '../../services/eos.service';
-import {Subscription} from 'rxjs';
-import {TransactionService} from '../../services/transaction.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { EosService } from '../../services/eos.service';
+import { TransactionService } from '../../services/transaction.service';
+import { Transaction, Result } from '../../models';
+import { Observable, from, of } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
+
+interface TransactionRaw extends Transaction {
+  raw: any;
+}
 
 @Component({
-  selector: 'app-transaction',
-  templateUrl: './transaction.component.html'
+  templateUrl: './transaction.component.html',
+  styleUrls: ['./transaction.component.scss']
 })
 export class TransactionComponent implements OnInit {
-  public id: string;
-  public transaction = null;
-  public actions = null;
-  public transactionRaw = null;
-  private subscriber: Subscription;
-  page = 1;
+
+  id$: Observable<string>;
+  transaction$: Observable<Result<TransactionRaw>>;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,30 +26,31 @@ export class TransactionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-
-    this.transactionService.getTransaction(this.id).subscribe(data => {
-      this.transaction = data;
-      console.log(this.transaction);
-
-      this.subscriber = this.route.queryParams.subscribe(params => {
-        this.page = params['page'] || 1;
-        
-        this.transactionService.getTransactionActions(this.id, this.page).subscribe(data => {
-          this.actions = data;
-          console.log(data);
-        });
-      });
-
-      this.eosService.eos.getBlock(this.transaction.blockId).then(result => {
-        for (let index in result.transactions) {
-          if (result.transactions[index].trx.id == this.transaction.id) {
-            this.transactionRaw = result.transactions[index];
-            return;
-          }
+    this.id$ = this.route.params.pipe(
+      map(params => params.id)
+    );
+    this.transaction$ = this.id$.pipe(
+      switchMap(id => this.transactionService.getTransaction(id)),
+      switchMap(result => {
+        if (!result.isError) {
+          const transaction: Transaction = result['value'];
+          return from(this.eosService.eos.getBlock(transaction.blockId)).pipe(
+            map((block: any) => {
+              const raw = block.transactions.find(t => t.trx.id === transaction.id);
+              return {
+                isError: false,
+                value: { ...transaction, raw }
+              };
+            })
+          );
+        } else {
+          return of(<Result<TransactionRaw>>{
+            isError: true,
+            error: result.error
+          });
         }
-      });
-
-    });
+      })
+    );
   }
+
 }

@@ -1,41 +1,44 @@
-import {Component, OnInit} from '@angular/core';
-import {BlockService} from '../../services/block.service';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BlockService } from '../../services/block.service';
+import { Block } from '../../models/Block';
+import { Observable, of } from 'rxjs';
+import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-blocks',
   templateUrl: './blocks.component.html',
   styleUrls: ['./blocks.component.scss']
 })
 export class BlocksComponent implements OnInit {
-  blocks = null;
-  private subscriber: Subscription;
-  page = 1;
 
+  columnHeaders$: Observable<string[]> = of(BLOCK_COLUMNS);
+  blocks$: Observable<Block[]>;
 
-  constructor(private blockService: BlockService, private route: ActivatedRoute, private router: Router) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
+    private blockService: BlockService
+  ) { }
 
   ngOnInit() {
-
-    this.subscriber = this.route.queryParams.subscribe(params => {
-      this.page = params['page'] || 1;
-
-      this.blockService.getBlocks(this.page).subscribe(data => {
-        this.blocks = data;
-        console.log(data);
-      });
-    });
+    this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
+      map(result => result.matches ? BLOCK_COLUMNS.filter(c => c !== 'timestamp') : BLOCK_COLUMNS)
+    );
+    this.blocks$ = this.route.queryParams.pipe(
+      map(queryParams => queryParams.page ? Number(queryParams.page) : 1),
+      switchMap(page => this.blockService.getBlocks(page)),
+      share()
+    );
   }
 
-  nextPage() {
-    this.page++;
-    this.router.navigate(['/blocks'], {queryParams: {page: this.page}});
-  }
-
-  prevPage() {
-    this.page--;
-    this.router.navigate(['/blocks'], {queryParams: {page: this.page}});
-  }
 }
+
+export const BLOCK_COLUMNS = [
+  'blockNumber',
+  'timestamp',
+  'irreversible',
+  'producer',
+  'numTransactions',
+  'confirmed'
+];

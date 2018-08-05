@@ -1,47 +1,43 @@
-import {Component, OnInit} from '@angular/core';
-import {TransactionService} from '../../services/transaction.service';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
-
-declare let jquery: any;
-declare let $: any;
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { TransactionService } from '../../services/transaction.service';
+import { Transaction } from '../../models/Transaction';
+import { Observable, of } from 'rxjs';
+import { switchMap, map, share } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
-  transactions = null;
-  private subscriber: Subscription;
-  page = 1;
+
+  columnHeaders$: Observable<string[]> = of(TRANSACTION_COLUMNS);
+  transactions$: Observable<Transaction[]>;
 
   constructor(
-    private transactionService: TransactionService, 
-    private route: ActivatedRoute, 
-    private router: Router
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
+    private transactionService: TransactionService
   ) { }
 
   ngOnInit() {
-
-    this.subscriber = this.route.queryParams.subscribe(params => {
-      this.page = params['page'] || 1;
-      
-      this.transactionService.getTransactions(this.page).subscribe(data => {
-        this.transactions = data;
-        console.log(data);
-      });
-    });
+    this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
+      map(result => result.matches ? TRANSACTION_COLUMNS.filter(c => c !== 'expiration') : TRANSACTION_COLUMNS)
+    );
+    this.transactions$ = this.route.queryParams.pipe(
+      map(queryParams => queryParams.page ? Number(queryParams.page) : 1),
+      switchMap(page => this.transactionService.getTransactions(page)),
+      share()
+    );
   }
 
-
-  nextPage() {
-    this.page++;
-    this.router.navigate(['/transactions'], {queryParams: {page: this.page}});
-  }
-
-  prevPage() {
-    this.page--;
-    this.router.navigate(['/transactions'], {queryParams: {page: this.page}});
-  }
 }
+
+export const TRANSACTION_COLUMNS = [
+  'id',
+  'blockId',
+  'createdAt',
+  'expiration',
+  'numActions'
+];

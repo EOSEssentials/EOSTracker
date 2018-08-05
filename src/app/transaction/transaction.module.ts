@@ -4,6 +4,9 @@ import { TransactionRoutingModule } from './transaction-routing.module';
 
 import { TransactionsComponent } from './transactions/transactions.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { InformationComponent } from './transaction/information/information.component';
+import { DataComponent } from './transaction/data/data.component';
+import { ActionsComponent } from './transaction/actions/actions.component';
 
 @NgModule({
   imports: [
@@ -12,7 +15,10 @@ import { TransactionComponent } from './transaction/transaction.component';
   ],
   declarations: [
     TransactionsComponent,
-    TransactionComponent
+    TransactionComponent,
+    InformationComponent,
+    DataComponent,
+    ActionsComponent
   ]
 })
 export class TransactionModule { }

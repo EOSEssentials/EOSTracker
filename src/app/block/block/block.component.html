@@ -1,128 +1,40 @@
-<app-page>
-	<div id="page-wrapper">
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">{{ 'Block' | translate }} #{{id}}</h1>
-			</div>
-			<!-- /.col-lg-12 -->
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						{{ 'BlockInformation' | translate }}
-					</div>
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<app-loading *ngIf="!block"></app-loading>
-						<div *ngIf="block" class="table-responsive">
-							<table class="table table-striped">
-								<tr>
-									<td>{{ 'Number' | translate }}:</td>
-									<td>{{block.blockNumber}}</td>
-								</tr>
-								<tr>
-									<td>{{ 'Producer' | translate }}:</td>
-									<td><a routerLink="/producers/{{block.producer}}">{{block.producer}}</a></td>
-								</tr>
-								<tr>
-									<td>{{ 'Timestamp' | translate }}:</td>
-									<td>{{block.timestamp | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
-								</tr>
-								<tr>
-									<td>{{ 'BlockId' | translate }}:</td>
-									<td>{{block.id}}</td>
-								</tr>
-								<tr>
-									<td>{{ 'Previous' | translate }} {{ 'BlockInformation' | translate }}:</td>
-									<td><a routerLink="/search" [queryParams]="{q: block.prevBlockId}">{{block.prevBlockId}}</a></td>
-								</tr>
-								<tr>
-									<td>{{ 'Transaction' | translate }} {{ 'MerkleRoot' | translate }}:</td>
-									<td>{{block.transactionMerkleRoot}}</td>
-								</tr>
-								<tr>
-									<td>{{ 'Action' | translate }} {{ 'MerkleRoot' | translate }}:</td>
-									<td>{{block.actionMerkleRoot}}</td>
-								</tr>
-								<tr>
-									<td>{{ 'Transactions' | translate }}:</td>
-									<td>{{block.numTransactions}}</td>
-								</tr>
-								<tr>
-									<td>{{ 'Confirmations' | translate }}:</td>
-									<td>{{block.confirmed}}</td>
-								</tr>
-							</table>
-						</div>
-						<!-- /.table-responsive -->
-					</div>
-					<!-- /.panel-body -->
-				</div>
-				<!-- /.panel -->
-			</div>
-		</div>
-
-		<div class="panel-group" id="accordion">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">{{ 'BlockchainRawData' | translate }}</a>
-					</h4>
-				</div>
-				<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-					<div class="panel-body">
-						<prettyjson [obj]="blockRaw"></prettyjson>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row" *ngIf="block && block.numTransactions > 0">
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						{{ 'Transactions' | translate }}
-
-						<div class="pull-right">
-							<button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
-							<button *ngIf="transactions && transactions.length == 30" type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
-						</div>
-
-					</div>
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<app-loading *ngIf="!transactions"></app-loading>
-						<div *ngIf="transactions" class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-								<tr>
-									<th>#</th>
-									<th>{{ 'BlockId' | translate }}</th>
-									<th>{{ 'CreatedAt' | translate }}</th>
-									<th>{{ 'Actions' | translate }}</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr *ngFor="let transaction of transactions">
-									<td><a routerLink="/transactions/{{transaction.id}}">{{transaction.id|slice:0:32}}...</a></td>
-									<td><a routerLink="/blocks/{{transaction.blockId}}">{{transaction.blockId}}</a></td>
-									<td>{{transaction.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
-									<td>{{transaction.numActions}}</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-						<!-- /.table-responsive -->
-					</div>
-					<!-- /.panel-body -->
-				</div>
-				<!-- /.panel -->
-			</div>
-		</div>
-
-		<!-- /.row -->
-	</div>
-	<!-- /#page-wrapper -->
-</app-page>
+<mat-toolbar color="primary">
+  <h1 class="mat-headline">
+    {{ 'Block' | translate }} #{{id$ | async}}
+  </h1>
+</mat-toolbar>
+<ng-container *ngIf="block$ | async as block; else loading">
+  <mat-tab-group color="primary" dynamicHeight="true" *ngIf="!block.isError; else error">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon style="margin-right:5px;">info</mat-icon>
+        {{ 'BlockInformation' | translate }}
+      </ng-template>
+      <app-block-information [block]="block.value"></app-block-information>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon style="margin-right:5px;">code</mat-icon>
+        {{ 'BlockchainRawData' | translate }}
+      </ng-template>
+      <ng-template matTabContent>
+        <app-block-data [id]="id$ | async"></app-block-data>
+      </ng-template>
+    </mat-tab>
+    <!-- <mat-tab [disabled]="block.numTransactions == 0">
+        <ng-template mat-tab-label>
+          <mat-icon style="margin-right:5px;">list_alt</mat-icon>
+          <span [matBadge]="block.numTransactions" matBadgeOverlap="false">{{ 'Transactions' | translate }}</span>
+        </ng-template>
+        <ng-template matTabContent>
+          <app-block-transactions [id]="id$ | async"></app-block-transactions>
+        </ng-template>
+      </mat-tab> -->
+  </mat-tab-group>
+  <ng-template #error>
+    <app-error></app-error>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

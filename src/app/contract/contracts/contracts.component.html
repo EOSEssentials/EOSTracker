@@ -1,64 +1,55 @@
-<app-page>
-  <div id="page-wrapper">
-    <div class="row">
-      <div class="col-lg-12">
-        <h1 class="page-header">{{ 'Actions' | translate }}</h1>
-      </div>
-      <!-- /.col-lg-12 -->
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            {{ 'Actions' | translate }}
-
-            <div class="pull-right">
-              <button *ngIf="page != 1" type="button" (click)="prevPage()" class="btn btn-outline btn-info btn-xs"><i class="fa fa-angle-left"> {{ 'Previous' | translate }}</i></button>
-              <button type="button" (click)="nextPage()" class="btn btn-outline btn-info btn-xs">{{ 'Next' | translate }} <i class="fa fa-angle-right"></i></button>
-            </div>
-
-          </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body">
-            <app-loading *ngIf="!actions"></app-loading>
-            <div *ngIf="actions" class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th>{{ 'ActionId' | translate }}</th>
-                  <th class="hidden-xs">{{ 'TransactionId' | translate }}</th>
-                  <th>{{ 'CreatedAt' | translate }}</th>
-                  <th>{{ 'Authorization' | translate }}</th>
-                  <th>{{ 'Handler' | translate }}</th>
-                  <th>{{ 'Name' | translate }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let action of actions">
-                  <td><a routerLink="/actions/{{action.id}}">{{action.id}}</a></td>
-                  <td class="hidden-xs"><a routerLink="/transactions/{{action.transaction}}">{{action.transaction|slice:0:28}}...</a></td>
-                  <td>{{action.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
-                  <td>
-                    <span *ngFor="let authorization of action.authorizations">
-                          <a routerLink="/accounts/{{authorization.actor}}">{{authorization.actor}}</a> 
-                    </span>
-                  </td>
-                  <td><a routerLink="/accounts/{{action.account}}">{{action.account}}</a></td>
-                  <td>{{action.name}}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.table-responsive -->
-          </div>
-          <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-      </div>
-    </div>
-
-    <!-- /.row -->
-  </div>
-  <!-- /#page-wrapper -->
-</app-page>
+<mat-toolbar color="primary">
+  <h1 class="mat-headline">
+    {{ 'Actions' | translate }}
+  </h1>
+</mat-toolbar>
+<div style="margin:10px;">
+  <app-table [dataSource]="actions$ | async">
+    <table mat-table [dataSource]="actions$ | async">
+      <ng-container *ngIf="columnHeaders$ | async as columnHeaders">
+        <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
+      </ng-container>
+      <ng-container matColumnDef="actionId">
+        <th mat-header-cell *matHeaderCellDef>{{ 'ActionId' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <a [routerLink]="['./',action.id]">{{action.id}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="transactionId">
+        <th mat-header-cell *matHeaderCellDef>{{ 'TransactionId' | translate }}</th>
+        <td mat-cell *matCellDef="let action" class="truncate">
+          <a [routerLink]="['/transactions',action.transaction]">
+            <id-64 [id]="action.transaction" [override]="{sm:160,md:240}"></id-64>
+          </a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>{{ 'CreatedAt' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          {{action.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="authorization">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Authorization' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <span *ngFor="let authorization of action.authorizations">
+            <a [routerLink]="['/accounts',authorization.actor]">{{authorization.actor}}</a>
+          </span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="handler">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Handler' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          {{action.name}}
+        </td>
+      </ng-container>
+    </table>
+  </app-table>
+</div>
