@@ -1,3 +1,4 @@
+/// <reference types="googlemaps" />
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -5,7 +6,6 @@ import {EosService} from '../../services/eos.service';
 import {AccountService} from '../../services/account.service';
 import {VoteService} from '../../services/vote.service';
 import {BpService} from '../../services/bp.service';
-import {} from '@types/googlemaps';
 
 @Component({
   selector: 'app-producer',
