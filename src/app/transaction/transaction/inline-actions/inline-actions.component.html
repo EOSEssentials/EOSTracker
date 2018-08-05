@@ -1,0 +1,46 @@
+<ng-container *ngIf="actions$ | async as actions; else loading">
+  <app-table [dataSource]="actions" [title]="'Actions' | translate" [enablePager]="false">
+    <table mat-table [dataSource]="actions">
+      <tr mat-header-row *matHeaderRowDef="actionsColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: actionsColumns;"></tr>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ 'Action Type' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let action">
+          <a [routerLink]="['/actions',action.transaction,action.seq]" [queryParams]="{parentId: action.parentId}">
+            <span class="main-action" *ngIf="action.parentId === 0">
+              main action
+            </span>
+            <span class="inline-action" *ngIf="action.parentId > 0">
+              inline action
+            </span>
+          </a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="authorizations">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Authorization' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <span *ngFor="let authorization of action.authorizations">
+            <a [routerLink]="['/accounts',authorization.actor]">{{authorization.actor}}</a>
+          </span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="account">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Handler' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          <a [routerLink]="['/accounts',action.account]">{{action.account}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+        <td mat-cell *matCellDef="let action">
+          {{action.name}}
+        </td>
+      </ng-container>
+    </table>
+  </app-table>
+</ng-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

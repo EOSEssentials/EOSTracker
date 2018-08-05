@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EosService } from '../../services/eos.service';
 import { ActionService } from '../../services/action.service';
 import { Action } from '../../models/Action';
-import { Observable, from } from 'rxjs';
+import { Observable, from, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
 interface ActionRaw extends Action {
@@ -25,8 +25,17 @@ export class ContractComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.action$ = this.route.params.pipe(
-      switchMap(params => this.actionService.getAction(params.id)),
+    this.action$ = combineLatest(
+      this.route.params,
+      this.route.queryParams
+    ).pipe(
+      switchMap(([params, queryParams]) => {
+        if (params.id) {
+          return this.actionService.getAction(params.id);
+        } else {
+          return this.actionService.getActionSeq(params.trxId, params.seq, queryParams.parentId);
+        }
+      }),
       switchMap(action => {
         return from(this.eosService.eos.getBlock(action.blockId)).pipe(
           map((block: any) => block.transactions.find(transaction => transaction.trx.id === action.transaction))

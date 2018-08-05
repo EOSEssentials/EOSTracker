@@ -18,6 +18,12 @@ export class ActionService {
     );
   }
 
+  getActionSeq(trxId: string, seq = 0, parentId = 0): Observable<Action> {
+    return this.http.get(`${environment.apiUrl}/transactions/${trxId}/actions/${seq}?parentId=${parentId}`).pipe(
+      map(action => action as Action)
+    );
+  }
+
   getActions(page = 1): Observable<Action[]> {
     return this.http.get(`${environment.apiUrl}/actions`, {
       params: new HttpParams({

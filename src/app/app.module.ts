@@ -23,6 +23,7 @@ import { VoteService } from './services/vote.service';
 import { BpService } from './services/bp.service';
 import { ScatterService } from './services/scatter.service';
 import { AppService } from './services/app.service';
+import { DataService } from './services/data.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -61,6 +62,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     VoteService,
     BpService,
     AppService,
+    DataService,
     { provide: JsonPipe, useClass: SafeJsonPipe }
   ],
   bootstrap: [AppComponent]

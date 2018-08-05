@@ -36,8 +36,11 @@
     </mat-card-content>
   </mat-card>
   <div *ngIf="transaction.numActions > 0" style="margin-top:20px;">
-    <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
+    <app-transaction-inline-actions [transaction]="transaction"></app-transaction-inline-actions>
   </div>
+  <!-- <div *ngIf="transaction.numActions > 0" style="margin-top:20px;">
+    <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
+  </div> -->
 </div>
 <ng-template #loading>
   <app-spinner></app-spinner>
