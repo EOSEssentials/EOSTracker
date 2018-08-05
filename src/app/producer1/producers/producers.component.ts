@@ -4,6 +4,7 @@ import { EosService } from '../../services/eos.service';
 import { Producer } from '../../models/Producer';
 import { Observable, of, timer } from 'rxjs';
 import { map, share, switchMap } from 'rxjs/operators';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   templateUrl: './producers.component.html',
@@ -17,10 +18,18 @@ export class ProducersComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private eosService: EosService
+    private eosService: EosService,
+    private seoService: SeoService
   ) { }
 
   ngOnInit() {
+    this.seoService.generateTags({
+      title: 'EOS Blockchain Producers',
+      description: 'List of EOS Blockchain Producers',
+      image: '',
+      slug: 'producers-page'
+    });
+
     this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
       map(result => result.matches ? PRODUCERS_COLUMNS.filter((c: any) => (c !== 'url' && c !== 'numVotes')) : PRODUCERS_COLUMNS)
     );

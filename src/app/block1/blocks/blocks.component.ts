@@ -5,6 +5,7 @@ import { BlockService } from '../../services/block.service';
 import { Block } from '../../models/Block';
 import { Observable, of } from 'rxjs';
 import { switchMap, map, share } from 'rxjs/operators';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   templateUrl: './blocks.component.html',
@@ -18,7 +19,8 @@ export class BlocksComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
-    private blockService: BlockService
+    private blockService: BlockService,
+    private seoService: SeoService
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,13 @@ export class BlocksComponent implements OnInit {
       switchMap(page => this.blockService.getBlocks(page)),
       share()
     );
+
+    this.seoService.generateTags({
+      title: 'EOS Blockchain Blocks',
+      description: 'List of EOS Blockchain Blocks',
+      image: '',
+      slug: 'blocks-page'
+    });
   }
 
 }

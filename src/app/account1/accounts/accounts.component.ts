@@ -4,6 +4,7 @@ import { AccountService } from '../../services/account.service';
 import { Account } from '../../models/Account';
 import { Observable } from 'rxjs';
 import { switchMap, map, share } from 'rxjs/operators';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   templateUrl: './accounts.component.html',
@@ -20,7 +21,8 @@ export class AccountsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private seoService: SeoService
   ) { }
 
   ngOnInit() {
@@ -29,6 +31,13 @@ export class AccountsComponent implements OnInit {
       switchMap(page => this.accountService.getAccounts(page)),
       share()
     );
+
+    this.seoService.generateTags({
+      title: 'EOS Blockchain Accounts',
+      description: 'List of EOS Blockchain Accounts',
+      image: '',
+      slug: 'accounts-page'
+    });
   }
 
 }

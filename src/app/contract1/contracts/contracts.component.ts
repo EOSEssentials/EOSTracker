@@ -5,6 +5,7 @@ import { ActionService } from '../../services/action.service';
 import { Action } from '../../models/Action';
 import { Observable, of } from 'rxjs';
 import { switchMap, map, share } from 'rxjs/operators';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   templateUrl: './contracts.component.html',
@@ -18,7 +19,8 @@ export class ContractsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
-    private actionService: ActionService
+    private actionService: ActionService,
+    private seoService: SeoService
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,13 @@ export class ContractsComponent implements OnInit {
       switchMap(page => this.actionService.getActions(page)),
       share()
     );
+
+    this.seoService.generateTags({
+      title: 'EOS Blockchain Contracts',
+      description: 'List of EOS Blockchain Contracts',
+      image: '',
+      slug: 'contracts-page'
+    });
   }
 
 }
