@@ -9,12 +9,12 @@
         </th>
         <td mat-cell *matCellDef="let action">
           <a [routerLink]="['/actions',action.transaction,action.seq]" [queryParams]="{parentId: action.parentId}">
-            <span class="main-action" *ngIf="action.parentId === 0">
-              main action
-            </span>
-            <span class="inline-action" *ngIf="action.parentId > 0">
-              inline action
-            </span>
+            <button mat-icon-button *ngIf="action.parentId === 0">
+              <mat-icon aria-label="main action">data_usage</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="action.parentId > 0" style="margin-left:10px;">
+              <mat-icon aria-label="inline action">subdirectory_arrow_right</mat-icon>
+            </button>
           </a>
         </td>
       </ng-container>
