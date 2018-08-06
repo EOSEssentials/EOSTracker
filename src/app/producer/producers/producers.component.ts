@@ -47,7 +47,7 @@ export class ProducersComponent implements OnInit {
               reward += 318;
             }
             reward += percentageVotesRewarded * 200;
-            if (percentageVotes * 200 < 100) {
+            if (reward < 100) {
               reward = 0;
             }
             return {
