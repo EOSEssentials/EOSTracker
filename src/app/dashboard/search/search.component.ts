@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
       return this.transactionService.getTransaction(query).pipe(
         catchError(() => of(null)),
         switchMap(data => {
-          if (data) {
+          if (data && !data.isError) {
             this.router.navigate(['/transactions', query], { replaceUrl: true });
             return empty();
           }

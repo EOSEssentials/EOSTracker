@@ -23,7 +23,8 @@
         <tr>
           <td>{{ 'Previous' | translate }} {{ 'BlockInformation' | translate }}:</td>
           <td>
-            <a [routerLink]="['/search']" [queryParams]="{q: block.prevBlockId}">{{block.prevBlockId}}</a>
+            <span *ngIf="block.blockNumber <= 1">{{block.prevBlockId}}</span>
+            <a [routerLink]="['/blocks',block.blockNumber-1]" *ngIf="block.blockNumber > 1">{{block.prevBlockId}}</a>
           </td>
         </tr>
         <tr>
