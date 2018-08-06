@@ -15,7 +15,7 @@ const routes: Routes = [
     component: ContractComponent
   },
   {
-    path: ':trxId/:seq',
+    path: ':blockNum/:trxId/:seq',
     component: ContractComponent
   }
 ];
