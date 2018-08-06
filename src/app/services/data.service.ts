@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { EosService } from './eos.service';
@@ -45,7 +45,7 @@ export class DataService {
       }),
       tap(actions => {
         if (actions.length < transaction.numActions) {
-          throwError('API actions.length < transaction.numActions');
+          throw ('API actions.length < transaction.numActions');
         }
       }),
       catchError(err => {
