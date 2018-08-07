@@ -11,4 +11,5 @@ export interface Block {
   timestamp: number;
   transactionMerkleRoot: string;
   version: number;
+  chainData?: any;
 }

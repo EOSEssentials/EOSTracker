@@ -24,6 +24,8 @@ import { BpService } from './services/bp.service';
 import { ScatterService } from './services/scatter.service';
 import { AppService } from './services/app.service';
 import { DataService } from './services/data.service';
+import { ApiService } from './services/api.service';
+import { LoggerService } from './services/logger.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -63,6 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BpService,
     AppService,
     DataService,
+    ApiService,
+    LoggerService,
     { provide: JsonPipe, useClass: SafeJsonPipe }
   ],
   bootstrap: [AppComponent]

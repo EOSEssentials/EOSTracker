@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, catchError, tap, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { EosService } from './eos.service';
-import { Transaction, Action } from '../models';
+import { ApiService } from './api.service';
+import { Result, Transaction, Action, Block } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,23 @@ export class DataService {
 
   constructor(
     private http: HttpClient,
-    private eosService: EosService
+    private eosService: EosService,
+    private apiService: ApiService
   ) { }
+
+  getBlock(id: string | number): Observable<Result<Block>> {
+    if (environment.useChain) {
+      return this.failback(this.eosService.getBlock(id), this.apiService.getBlock(id));
+    } else {
+      return this.failback(this.apiService.getBlock(id), this.eosService.getBlock(id));
+    }
+  }
+
+  failback<T>(first$: Observable<Result<T>>, second$: Observable<Result<T>>): Observable<Result<T>> {
+    return first$.pipe(
+      switchMap(result => result.isError ? second$ : of(result))
+    );
+  }
 
   getTransactionActions(transaction: Transaction, paging = { index: 1, limit: 100 }): Observable<Action[]> {
     return this.http.get(`${environment.apiUrl}/transactions/${transaction.id}/actions`, {
@@ -50,8 +66,8 @@ export class DataService {
       }),
       catchError(err => {
         return this.eosService.getTransactionHistory(transaction.id, transaction.blockId).pipe(
-          map(transaction => transaction.trx.trx.actions),
-          map(actions => actions.map((action, index) => {
+          map((transaction: any) => transaction.trx.trx.actions),
+          map((actions: any) => actions.map((action, index) => {
             return {
               ...action,
               authorizations: action.authorization,

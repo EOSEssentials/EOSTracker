@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import * as Eos from 'eosjs';
 import { environment } from '../../environments/environment';
-import { Observable, from, of, timer } from 'rxjs';
+import { Observable, from, of, timer, defer } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Block, Transaction, Result } from '../models';
+import { LoggerService } from './logger.service';
 
 @Injectable()
 export class EosService {
   public eos: any;
 
-  constructor() {
+  constructor(
+    private logger: LoggerService
+  ) {
     this.eos = Eos({
       httpEndpoint: environment.blockchainUrl,
       blockId: environment.chainId
@@ -27,7 +30,9 @@ export class EosService {
   }
 
   getBlock(id: string | number): Observable<Result<Block>> {
-    return from(this.eos.getBlock(id)).pipe(
+    // convert chain promise to cold observable
+    const getBlock$ = defer(() => from(this.eos.getBlock(id)));
+    return getBlock$.pipe(
       map((block: any) => {
         return <Result<Block>>{
           isError: false,
@@ -42,12 +47,13 @@ export class EosService {
             producer: block.producer,
             timestamp: new Date(block.timestamp).getTime() / 1000,
             transactionMerkleRoot: block.transaction_mroot,
-            version: block.schedule_version
+            version: block.schedule_version,
+            chainData: block
           }
         };
       }),
       catchError(error => {
-        console.log('TODO: Log Chain Error', error);
+        this.logger.error('CHAIN_ERROR', error);
         return of(<Result<Block>>{
           isError: true,
           error: error

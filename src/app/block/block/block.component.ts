@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlockService } from '../../services/block.service';
+import { DataService } from '../../services/data.service';
 import { Block, Result } from '../../models';
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class BlockComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private blockService: BlockService
+    private dataService: DataService
   ) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class BlockComponent implements OnInit {
       map(params => Number(params.id))
     );
     this.block$ = this.id$.pipe(
-      switchMap(id => this.blockService.getBlock(id))
+      switchMap(id => this.dataService.getBlock(id))
     );
   }
 
