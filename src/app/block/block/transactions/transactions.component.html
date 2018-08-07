@@ -1,5 +1,5 @@
 <ng-container *ngIf="blockTransactions$ | async as transactions; else loading">
-  <app-table *ngIf="!isError" [dataSource]="transactions" [title]="'Transactions' | translate">
+  <app-table *ngIf="!isError" [dataSource]="transactions" [title]="'Transactions' | translate" [enablePager]="false">
     <table mat-table [dataSource]="transactions">
       <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>

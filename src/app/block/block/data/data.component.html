@@ -1,5 +1,10 @@
-<div *ngIf="blockRaw$ | async as blockRaw; else loading">
-  <prettyjson [obj]="blockRaw"></prettyjson>
+<div *ngIf="(block$ | async) as block; else loading">
+  <div *ngIf="!block.isError; else error">
+    <prettyjson [obj]="block.value.chainData"></prettyjson>
+  </div>
+  <ng-template #error>
+    <app-error></app-error>
+  </ng-template>
 </div>
 <ng-template #loading>
   <app-spinner></app-spinner>

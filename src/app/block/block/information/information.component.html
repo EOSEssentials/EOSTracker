@@ -47,7 +47,7 @@
     </mat-card-content>
   </mat-card>
   <div *ngIf="block.numTransactions > 0" style="margin-top:20px;">
-    <app-block-transactions [id]="block?.blockNumber"></app-block-transactions>
+    <app-block-transactions [block]="block"></app-block-transactions>
   </div>
 </div>
 <ng-template #loading>

@@ -18,18 +18,9 @@
         {{ 'BlockchainRawData' | translate }}
       </ng-template>
       <ng-template matTabContent>
-        <app-block-data [id]="id$ | async"></app-block-data>
+        <app-block-data [block]="block.value"></app-block-data>
       </ng-template>
     </mat-tab>
-    <!-- <mat-tab [disabled]="block.numTransactions == 0">
-        <ng-template mat-tab-label>
-          <mat-icon style="margin-right:5px;">list_alt</mat-icon>
-          <span [matBadge]="block.numTransactions" matBadgeOverlap="false">{{ 'Transactions' | translate }}</span>
-        </ng-template>
-        <ng-template matTabContent>
-          <app-block-transactions [id]="id$ | async"></app-block-transactions>
-        </ng-template>
-      </mat-tab> -->
   </mat-tab-group>
   <ng-template #error>
     <app-error></app-error>
