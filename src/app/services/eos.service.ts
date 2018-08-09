@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
 import * as Eos from 'eosjs';
+import * as moment from 'moment';
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable, from, of, timer, defer } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -29,6 +30,25 @@ export class EosService {
     return from(this.eos.getAccount(name));
   }
 
+  getBlockRaw(id: string | number): Observable<Result<any>> {
+    const getBlock$ = defer(() => from(this.eos.getBlock(id)));
+    return getBlock$.pipe(
+      map((block: any) => {
+        return <Result<Block>>{
+          isError: false,
+          value: block
+        };
+      }),
+      catchError(error => {
+        this.logger.error('CHAIN_ERROR', error);
+        return of({
+          isError: true,
+          value: error
+        });
+      })
+    );
+  }
+
   getBlock(id: string | number): Observable<Result<Block>> {
     // convert chain promise to cold observable
     const getBlock$ = defer(() => from(this.eos.getBlock(id)));
@@ -36,7 +56,7 @@ export class EosService {
       map((block: any) => {
         return <Result<Block>>{
           isError: false,
-          value: {
+          value: <Block>{
             actionMerkleRoot: block.action_mroot,
             blockNumber: block.block_num,
             confirmed: block.confirmed,
@@ -45,18 +65,34 @@ export class EosService {
             numTransactions: block.transactions.length,
             prevBlockId: block.previous,
             producer: block.producer,
-            timestamp: new Date(block.timestamp).getTime() / 1000,
+            timestamp: moment.utc(block.timestamp).unix(),
+            timestampISO: moment.utc(block.timestamp).toISOString(),
             transactionMerkleRoot: block.transaction_mroot,
             version: block.schedule_version,
+            transactions: block.transactions.map(transaction => {
+              return <Transaction>{
+                blockId: block.block_num,
+                createdAt: moment.utc(block.timestamp).unix(),
+                createdAtISO: moment.utc(block.timestamp).toISOString(),
+                expiration: moment.utc(transaction.trx.transaction.expiration).unix(),
+                expirationISO: moment.utc(transaction.trx.transaction.expiration).toISOString(),
+                id: transaction.trx.id,
+                numActions: transaction.trx.transaction.actions.length,
+                pending: transaction.trx.transaction.delay_sec > 0,
+                updatedAt: moment.utc(block.timestamp).unix(),
+                updatedAtISO: moment.utc(block.timestamp).toISOString(),
+                chainData: transaction
+              };
+            }),
             chainData: block
           }
         };
       }),
       catchError(error => {
         this.logger.error('CHAIN_ERROR', error);
-        return of(<Result<Block>>{
+        return of({
           isError: true,
-          error: error
+          value: error
         });
       })
     );
@@ -80,9 +116,9 @@ export class EosService {
       }),
       catchError(error => {
         console.log('TODO: Log Chain Error', error);
-        return of(<Result<Transaction>>{
+        return of({
           isError: true,
-          error: error
+          value: error
         });
       })
     );

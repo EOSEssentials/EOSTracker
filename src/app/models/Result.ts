@@ -1,7 +1,4 @@
 export type Result<T> = {
-  isError: true;
-  error: any;
-} | {
-  isError: false;
+  isError: boolean;
   value: T;
 }

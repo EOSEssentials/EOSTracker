@@ -46,7 +46,7 @@ export class TransactionComponent implements OnInit {
         } else {
           return of(<Result<TransactionRaw>>{
             isError: true,
-            error: result.error
+            value: result.value
           });
         }
       })

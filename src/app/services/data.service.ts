@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, combineLatest } from 'rxjs';
 import { map, catchError, tap, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { EosService } from './eos.service';
 import { ApiService } from './api.service';
 import { Result, Transaction, Action, Block } from '../models';
+import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,54 @@ export class DataService {
   constructor(
     private http: HttpClient,
     private eosService: EosService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private logger: LoggerService
   ) { }
 
-  getBlock(id: string | number): Observable<Result<Block>> {
-    if (environment.useChain) {
-      return this.failback(this.eosService.getBlock(id), this.apiService.getBlock(id));
-    } else {
-      return this.failback(this.apiService.getBlock(id), this.eosService.getBlock(id));
-    }
-  }
-
-  failback<T>(first$: Observable<Result<T>>, second$: Observable<Result<T>>): Observable<Result<T>> {
+  private failback<T>(first$: Observable<Result<T>>, second$: Observable<Result<T>>): Observable<Result<T>> {
     return first$.pipe(
       switchMap(result => result.isError ? second$ : of(result))
     );
+  }
+
+  getBlock(id: number): Observable<Result<Block>> {
+    if (environment.useChain) {
+      return this.eosService.getBlock(id);
+    } else {
+      const api$ = combineLatest(
+        this.apiService.getBlock(id),
+        this.apiService.getBlockTransactions(id, 1, 100),
+        this.eosService.getBlockRaw(id)
+      ).pipe(
+        map(([block, transactions, chainData]) => {
+          if (block.isError) {
+            throw block;
+          }
+          if (transactions.isError) {
+            throw transactions;
+          }
+          if (chainData.isError) {
+            throw chainData;
+          }
+          return <Result<Block>>{
+            isError: false,
+            value: {
+              ...block.value,
+              transactions: transactions.value,
+              chainData: chainData.value
+            }
+          };
+        }),
+        catchError(error => {
+          this.logger.error('DATA_ERROR', error);
+          return of({
+            isError: true,
+            value: error
+          });
+        })
+      )
+      return this.failback(api$, this.eosService.getBlock(id));
+    }
   }
 
   getTransactionActions(transaction: Transaction, paging = { index: 1, limit: 100 }): Observable<Action[]> {
