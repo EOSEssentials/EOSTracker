@@ -31,10 +31,9 @@ export class EosService {
   }
 
   getBlockRaw(id: string | number): Observable<Result<any>> {
-    const getBlock$ = defer(() => from(this.eos.getBlock(id)));
-    return getBlock$.pipe(
-      map((block: any) => {
-        return <Result<Block>>{
+    return defer(() => from(this.eos.getBlock(id))).pipe(
+      map(block => {
+        return {
           isError: false,
           value: block
         };

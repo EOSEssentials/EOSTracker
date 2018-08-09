@@ -3,50 +3,46 @@
     <mat-card-content class="table-container">
       <table>
         <tr>
-          <td>{{ 'Number' | translate }}:</td>
-          <td>{{block.blockNumber}}</td>
+          <td>{{ 'Block Number' | translate }}:</td>
+          <td>{{block.block_num}}</td>
         </tr>
         <tr>
-          <td>{{ 'Producer' | translate }}:</td>
+          <td>{{ 'Block Producer' | translate }}:</td>
           <td>
             <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
           </td>
         </tr>
         <tr>
           <td>{{ 'Timestamp' | translate }}:</td>
-          <td>{{block.timestampISO | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
+          <td>{{block.timestamp | amFromUtc | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
         </tr>
         <tr>
-          <td>{{ 'BlockId' | translate }}:</td>
+          <td>{{ 'Block ID' | translate }}:</td>
           <td>{{block.id}}</td>
         </tr>
         <tr>
-          <td>{{ 'Previous' | translate }} {{ 'BlockInformation' | translate }}:</td>
+          <td>{{ 'Previous Block ID' | translate }}:</td>
           <td>
-            <span *ngIf="block.blockNumber <= 1">{{block.prevBlockId}}</span>
-            <a [routerLink]="['/blocks',block.blockNumber-1]" *ngIf="block.blockNumber > 1">{{block.prevBlockId}}</a>
+            <span *ngIf="block.block_num <= 1">{{block.previous}}</span>
+            <a [routerLink]="['/blocks',block.block_num-1]" *ngIf="block.block_num > 1">{{block.previous}}</a>
           </td>
         </tr>
         <tr>
-          <td>{{ 'Transaction' | translate }} {{ 'MerkleRoot' | translate }}:</td>
-          <td>{{block.transactionMerkleRoot}}</td>
+          <td>{{ 'Transaction Merkle Root' | translate }}:</td>
+          <td>{{block.transaction_mroot}}</td>
         </tr>
         <tr>
-          <td>{{ 'Action' | translate }} {{ 'MerkleRoot' | translate }}:</td>
-          <td>{{block.actionMerkleRoot}}</td>
+          <td>{{ 'Action Merkle Root' | translate }}:</td>
+          <td>{{block.action_mroot}}</td>
         </tr>
         <tr>
-          <td>{{ 'Transactions' | translate }}:</td>
-          <td>{{block.numTransactions}}</td>
-        </tr>
-        <tr>
-          <td>{{ 'Confirmations' | translate }}:</td>
-          <td>{{block.confirmed}}</td>
+          <td>{{ 'Number of Transactions' | translate }}:</td>
+          <td>{{block.transactions.length}}</td>
         </tr>
       </table>
     </mat-card-content>
   </mat-card>
-  <div *ngIf="block.numTransactions > 0" style="margin-top:20px;">
+  <div *ngIf="block.transactions.length" style="margin-top:20px;">
     <app-block-transactions [transactions]="block.transactions"></app-block-transactions>
   </div>
 </div>

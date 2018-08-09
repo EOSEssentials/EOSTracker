@@ -3,30 +3,42 @@
     <table mat-table [dataSource]="transactions">
       <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Index' | translate }}</th>
+        <td mat-cell *matCellDef="let i = index">
+          {{i + 1}}
+        </td>
+      </ng-container>
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>#</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Transaction ID' | translate }}</th>
         <td mat-cell *matCellDef="let transaction">
-          <a [routerLink]="['/transactions',transaction.id]">
-            <id-64 [id]="transaction.id"></id-64>
+          <a [routerLink]="['/transactions',transaction.trx.id]">
+            <id-64 [id]="transaction.trx.id"></id-64>
           </a>
         </td>
       </ng-container>
-      <ng-container matColumnDef="blockId">
-        <th mat-header-cell *matHeaderCellDef>{{ 'BlockId' | translate }}</th>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Status' | translate }}</th>
         <td mat-cell *matCellDef="let transaction">
-          {{transaction.blockId}}
+          {{transaction.status}}
         </td>
       </ng-container>
-      <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
+      <ng-container matColumnDef="cpu">
+        <th mat-header-cell *matHeaderCellDef>{{ 'CPU Usage' | translate }}</th>
         <td mat-cell *matCellDef="let transaction">
-          {{transaction.createdAtISO | date:'MMM d, y, h:mm:ss.SSS a'}}
+          {{transaction.cpu_usage_us | number }} µs
         </td>
       </ng-container>
-      <ng-container matColumnDef="numActions">
+      <ng-container matColumnDef="net">
+        <th mat-header-cell *matHeaderCellDef>{{ 'NET Usage' | translate }}</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction.net_usage_words | toKB | number:'1.0-3'}} KB
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>{{ 'Actions' | translate }}</th>
         <td mat-cell *matCellDef="let transaction">
-          {{transaction.numActions}}
+          {{transaction.trx.transaction?.actions.length}}
         </td>
       </ng-container>
     </table>

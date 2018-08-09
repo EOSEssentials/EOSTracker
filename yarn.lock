@@ -4367,6 +4367,10 @@ next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
+ngx-json-viewer@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-json-viewer/-/ngx-json-viewer-2.3.0.tgz#82c6808ae837331bbfcf105bee05494ea7675210"
+
 ngx-moment@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/ngx-moment/-/ngx-moment-3.1.0.tgz#41380b4dd8b68e7bd6d17cc6fe7f703ae506dc3a"

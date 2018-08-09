@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from '@ngx-translate/core';
 import { MomentModule } from 'ngx-moment';
 import { PrettyJsonModule } from 'angular2-prettyjson';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -39,7 +40,8 @@ const sharedModules = [
   FlexLayoutModule,
   TranslateModule,
   MomentModule,
-  PrettyJsonModule
+  PrettyJsonModule,
+  NgxJsonViewerModule
 ];
 
 const sharedMaterialModules = [

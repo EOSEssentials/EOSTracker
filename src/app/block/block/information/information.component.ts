@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Block } from '../../../models';
 
 @Component({
   selector: 'app-block-information',
@@ -8,7 +7,7 @@ import { Block } from '../../../models';
 })
 export class InformationComponent implements OnInit {
 
-  @Input() block: Block;
+  @Input() block;
 
   constructor() { }
 

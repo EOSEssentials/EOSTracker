@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Transaction } from '../../../models';
 
 @Component({
   selector: 'app-block-transactions',
@@ -8,12 +7,14 @@ import { Transaction } from '../../../models';
 })
 export class TransactionsComponent implements OnInit {
 
-  @Input() transactions: Transaction[];
+  @Input() transactions: any[];
   transactionsColumns = [
+    'index',
     'id',
-    'blockId',
-    'createdAt',
-    'numActions'
+    'status',
+    'cpu',
+    'net',
+    'actions'
   ];
 
   constructor() { }
