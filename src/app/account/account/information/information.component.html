@@ -1,52 +1,55 @@
 <div style="margin:10px;">
   <mat-card>
-    <mat-card-title>{{ 'Account' | translate }}</mat-card-title>
     <mat-card-content class="table-container">
       <table>
         <tr>
-          <td>{{ 'Name' | translate }}:</td>
-          <td>{{account.name}}</td>
+          <td>{{ 'Account Name' | translate }}:</td>
+          <td>{{account.account_name}}</td>
         </tr>
         <tr>
           <td>{{ 'CreatedAt' | translate }}:</td>
-          <td>{{account.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
+          <td>{{account.created | amFromUtc | date:'medium'}}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>{{ 'UpdatedAt' | translate }}:</td>
-          <td>{{account.updatedAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
-        </tr>
-        <tr *ngIf="account.balance != null">
+          <td>{{account.last_code_update | amFromUtc | date:'medium'}}</td>
+        </tr> -->
+        <tr>
           <td>{{ 'Balance' | translate }}:</td>
-          <td>{{account.balance | number:'1.0-4' }} EOS</td>
+          <td>{{account.core_liquid_balance}}</td>
         </tr>
-        <tr *ngIf="account.tokens.length">
+        <!-- <tr *ngIf="account.tokens.length">
           <td>{{ 'Other tokens' | translate }}:</td>
           <td style="padding:10px">
             <div *ngFor="let token of account.tokens">{{token.balance}}</div>
           </td>
-        </tr>
-        <tr *ngIf="account.raw">
+        </tr> -->
+        <tr *ngIf="account.ram_quota > 0">
           <td>{{ 'RAM' | translate }}:</td>
-          <td>{{account.raw.ram_usage | toKB | number:'1.0-2'}} KB / {{account.raw.ram_quota | toKB | number:'1.0-2'}} KB
-            <span *ngIf="account.ramPrice">({{(account.ramPrice * account.raw.ram_quota) | number:'1.0-4'}} EOS)</span>
+          <td>{{account.ram_usage | toKB | number:'1.0-2'}} KB / {{account.ram_quota | toKB | number:'1.0-2'}} KB
+            <span *ngIf="account.ramPrice">({{(account.ramPrice * account.ram_quota) | number:'1.0-4'}} EOS)</span>
           </td>
         </tr>
-        <tr *ngIf="account.raw">
+        <tr *ngIf="account.cpu_weight > 0">
           <td>{{ 'CPU' | translate }}:</td>
-          <td style="padding:10px">
-            Staked: {{(account.raw.cpu_weight / 10000) | number:'1.0-4'}} EOS
-            <br /> Used: {{account.raw.cpu_limit.used | number}} µs
-            <br /> Available: {{account.raw.cpu_limit.available | number}} µs
-            <br /> Max: {{account.raw.cpu_limit.max | number}} µs
+          <td>
+            <div style="padding:10px 0;">
+              Staked: {{account.total_resources?.cpu_weight}}
+              <br /> Used: {{account.cpu_limit.used | number}} µs
+              <br /> Available: {{account.cpu_limit.available | number}} µs
+              <br /> Max: {{account.cpu_limit.max | number}} µs
+            </div>
           </td>
         </tr>
-        <tr *ngIf="account.raw">
+        <tr *ngIf="account.net_weight > 0">
           <td>{{ 'NET' | translate }}:</td>
-          <td style="padding:10px">
-            Staked: {{(account.raw.net_weight / 10000) | number:'1.0-4'}} EOS
-            <br /> Used: {{(account.raw.net_limit.used) | toKB | number:'1.0-2'}} KB
-            <br /> Available: {{(account.raw.net_limit.available) | toKB | number:'1.0-2'}} KB
-            <br /> Max: {{(account.raw.net_limit.max) | toKB | number:'1.0-2'}} KB
+          <td>
+            <div style="padding:10px 0;">
+              Staked: {{account.total_resources?.net_weight}}
+              <br /> Used: {{(account.net_limit.used) | toKB | number:'1.0-2'}} KB
+              <br /> Available: {{(account.net_limit.available) | toKB | number:'1.0-2'}} KB
+              <br /> Max: {{(account.net_limit.max) | toKB | number:'1.0-2'}} KB
+            </div>
           </td>
         </tr>
         <tr *ngIf="account.raw && account.balance != null && account.ramPrice">

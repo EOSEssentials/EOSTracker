@@ -22,6 +22,24 @@ export class EosService {
 
   // Note: to convert chain promise to cold observable, use defer
 
+  private getResult<T>(source$: Observable<T>): Observable<Result<T>> {
+    return source$.pipe(
+      map(data => {
+        return {
+          isError: false,
+          value: data
+        };
+      }),
+      catchError(error => {
+        this.logger.error('CHAIN_ERROR', error);
+        return of({
+          isError: true,
+          value: error
+        });
+      })
+    );
+  }
+
   getInfo(interval = 5000): Observable<any> {
     return timer(0, interval).pipe(
       switchMap(() => from(this.eos.getInfo({})))
@@ -32,23 +50,14 @@ export class EosService {
     return from(this.eos.getAccount(name));
   }
 
+  getAccountRaw(name: string): Observable<Result<any>> {
+    const getAccount$ = defer(() => from(this.eos.getAccount(name)));
+    return this.getResult<any>(getAccount$);
+  }
+
   getBlockRaw(id: string | number): Observable<Result<any>> {
     const getBlock$ = defer(() => from(this.eos.getBlock(id)));
-    return getBlock$.pipe(
-      map(block => {
-        return {
-          isError: false,
-          value: block
-        };
-      }),
-      catchError(error => {
-        this.logger.error('CHAIN_ERROR', error);
-        return of({
-          isError: true,
-          value: error
-        });
-      })
-    );
+    return this.getResult<any>(getBlock$);
   }
 
   getTransactionRaw(blockId: number, id: string): Observable<Result<any>> {
@@ -56,21 +65,7 @@ export class EosService {
       id: id,
       block_num_hint: blockId
     })));
-    return getTransaction$.pipe(
-      map(transaction => {
-        return {
-          isError: false,
-          value: transaction
-        };
-      }),
-      catchError(error => {
-        this.logger.error('CHAIN_ERROR', error);
-        return of({
-          isError: true,
-          value: error
-        });
-      })
-    );
+    return this.getResult<any>(getTransaction$);
   }
 
   getBlock(id: string | number): Observable<Result<Block>> {

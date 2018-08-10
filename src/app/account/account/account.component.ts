@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { CmcService } from '../../services/cmc.service';
 import { EosService } from '../../services/eos.service';
-import { Account, Action } from '../../models';
+import { Account, Action, Result } from '../../models';
 import { Observable, combineLatest, of } from 'rxjs';
-import { map, switchMap, share, catchError } from 'rxjs/operators';
+import { map, switchMap, share, catchError, tap } from 'rxjs/operators';
 
 interface AccountRaw extends Account {
   raw: any;
@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
 
   name$: Observable<string>;
   eosPrice$: Observable<number>;
-  account$: Observable<AccountRaw>;
+  account$: Observable<Result<any>>;
   accountActionsSent$: Observable<Action[]>;
   accountActionsReceived$: Observable<Action[]>;
 
@@ -42,29 +42,33 @@ export class AccountComponent implements OnInit {
     );
     this.eosPrice$ = this.cmcService.getEosPrice();
     this.account$ = this.name$.pipe(
-      switchMap(name => this.accountService.getAccount(name).pipe(
-        catchError(() => of({ name: name } as Account))
-      )),
-      switchMap(account => {
-        return combineLatest(
-          this.eosService.getAccount(account.name),
-          this.eosService.getCurrencyBalance(account.name),
-          this.eosService.getRamPrice(),
-          this.accountService.getAccountTokens(account.name)
-        ).pipe(
-          map(([accountRaw, balance, ramPrice, tokens]) => {
-            return {
-              ...account,
-              raw: accountRaw,
-              balance: balance,
-              ramPrice: ramPrice,
-              tokens: tokens
-            };
-          })
-        );
-      }),
-      share()
+      switchMap(name => this.eosService.getAccountRaw(name)),
+      tap(x => console.log(x))
     );
+    // this.account$ = this.name$.pipe(
+    //   switchMap(name => this.accountService.getAccount(name).pipe(
+    //     catchError(() => of({ name: name } as Account))
+    //   )),
+    //   switchMap(account => {
+    //     return combineLatest(
+    //       this.eosService.getAccount(account.name),
+    //       this.eosService.getCurrencyBalance(account.name),
+    //       this.eosService.getRamPrice(),
+    //       this.accountService.getAccountTokens(account.name)
+    //     ).pipe(
+    //       map(([accountRaw, balance, ramPrice, tokens]) => {
+    //         return {
+    //           ...account,
+    //           raw: accountRaw,
+    //           balance: balance,
+    //           ramPrice: ramPrice,
+    //           tokens: tokens
+    //         };
+    //       })
+    //     );
+    //   }),
+    //   share()
+    // );
     this.accountActionsSent$ = this.name$.pipe(
       switchMap(name => this.accountService.getAccountActionsSent(name))
     );
