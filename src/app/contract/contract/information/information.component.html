@@ -5,7 +5,7 @@
         <tr>
           <td>{{ 'TransactionId' | translate }}:</td>
           <td>
-            <a [routerLink]="['/transactions',action.transaction]">{{action.transaction}}</a>
+            <a [routerLink]="['/transactions',action.blockId,action.transaction]">{{action.transaction}}</a>
           </td>
         </tr>
         <tr>

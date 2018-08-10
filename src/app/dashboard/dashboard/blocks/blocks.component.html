@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
     {{ 'Blocks' | translate }}
-    <a mat-stroked-button color="accent" [routerLink]="['./blocks']">{{ 'ViewAll' | translate }}</a>
+    <a mat-stroked-button color="accent" [routerLink]="['/blocks']">{{ 'ViewAll' | translate }}</a>
   </mat-card-title>
   <mat-card-content>
     <app-table [dataSource]="blocks$ | async" [enablePager]="false">
@@ -13,7 +13,7 @@
         <ng-container matColumnDef="blockNumber">
           <th mat-header-cell *matHeaderCellDef>#</th>
           <td mat-cell *matCellDef="let block">
-            <a [routerLink]="['./blocks',block.blockNumber]">{{block.blockNumber}}</a>
+            <a [routerLink]="['/blocks',block.blockNumber]">{{block.blockNumber}}</a>
           </td>
         </ng-container>
         <ng-container matColumnDef="timestamp">
@@ -25,7 +25,7 @@
         <ng-container matColumnDef="producer">
           <th mat-header-cell *matHeaderCellDef>{{ 'Producer' | translate }}</th>
           <td mat-cell *matCellDef="let block">
-            <a [routerLink]="['./producers',block.producer]">{{block.producer}}</a>
+            <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
           </td>
         </ng-container>
         <ng-container matColumnDef="numTransactions">

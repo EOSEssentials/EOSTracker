@@ -6,7 +6,7 @@
       <ng-container matColumnDef="account">
         <th mat-header-cell *matHeaderCellDef>{{ 'Account' | translate }}</th>
         <td mat-cell *matCellDef="let vote">
-          <a [routerLink]="['../../account',vote.account]">{{vote.account}}</a>
+          <a [routerLink]="['/account',vote.account]">{{vote.account}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="staked">

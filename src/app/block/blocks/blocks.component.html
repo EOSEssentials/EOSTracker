@@ -13,7 +13,7 @@
       <ng-container matColumnDef="blockNumber">
         <th mat-header-cell *matHeaderCellDef>#</th>
         <td mat-cell *matCellDef="let block">
-          <a [routerLink]="['./',block.blockNumber]">{{block.blockNumber}}</a>
+          <a [routerLink]="['/blocks',block.blockNumber]">{{block.blockNumber}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="timestamp">
@@ -31,7 +31,7 @@
       <ng-container matColumnDef="producer">
         <th mat-header-cell *matHeaderCellDef>{{ 'Producer' | translate }}</th>
         <td mat-cell *matCellDef="let block">
-          <a [routerLink]="['../producers',block.producer]">{{block.producer}}</a>
+          <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="numTransactions">

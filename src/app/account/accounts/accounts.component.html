@@ -11,7 +11,7 @@
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
         <td mat-cell *matCellDef="let account">
-          <a [routerLink]="['./',account.name]">{{account.name}}</a>
+          <a [routerLink]="['/accounts',account.name]">{{account.name}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
