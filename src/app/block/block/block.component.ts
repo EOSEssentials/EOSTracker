@@ -21,7 +21,7 @@ export class BlockComponent implements OnInit {
 
   ngOnInit() {
     this.id$ = this.route.params.pipe(
-      map(params => params.id)
+      map(params => +params.id)
     );
     this.block$ = this.id$.pipe(
       switchMap(id => this.eosService.getBlockRaw(id))

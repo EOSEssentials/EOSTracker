@@ -43,7 +43,7 @@
     </mat-card-content>
   </mat-card>
   <div *ngIf="block.transactions.length" style="margin-top:20px;">
-    <app-block-transactions [transactions]="block.transactions"></app-block-transactions>
+    <app-block-transactions [block]="block"></app-block-transactions>
   </div>
 </div>
 <ng-template #loading>

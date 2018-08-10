@@ -20,6 +20,8 @@ export class EosService {
     });
   }
 
+  // Note: to convert chain promise to cold observable, use defer
+
   getInfo(interval = 5000): Observable<any> {
     return timer(0, interval).pipe(
       switchMap(() => from(this.eos.getInfo({})))
@@ -31,11 +33,34 @@ export class EosService {
   }
 
   getBlockRaw(id: string | number): Observable<Result<any>> {
-    return defer(() => from(this.eos.getBlock(id))).pipe(
+    const getBlock$ = defer(() => from(this.eos.getBlock(id)));
+    return getBlock$.pipe(
       map(block => {
         return {
           isError: false,
           value: block
+        };
+      }),
+      catchError(error => {
+        this.logger.error('CHAIN_ERROR', error);
+        return of({
+          isError: true,
+          value: error
+        });
+      })
+    );
+  }
+
+  getTransactionRaw(blockId: number, id: string): Observable<Result<any>> {
+    const getTransaction$ = defer(() => from(this.eos.getTransaction({
+      id: id,
+      block_num_hint: blockId
+    })));
+    return getTransaction$.pipe(
+      map(transaction => {
+        return {
+          isError: false,
+          value: transaction
         };
       }),
       catchError(error => {

@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TransactionsComponent implements OnInit {
 
-  @Input() transactions: any[];
+  @Input() block;
   transactionsColumns = [
     'index',
     'id',

@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EosService } from '../../services/eos.service';
-import { TransactionService } from '../../services/transaction.service';
-import { Transaction, Result } from '../../models';
-import { Observable, from, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
-
-interface TransactionRaw extends Transaction {
-  raw: any;
-}
+import { Result } from '../../models';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './transaction.component.html',
@@ -16,40 +11,16 @@ interface TransactionRaw extends Transaction {
 })
 export class TransactionComponent implements OnInit {
 
-  id$: Observable<string>;
-  transaction$: Observable<Result<TransactionRaw>>;
+  transaction$: Observable<Result<any>>;
 
   constructor(
     private route: ActivatedRoute,
-    private eosService: EosService,
-    private transactionService: TransactionService
+    private eosService: EosService
   ) { }
 
   ngOnInit() {
-    this.id$ = this.route.params.pipe(
-      map(params => params.id)
-    );
-    this.transaction$ = this.id$.pipe(
-      switchMap(id => this.transactionService.getTransaction(id)),
-      switchMap(result => {
-        if (!result.isError) {
-          const transaction: Transaction = result['value'];
-          return from(this.eosService.eos.getBlock(transaction.blockId)).pipe(
-            map((block: any) => {
-              const raw = block.transactions.find(t => t.trx.id === transaction.id);
-              return {
-                isError: false,
-                value: { ...transaction, raw }
-              };
-            })
-          );
-        } else {
-          return of(<Result<TransactionRaw>>{
-            isError: true,
-            value: result.value
-          });
-        }
-      })
+    this.transaction$ = this.route.params.pipe(
+      switchMap(params => this.eosService.getTransactionRaw(+params.blockId, params.id))
     );
   }
 

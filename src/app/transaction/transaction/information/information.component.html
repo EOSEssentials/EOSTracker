@@ -3,44 +3,49 @@
     <mat-card-content class="table-container">
       <table>
         <tr>
-          <td>{{ 'Id' | translate }}:</td>
+          <td>{{ 'Transaction ID' | translate }}:</td>
           <td>{{transaction.id}}</td>
         </tr>
         <tr>
-          <td>{{ 'Block' | translate }}:</td>
+          <td>{{ 'Block Number' | translate }}:</td>
           <td>
-            <a [routerLink]="['/blocks',transaction.blockId]">{{transaction.blockId}}</a>
+            <a [routerLink]="['/blocks',transaction.block_num]">{{transaction.block_num}}</a>
           </td>
         </tr>
         <tr>
-          <td>{{ 'CreatedAt' | translate }}:</td>
-          <td>{{transaction.createdAt | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}</td>
+          <td>{{ 'Timestamp' | translate }}:</td>
+          <td>{{transaction.block_time | amFromUtc | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Irreversible' | translate }}:</td>
+          <td>{{transaction.last_irreversible_block > transaction.block_num}}</td>
         </tr>
         <tr>
           <td>{{ 'Pending' | translate }}:</td>
-          <td>{{transaction.pending}}</td>
+          <td>{{transaction.trx.trx.delay_sec > 0}}</td>
         </tr>
         <tr>
-          <td>{{ 'Actions' | translate }}:</td>
-          <td>{{transaction.numActions}}</td>
+          <td>{{ 'Status' | translate }}:</td>
+          <td>{{transaction.trx.receipt.status}}</td>
         </tr>
-        <tr *ngIf="transaction.raw">
+        <tr>
           <td>{{ 'CPU Usage' | translate }}:</td>
-          <td>{{transaction.raw.cpu_usage_us | number }} µs</td>
+          <td>{{transaction.trx.receipt.cpu_usage_us | number }} µs</td>
         </tr>
-        <tr *ngIf="transaction.raw">
-          <td>{{ 'Net Usage' | translate }}:</td>
-          <td>{{transaction.raw.net_usage_words | toKB | number:'1.0-3'}} KB</td>
+        <tr>
+          <td>{{ 'NET Usage' | translate }}:</td>
+          <td>{{transaction.trx.receipt.net_usage_words | toKB | number:'1.0-3'}} KB</td>
+        </tr>
+        <tr>
+          <td>{{ 'Number of Actions' | translate }}:</td>
+          <td>{{transaction.trx.trx.actions.length}}</td>
         </tr>
       </table>
     </mat-card-content>
   </mat-card>
-  <div *ngIf="transaction.numActions > 0" style="margin-top:20px;">
-    <app-transaction-inline-actions [transaction]="transaction"></app-transaction-inline-actions>
-  </div>
-  <!-- <div *ngIf="transaction.numActions > 0" style="margin-top:20px;">
+  <div *ngIf="transaction.trx.trx.actions.length" style="margin-top:20px;">
     <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
-  </div> -->
+  </div>
 </div>
 <ng-template #loading>
   <app-spinner></app-spinner>
