@@ -55,6 +55,25 @@ export class EosService {
     return this.getResult<any>(getAccount$);
   }
 
+  getAccountActions(name: string, position = -1, offset = -20): Observable<Result<any[]>> {
+    const getAccountActions$ = defer(() => from(this.eos.getActions({
+      account_name: name,
+      pos: position,
+      offset: offset
+    })));
+    return this.getResult<any[]>(getAccountActions$.pipe(
+      map((data: any) => data.actions),
+      map((actions: any[]) => actions.sort((a, b) => b.account_action_seq - a.account_action_seq))
+    ));
+  }
+
+  getAbi(name: string): Observable<Result<any>> {
+    const getCode$ = defer(() => from(this.eos.getAbi({
+      account_name: name
+    })));
+    return this.getResult<any>(getCode$);
+  }
+
   getBlockRaw(id: string | number): Observable<Result<any>> {
     const getBlock$ = defer(() => from(this.eos.getBlock(id)));
     return this.getResult<any>(getBlock$);

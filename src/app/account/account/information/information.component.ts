@@ -23,7 +23,7 @@ export class InformationComponent implements OnChanges {
   ngOnChanges() {
     if (this.account && this.eosQuote && this.ramQuote) {
       this.balance = {
-        liquid: Number(this.account.core_liquid_balance.replace('EOS', '')),
+        liquid: this.account.core_liquid_balance ? Number(this.account.core_liquid_balance.replace('EOS', '')) : 0,
         ram: this.account.ram_quota * this.ramQuote.price,
         cpu: this.account.cpu_weight / 10000,
         net: this.account.net_weight / 10000
