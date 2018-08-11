@@ -1,5 +1,8 @@
 <div style="margin:10px;">
   <mat-card>
+    <mat-card-title>
+      {{ 'Account Information' | translate }}
+    </mat-card-title>
     <mat-card-content class="table-container">
       <table>
         <tr>
@@ -7,7 +10,7 @@
           <td>{{account.account_name}}</td>
         </tr>
         <tr>
-          <td>{{ 'CreatedAt' | translate }}:</td>
+          <td>{{ 'Created' | translate }}:</td>
           <td>{{account.created | amFromUtc | date:'medium'}}</td>
         </tr>
         <!-- <tr>
@@ -24,10 +27,14 @@
             <div *ngFor="let token of account.tokens">{{token.balance}}</div>
           </td>
         </tr> -->
-        <tr *ngIf="account.ram_quota > 0">
+        <tr *ngIf="account.ram_quota > 0 && ramQuote">
           <td>{{ 'RAM' | translate }}:</td>
-          <td>{{account.ram_usage | toKB | number:'1.0-2'}} KB / {{account.ram_quota | toKB | number:'1.0-2'}} KB
-            <span *ngIf="account.ramPrice">({{(account.ramPrice * account.ram_quota) | number:'1.0-4'}} EOS)</span>
+          <td>
+            <div style="padding:10px 0;">
+              Staked: {{account.ram_quota * ramQuote.price | number:'1.0-4'}} EOS
+              <br /> Used: {{account.ram_usage | toKB | number:'1.0-2'}} KB
+              <br /> Max: {{account.ram_quota | toKB | number:'1.0-2'}} KB
+            </div>
           </td>
         </tr>
         <tr *ngIf="account.cpu_weight > 0">
@@ -52,13 +59,17 @@
             </div>
           </td>
         </tr>
-        <tr *ngIf="account.raw && account.balance != null && account.ramPrice">
+        <tr *ngIf="balance">
           <td>{{ 'Value' | translate }}:</td>
           <td>
-            {{((account.raw.cpu_weight / 10000) + (account.raw.net_weight / 10000) + account.balance + (account.ramPrice * account.raw.ram_quota))
-            | number:'1.0-4'}} EOS
-            <span *ngIf="eosPrice">(${{(((account.raw.cpu_weight / 10000) + (account.raw.net_weight / 10000) + account.balance + (account.ramPrice
-              * account.raw.ram_quota)) * eosPrice) | number:'1.0-2'}})</span>
+            <div style="padding:10px 0;">
+              Balance: {{this.balance.liquid | number:'1.0-4'}} EOS
+              <br> CPU: {{this.balance.cpu | number:'1.0-4'}} EOS
+              <br> NET: {{this.balance.net | number:'1.0-4'}} EOS
+              <br> RAM: {{this.balance.ram | number:'1.0-4'}} EOS
+              <br> Total EOS: {{this.balance.total | number:'1.0-4'}} EOS
+              <br> Total USD: {{this.balance.total * this.eosQuote.price | currency}}
+            </div>
           </td>
         </tr>
       </table>

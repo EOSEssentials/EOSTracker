@@ -5,7 +5,8 @@
 </mat-toolbar>
 <ng-container *ngIf="account$ | async as account; else loading">
   <ng-container *ngIf="!account.isError; else error">
-    <app-account-information [account]="account.value" [eosPrice]="eosPrice$ | async"></app-account-information>
+    <app-account-information [account]="account.value" [eosQuote]="app.eosQuote$ | async" [ramQuote]="app.ramQuote$ | async"></app-account-information>
+    <app-account-tokens [tokens]="accountTokens$ | async"></app-account-tokens>
     <mat-tab-group color="primary" dynamicHeight="true">
       <mat-tab>
         <ng-template mat-tab-label>

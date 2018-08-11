@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { CmcService } from '../../services/cmc.service';
 import { EosService } from '../../services/eos.service';
+import { AppService } from '../../services/app.service';
 import { Account, Action, Result } from '../../models';
 import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, share, catchError, tap } from 'rxjs/operators';
@@ -26,6 +27,7 @@ export class AccountComponent implements OnInit {
   name$: Observable<string>;
   eosPrice$: Observable<number>;
   account$: Observable<Result<any>>;
+  accountTokens$: Observable<any>;
   accountActionsSent$: Observable<Action[]>;
   accountActionsReceived$: Observable<Action[]>;
 
@@ -33,7 +35,8 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute,
     private eosService: EosService,
     private accountService: AccountService,
-    private cmcService: CmcService
+    private cmcService: CmcService,
+    public app: AppService
   ) { }
 
   ngOnInit() {
@@ -43,7 +46,11 @@ export class AccountComponent implements OnInit {
     this.eosPrice$ = this.cmcService.getEosPrice();
     this.account$ = this.name$.pipe(
       switchMap(name => this.eosService.getAccountRaw(name)),
-      tap(x => console.log(x))
+      tap(x => console.log('account', x))
+    );
+    this.accountTokens$ = this.name$.pipe(
+      switchMap(name => this.accountService.getTokensRaw(name)),
+      tap(x => console.log('tokens', x))
     );
     // this.account$ = this.name$.pipe(
     //   switchMap(name => this.accountService.getAccount(name).pipe(

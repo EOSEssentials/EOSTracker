@@ -7,6 +7,7 @@ import { AccountComponent } from './account/account.component';
 import { InformationComponent } from './account/information/information.component';
 import { TablesComponent } from './account/tables/tables.component';
 import { ActionsComponent } from './account/actions/actions.component';
+import { TokensComponent } from './account/tokens/tokens.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { ActionsComponent } from './account/actions/actions.component';
     AccountComponent,
     InformationComponent,
     TablesComponent,
-    ActionsComponent
+    ActionsComponent,
+    TokensComponent
   ]
 })
 export class AccountModule { }

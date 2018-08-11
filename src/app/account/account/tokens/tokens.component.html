@@ -1,0 +1,25 @@
+<div style="margin:10px;">
+  <mat-card>
+    <mat-card-title>
+      {{ 'Account Tokens' | translate }}
+    </mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <ng-container *ngFor="let token$ of tokens">
+          <ng-container *ngIf="(token$ | async) as token">
+            <mat-list-item *ngIf="token.balance > 0">
+              <img matListAvatar [src]="token.logo" [alt]="token.name">
+              <h3 matLine>{{token.name}} ({{token.symbol}})</h3>
+              <p matLine>
+                <span>{{token.account}}</span>
+              </p>
+              <p matLine>
+                {{token.balance}} {{token.symbol}}
+              </p>
+            </mat-list-item>
+          </ng-container>
+        </ng-container>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
