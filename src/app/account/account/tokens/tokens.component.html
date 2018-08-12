@@ -1,7 +1,8 @@
 <div style="margin:10px;">
   <mat-card>
-    <mat-card-title>
-      {{ 'Account Tokens' | translate }}
+    <mat-card-title fxLayout="row" fxLayoutAlign="center center">
+      <span fxFlex>{{ 'Account Tokens' | translate }}</span>
+      <button mat-raised-button color="accent" (click)="add()">Custom Tokens</button>
     </mat-card-title>
     <mat-card-content>
       <ng-container *ngIf="tokens; else loading">

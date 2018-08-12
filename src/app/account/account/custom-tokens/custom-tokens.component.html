@@ -1,0 +1,37 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="center center">
+  <h2 class="mat-title" fxFlex>Custom Tokens</h2>
+  <button mat-dialog-close mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <div class="mat-elevation-z2" style="padding:20px;margin-bottom:20px;">
+    <form fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" [formGroup]="tokenForm" (submit)="submit()">
+      <mat-form-field fxFlex="40%">
+        <input matInput placeholder="Token Account" formControlName="account" required>
+      </mat-form-field>
+      <mat-form-field fxFlex="40%">
+        <input matInput placeholder="Token Symbol" formControlName="symbol" required>
+      </mat-form-field>
+      <button fxFlex="20%" type="submit" mat-raised-button color="accent" [disabled]="!tokenForm.valid">
+        Check Token
+      </button>
+    </form>
+    <div *ngIf="token$ | async as token">
+      Balance: {{token}}
+    </div>
+  </div>
+  <p class="mat-subheading-1" style="margin-bottom:10px;">
+    By default, we support the following tokens automatically. If the token you are looking for is not in this list, you need
+    to manually enter the token account and symbol, so we can help you to check.
+  </p>
+  <div>
+    <mat-card *ngFor="let token of allTokens$ | async" style="display:inline-block;width:100px;margin:10px 10px 0 0;">
+      <img mat-card-image [src]="token.logo" [alt]="token.name">
+      <mat-card-header>
+        <mat-card-title style="white-space:nowrap;">{{token.name}}</mat-card-title>
+        <mat-card-subtitle>{{token.symbol}}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</mat-dialog-content>
