@@ -1,8 +1,9 @@
 import * as Eos from 'eosjs';
 import * as moment from 'moment';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable, from, of, timer, defer } from 'rxjs';
+import { Observable, from, of, timer, defer, combineLatest } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Block, Transaction, Result } from '../models';
 import { LoggerService } from './logger.service';
@@ -12,6 +13,7 @@ export class EosService {
   public eos: any;
 
   constructor(
+    private http: HttpClient,
     private logger: LoggerService
   ) {
     this.eos = Eos({
@@ -65,6 +67,32 @@ export class EosService {
       map((data: any) => data.actions),
       map((actions: any[]) => actions.sort((a, b) => b.account_action_seq - a.account_action_seq))
     ));
+  }
+
+  getAccountTokens(name: string): Observable<Result<any[]>> {
+    const allTokens$: Observable<any[]> = this.http.get<any[]>(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`);
+    const getCurrencyBalance = function (token: any, account: string): Observable<any> {
+      return from(this.eos.getCurrencyBalance(token.account, account, token.symbol)).pipe(
+        map((balance: string[]) => ({
+          ...token,
+          balance: balance[0] ? Number(balance[0].split(' ', 1)) : 0
+        })),
+        catchError(() => of({
+          ...token,
+          balance: 0
+        }))
+      );
+    };
+    const accountTokens$ = allTokens$.pipe(
+      switchMap(tokens => {
+        return combineLatest(
+          tokens.map(token => getCurrencyBalance.bind(this)(token, name))
+        ).pipe(
+          map(tokens => tokens.filter(token => token.balance > 0))
+        )
+      })
+    );
+    return this.getResult<any[]>(accountTokens$);
   }
 
   getAbi(name: string): Observable<Result<any>> {

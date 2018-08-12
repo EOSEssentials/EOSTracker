@@ -26,7 +26,7 @@ export class ActionsComponent implements OnChanges {
       this.actions.value = this.actions.value.concat(this.newActions.value);
       this.newActions = null;
     }
-    if (this.actions && !this.actions.isError) {
+    if (this.actions && !this.actions.isError && this.actions.value.length) {
       this.accountActionSequence = this.actions.value[this.actions.value.length - 1].account_action_seq;
     }
   }

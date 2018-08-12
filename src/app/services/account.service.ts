@@ -56,28 +56,6 @@ export class AccountService {
     );
   }
 
-  getTokensRaw(name: string): Observable<any> {
-    const allTokens$: Observable<any[]> = this.http.get<any[]>(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`);
-    const getCurrencyBalance = function (token: any, account: string): Observable<any> {
-      return from(this.eosService.eos.getCurrencyBalance(token.account, account, token.symbol)).pipe(
-        map((balance: string[]) => ({
-          ...token,
-          balance: balance[0] ? Number(balance[0].split(' ', 1)) : 0
-        })),
-        catchError(() => of({
-          ...token,
-          balance: 0
-        }))
-      );
-    };
-    return allTokens$.pipe(
-      map(tokens => tokens
-        .filter(token => token.symbol !== 'EOS')
-        .map(token => getCurrencyBalance.bind(this)(token, name))
-      )
-    );
-  }
-
   getTokens(): Observable<Token[]> {
     return this.http.get(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`).pipe(
       map((tokens: any) => tokens.map(token => token as Token))

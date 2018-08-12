@@ -4,22 +4,47 @@
       {{ 'Account Tokens' | translate }}
     </mat-card-title>
     <mat-card-content>
-      <mat-list>
-        <ng-container *ngFor="let token$ of tokens">
-          <ng-container *ngIf="(token$ | async) as token">
-            <mat-list-item *ngIf="token.balance > 0">
-              <img matListAvatar [src]="token.logo" [alt]="token.name">
-              <h3 matLine>{{token.name}} ({{token.symbol}})</h3>
-              <p matLine>
-                <span>{{token.account}}</span>
-              </p>
-              <p matLine>
-                {{token.balance}} {{token.symbol}}
-              </p>
-            </mat-list-item>
+      <ng-container *ngIf="tokens; else loading">
+        <table mat-table [dataSource]="tokens.value" *ngIf="!tokens.isError">
+          <tr mat-header-row *matHeaderRowDef="tokensColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: tokensColumns;"></tr>
+          <ng-container matColumnDef="logo">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Logo' | translate }}</th>
+            <td mat-cell *matCellDef="let token">
+              <img [src]="token.logo" [alt]="token.name" style="width:64px;height:64px;display:block;">
+            </td>
           </ng-container>
-        </ng-container>
-      </mat-list>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+            <td mat-cell *matCellDef="let token">
+              {{token.name}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Symbol' | translate }}</th>
+            <td mat-cell *matCellDef="let token">
+              {{token.symbol}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="account">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Account' | translate }}</th>
+            <td mat-cell *matCellDef="let token">
+              <a [routerLink]="['/accounts',token.account]">
+                {{token.account}}
+              </a>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="balance">
+            <th mat-header-cell *matHeaderCellDef>{{ 'Balance' | translate }}</th>
+            <td mat-cell *matCellDef="let token">
+              {{token.balance}} {{token.symbol}}
+            </td>
+          </ng-container>
+        </table>
+      </ng-container>
+      <ng-template #loading>
+        <app-spinner></app-spinner>
+      </ng-template>
     </mat-card-content>
   </mat-card>
 </div>

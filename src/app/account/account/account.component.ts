@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountService } from '../../services/account.service';
 import { EosService } from '../../services/eos.service';
 import { AppService } from '../../services/app.service';
 import { Result } from '../../models';
@@ -23,7 +22,6 @@ export class AccountComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eosService: EosService,
-    private accountService: AccountService,
     public app: AppService
   ) { }
 
@@ -36,7 +34,7 @@ export class AccountComponent implements OnInit {
       tap(account => console.log('account', account))
     );
     this.accountTokens$ = this.name$.pipe(
-      switchMap(name => this.accountService.getTokensRaw(name))
+      switchMap(name => this.eosService.getAccountTokens(name))
     );
     this.accountActions$ = this.name$.pipe(
       switchMap(name => this.eosService.getAccountActions(name))
