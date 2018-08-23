@@ -10,7 +10,7 @@ export const environment = {
   appName: 'EOS Tracker',
   logoUrl: '/assets/logo.png',
   apiUrl: 'https://api.eostracker.io',
-  blockchainUrl: 'https://api.eosnewyork.io',
+  blockchainUrl: 'https://eos.greymass.com',
   chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
   useChain: true
 };

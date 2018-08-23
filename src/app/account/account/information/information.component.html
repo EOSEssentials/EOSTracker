@@ -17,7 +17,7 @@
           <td>{{ 'UpdatedAt' | translate }}:</td>
           <td>{{account.last_code_update | amFromUtc | date:'medium'}}</td>
         </tr> -->
-        <tr>
+        <tr *ngIf="account.core_liquid_balance">
           <td>{{ 'Balance' | translate }}:</td>
           <td>{{account.core_liquid_balance}}</td>
         </tr>
