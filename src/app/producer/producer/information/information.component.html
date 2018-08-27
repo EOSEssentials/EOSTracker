@@ -26,7 +26,9 @@
       </tr>
       <tr *ngIf="producer">
         <td>{{ 'Url' | translate }}:</td>
-        <td>{{producer.url}}</td>
+        <td>
+          <a href="{{producer.url}}">{{producer.url}}</a>
+        </td>
       </tr>
       <tr *ngIf="producer">
         <td>{{ 'Position' | translate }}:</td>
