@@ -22,7 +22,7 @@
         </tr>
         <tr>
           <td>{{ 'Pending' | translate }}:</td>
-          <td>{{transaction.trx.trx.delay_sec > 0}}</td>
+          <td>{{transaction.trx.trx?.delay_sec > 0}}</td>
         </tr>
         <tr>
           <td>{{ 'Status' | translate }}:</td>
@@ -38,12 +38,12 @@
         </tr>
         <tr>
           <td>{{ 'Number of Actions' | translate }}:</td>
-          <td>{{transaction.trx.trx.actions.length}}</td>
+          <td>{{transaction.trx.trx?.actions?.length || 0}}</td>
         </tr>
       </table>
     </mat-card-content>
   </mat-card>
-  <div *ngIf="transaction.trx.trx.actions.length" style="margin-top:20px;">
+  <div *ngIf="transaction.trx.trx?.actions?.length" style="margin-top:20px;">
     <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
   </div>
 </div>

@@ -22,6 +22,7 @@ export class AppService {
   info$: Observable<any>;
   latestBlock$: Observable<any>;
   recentBlocks$: Observable<any[]>;
+  recentTransactions$: Observable<any[]>;
 
   constructor(
     private eosService: EosService,
@@ -43,6 +44,21 @@ export class AppService {
         return forkJoin(blockNumbers$).pipe(
           map((blocks) => [block, ...blocks])
         );
+      }),
+      share()
+    );
+    this.recentTransactions$ = this.recentBlocks$.pipe(
+      map((blocks: any[]) => {
+        return blocks.reduce((previous, current) => {
+          const transactions = current.transactions.map(transaction => {
+            return {
+              ...transaction,
+              block_num: current.block_num,
+              trx: typeof transaction.trx === 'string' ? { id: transaction.trx } : transaction.trx
+            };
+          })
+          return previous.concat(transactions);
+        }, []);
       }),
       share()
     );
