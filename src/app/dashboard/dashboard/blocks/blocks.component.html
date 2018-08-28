@@ -1,25 +1,25 @@
 <mat-card>
   <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-    {{ 'Blocks' | translate }}
+    {{ 'Recent Blocks' | translate }}
     <a mat-stroked-button color="accent" [routerLink]="['/blocks']">{{ 'ViewAll' | translate }}</a>
   </mat-card-title>
   <mat-card-content>
-    <app-table [dataSource]="blocks$ | async" [enablePager]="false">
-      <table mat-table [dataSource]="blocks$ | async">
+    <ng-container *ngIf="blocks$ | async as blocks; else loading">
+      <table mat-table [dataSource]="blocks">
         <ng-container *ngIf="blocksColumns$ | async as blocksColumns">
           <tr mat-header-row *matHeaderRowDef="blocksColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: blocksColumns;"></tr>
         </ng-container>
-        <ng-container matColumnDef="blockNumber">
-          <th mat-header-cell *matHeaderCellDef>#</th>
+        <ng-container matColumnDef="block_num">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Block Number' | translate }}</th>
           <td mat-cell *matCellDef="let block">
-            <a [routerLink]="['/blocks',block.blockNumber]">{{block.blockNumber}}</a>
+            <a [routerLink]="['/blocks',block.block_num]">{{block.block_num}}</a>
           </td>
         </ng-container>
         <ng-container matColumnDef="timestamp">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'Timestamp' | translate }}</th>
           <td mat-cell *matCellDef="let block">
-            {{block.timestamp | amFromUnix | amSubtract: 2 : 'hours' | date:'medium'}}
+            {{block.timestamp | amFromUtc | amTimeAgo}}
           </td>
         </ng-container>
         <ng-container matColumnDef="producer">
@@ -28,13 +28,16 @@
             <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
           </td>
         </ng-container>
-        <ng-container matColumnDef="numTransactions">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Tx' | translate }}</th>
+        <ng-container matColumnDef="transactions">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Transactions' | translate }}</th>
           <td mat-cell *matCellDef="let block">
-            {{block.numTransactions}}
+            {{block.transactions.length}}
           </td>
         </ng-container>
       </table>
-    </app-table>
+    </ng-container>
+    <ng-template #loading>
+      <app-spinner></app-spinner>
+    </ng-template>
   </mat-card-content>
 </mat-card>

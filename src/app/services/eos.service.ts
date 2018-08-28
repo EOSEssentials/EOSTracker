@@ -42,10 +42,12 @@ export class EosService {
     );
   }
 
-  getInfo(interval = 5000): Observable<any> {
-    return timer(0, interval).pipe(
-      switchMap(() => from(this.eos.getInfo({})))
-    );
+  getDeferInfo(): Observable<any> {
+    return defer(() => from(this.eos.getInfo({})));
+  }
+
+  getDeferBlock(id: string | number): Observable<any> {
+    return defer(() => from(this.eos.getBlock(id)));
   }
 
   getAccount(name: string): Observable<any> {

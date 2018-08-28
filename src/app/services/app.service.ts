@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { EosService } from './eos.service';
 import { CmcService } from './cmc.service';
-import { Observable, Subject, timer, from } from 'rxjs';
+import { Observable, Subject, timer, from, forkJoin } from 'rxjs';
 import { map, filter, share, withLatestFrom, switchMap } from 'rxjs/operators';
 
 const EOS_QUOTE = 60000;
 const RAM_QUOTE = 60000;
+const GET_INFO_INTERVAL = 5000;
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,37 @@ export class AppService {
   private latestBlockNumberSource = new Subject<number>();
 
   latestBlockNumber$ = this.latestBlockNumberSource.asObservable();
-  chainStatus$: Observable<any>;
   isMaintenance$: Observable<boolean>;
   eosQuote$: Observable<any>;
   ramQuote$: Observable<any>;
+  info$: Observable<any>;
+  latestBlock$: Observable<any>;
+  recentBlocks$: Observable<any[]>;
 
   constructor(
     private eosService: EosService,
     private cmcService: CmcService
   ) {
-    this.chainStatus$ = this.eosService.getInfo().pipe(
+    this.info$ = timer(0, GET_INFO_INTERVAL).pipe(
+      switchMap(() => this.eosService.getDeferInfo()),
       share()
     );
-    this.isMaintenance$ = this.chainStatus$.pipe(
+    this.latestBlock$ = this.info$.pipe(
+      switchMap((info: any) => from(this.eosService.getDeferBlock(info.head_block_num))),
+      share()
+    );
+    this.recentBlocks$ = this.latestBlock$.pipe(
+      switchMap((block: any) => {
+        const blockNumber: number = block.block_num;
+        const blockNumbers: number[] = [blockNumber - 1, blockNumber - 2, blockNumber - 3, blockNumber - 4];
+        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNum => from(this.eosService.getDeferBlock(blockNum)));
+        return forkJoin(blockNumbers$).pipe(
+          map((blocks) => [block, ...blocks])
+        );
+      }),
+      share()
+    );
+    this.isMaintenance$ = this.info$.pipe(
       withLatestFrom(this.latestBlockNumber$),
       map(([chainStatus, blockNumber]) => {
         return (chainStatus.head_block_num - blockNumber) > 600;
