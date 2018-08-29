@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, empty } from 'rxjs';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
 import { TransactionService } from '../../services/transaction.service';
-import { BlockService } from '../../services/block.service';
 import { AccountService } from '../../services/account.service';
+import { EosService } from '../../services/eos.service';
 
 @Component({
   selector: 'app-search',
@@ -20,8 +20,8 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private transactionService: TransactionService,
-    private blockService: BlockService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private eosService: EosService
   ) { }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
   private tryBlockNumber(query: string): Observable<string> {
     const blockNumber = Number(query);
     if (!isNaN(blockNumber)) {
-      return this.blockService.getBlock(blockNumber).pipe(
+      return this.eosService.getDeferBlock(blockNumber).pipe(
         catchError(() => of(null)),
         switchMap(data => {
           if (data) {
@@ -73,11 +73,11 @@ export class SearchComponent implements OnInit {
 
   private tryBlockId(query: string): Observable<string> {
     if (query.length === 64) {
-      return this.blockService.getBlockId(query).pipe(
+      return this.eosService.getDeferBlock(query).pipe(
         catchError(() => of(null)),
         switchMap(data => {
           if (data) {
-            this.router.navigate(['/blocks', data['blockNumber']], { replaceUrl: true });
+            this.router.navigate(['/blocks', data['block_num']], { replaceUrl: true });
             return empty();
           }
           return of(query);

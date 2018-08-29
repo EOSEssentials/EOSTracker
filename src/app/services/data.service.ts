@@ -5,7 +5,7 @@ import { map, catchError, tap, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { EosService } from './eos.service';
 import { ApiService } from './api.service';
-import { Result, Transaction, Action, Block } from '../models';
+import { Result, Transaction, Action } from '../models';
 import { LoggerService } from './logger.service';
 
 @Injectable({
@@ -24,46 +24,6 @@ export class DataService {
     return first$.pipe(
       switchMap(result => result.isError ? second$ : of(result))
     );
-  }
-
-  getBlock(id: number): Observable<Result<Block>> {
-    if (environment.useChain) {
-      return this.eosService.getBlock(id);
-    } else {
-      const api$ = combineLatest(
-        this.apiService.getBlock(id),
-        this.apiService.getBlockTransactions(id, 1, 100),
-        this.eosService.getBlockRaw(id)
-      ).pipe(
-        map(([block, transactions, chainData]) => {
-          if (block.isError) {
-            throw block;
-          }
-          if (transactions.isError) {
-            throw transactions;
-          }
-          if (chainData.isError) {
-            throw chainData;
-          }
-          return <Result<Block>>{
-            isError: false,
-            value: {
-              ...block.value,
-              transactions: transactions.value,
-              chainData: chainData.value
-            }
-          };
-        }),
-        catchError(error => {
-          this.logger.error('DATA_ERROR', error);
-          return of({
-            isError: true,
-            value: error
-          });
-        })
-      )
-      return this.failback(api$, this.eosService.getBlock(id));
-    }
   }
 
   getTransactionActions(transaction: Transaction, paging = { index: 1, limit: 100 }): Observable<Action[]> {

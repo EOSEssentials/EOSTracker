@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BlockService } from './services/block.service';
 import { TransactionService } from './services/transaction.service';
 import { DashboardService } from './services/dashboard.service';
 import { AccountService } from './services/account.service';
@@ -51,7 +50,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule
   ],
   providers: [
-    BlockService,
     TransactionService,
     DashboardService,
     EosService,
