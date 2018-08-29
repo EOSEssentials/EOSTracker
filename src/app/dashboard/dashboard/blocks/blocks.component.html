@@ -1,43 +1,41 @@
-<mat-card>
-  <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+<div fxLayout="row" fxLayoutAlign="space-between center" style="margin:20px 5px 10px;">
+  <h3 class="mat-subheading-2" fxFlex>
     {{ 'Recent Blocks' | translate }}
-    <a mat-stroked-button color="accent" [routerLink]="['/blocks']">{{ 'ViewAll' | translate }}</a>
-  </mat-card-title>
-  <mat-card-content>
-    <ng-container *ngIf="blocks$ | async as blocks; else loading">
-      <table mat-table [dataSource]="blocks">
-        <ng-container *ngIf="blocksColumns$ | async as blocksColumns">
-          <tr mat-header-row *matHeaderRowDef="blocksColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: blocksColumns;"></tr>
-        </ng-container>
-        <ng-container matColumnDef="block_num">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Block Number' | translate }}</th>
-          <td mat-cell *matCellDef="let block">
-            <a [routerLink]="['/blocks',block.block_num]">{{block.block_num}}</a>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="timestamp">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Timestamp' | translate }}</th>
-          <td mat-cell *matCellDef="let block">
-            {{block.timestamp | amFromUtc | amTimeAgo}}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="producer">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Producer' | translate }}</th>
-          <td mat-cell *matCellDef="let block">
-            <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="transactions">
-          <th mat-header-cell *matHeaderCellDef>{{ 'Transactions' | translate }}</th>
-          <td mat-cell *matCellDef="let block">
-            {{block.transactions.length}}
-          </td>
-        </ng-container>
-      </table>
+  </h3>
+  <a mat-stroked-button color="accent" [routerLink]="['/blocks']">{{ 'ViewAll' | translate }}</a>
+</div>
+<div class="table-container mat-elevation-z1" *ngIf="blocks$ | async as blocks; else loading">
+  <table mat-table [dataSource]="blocks" style="border:none;">
+    <ng-container *ngIf="blocksColumns$ | async as blocksColumns">
+      <tr mat-header-row *matHeaderRowDef="blocksColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: blocksColumns;"></tr>
     </ng-container>
-    <ng-template #loading>
-      <app-spinner></app-spinner>
-    </ng-template>
-  </mat-card-content>
-</mat-card>
+    <ng-container matColumnDef="block_num">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Block Number' | translate }}</th>
+      <td mat-cell *matCellDef="let block">
+        <a [routerLink]="['/blocks',block.block_num]">{{block.block_num}}</a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="timestamp">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Timestamp' | translate }}</th>
+      <td mat-cell *matCellDef="let block">
+        {{block.timestamp | amFromUtc | amTimeAgo}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="producer">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Producer' | translate }}</th>
+      <td mat-cell *matCellDef="let block">
+        <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="transactions">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Transactions' | translate }}</th>
+      <td mat-cell *matCellDef="let block">
+        {{block.transactions.length}}
+      </td>
+    </ng-container>
+  </table>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
