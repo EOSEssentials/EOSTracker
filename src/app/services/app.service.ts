@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { EosService } from './eos.service';
 import { CmcService } from './cmc.service';
-import { Observable, Subject, timer, from, forkJoin } from 'rxjs';
-import { map, filter, share, withLatestFrom, switchMap } from 'rxjs/operators';
+import { Observable, Subject, timer, from, forkJoin, of } from 'rxjs';
+import { map, filter, share, withLatestFrom, switchMap, catchError, take } from 'rxjs/operators';
 
 const EOS_QUOTE = 60000;
 const RAM_QUOTE = 60000;
@@ -93,6 +93,34 @@ export class AppService {
         };
       }),
       share()
+    );
+  }
+
+  getBlocks(blockNumber?: number, limit = 10): Observable<any[]> {
+    let blockNumber$: Observable<number>;
+    if (blockNumber) {
+      blockNumber$ = of(blockNumber);
+    } else {
+      blockNumber$ = this.info$.pipe(
+        take(1),
+        map(info => info.head_block_num)
+      );
+    }
+    return blockNumber$.pipe(
+      switchMap(blockNumber => {
+        let blockNumbers: number[] = [];
+        for (let i = blockNumber; i > blockNumber - limit && i > 0; i--) {
+          blockNumbers.push(i);
+        }
+        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNumber => {
+          return this.eosService.getDeferBlock(blockNumber).pipe(
+            catchError(() => of(null))
+          );
+        });
+        return forkJoin(blockNumbers$).pipe(
+          map(blocks => blocks.filter(block => block !== null))
+        );
+      })
     );
   }
 

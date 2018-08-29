@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { BlockRoutingModule } from './block-routing.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { BlocksComponent } from './blocks/blocks.component';
 import { BlockComponent } from './block/block.component';
@@ -10,7 +11,8 @@ import { TransactionsComponent } from './block/transactions/transactions.compone
 @NgModule({
   imports: [
     SharedModule,
-    BlockRoutingModule
+    BlockRoutingModule,
+    MatPaginatorModule
   ],
   declarations: [
     BlocksComponent,
