@@ -5,6 +5,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Account, Action, Token } from '../models';
 import { EosService } from './eos.service';
+import {Result} from '../models/Result';
 
 @Injectable()
 export class AccountService {
