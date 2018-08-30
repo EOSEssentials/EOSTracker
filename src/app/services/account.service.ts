@@ -15,8 +15,18 @@ export class AccountService {
   ) { }
 
   getAccount(name: string): Observable<Account> {
+
     return this.http.get(`${environment.apiUrl}/accounts/${name}`).pipe(
-      map(account => account as Account)
+      map(account => {
+        return <Result<Account>>{
+          isError: false,
+          value: account as Account
+        };
+      }),
+      catchError(error => {
+        console.log('TODO: API Error', error);
+        return this.eosService.getAccountMapped(name);
+      })
     );
   }
 

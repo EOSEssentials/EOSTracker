@@ -49,6 +49,28 @@ export class EosService {
     return defer(() => from(this.eos.getBlock(id)));
   }
 
+  getAccountMapped(name: string): Observable<Result<Account>> {
+    return from(this.eos.getAccount({ name })).pipe(
+      map((account: any) => {
+        return <Result<Account>>{
+          isError: false,
+          value: {
+            createdAt: 0,
+            name: name,
+            updatedAt: 0
+          }
+        };
+      }),
+      catchError(error => {
+        console.log('TODO: Log Chain Error', error);
+        return of({
+          isError: true,
+          value: error
+        });
+      })
+    );
+  }
+
   getAccount(name: string): Observable<any> {
     return from(this.eos.getAccount(name));
   }
@@ -156,22 +178,6 @@ export class EosService {
           return parseFloat(result[0].replace(' EOS', ''));
         }
         return 0;
-      })
-    );
-  }
-
-  getRamPrice(): Observable<number> {
-    return from(this.eos.getTableRows({
-      json: true,
-      code: "eosio",
-      scope: "eosio",
-      table: "rammarket",
-      limit: 1
-    })).pipe(
-      map((result: any) => {
-        let base = parseFloat(result.rows[0].base.balance.replace(' RAM', ''));
-        let quote = parseFloat(result.rows[0].quote.balance.replace(' EOS', ''));
-        return quote / base;
       })
     );
   }

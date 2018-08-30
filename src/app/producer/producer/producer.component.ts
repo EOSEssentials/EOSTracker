@@ -4,7 +4,6 @@ import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, share } from 'rxjs/operators';
 import { EosService } from '../../services/eos.service';
 import { AccountService } from '../../services/account.service';
-import { VoteService } from '../../services/vote.service';
 import { BpService } from '../../services/bp.service';
 import { Producer } from '../../models/Producer';
 
@@ -21,7 +20,6 @@ export class ProducerComponent implements OnInit {
     private route: ActivatedRoute,
     private eosService: EosService,
     private accountService: AccountService,
-    private voteService: VoteService,
     private bpService: BpService
   ) { }
 
