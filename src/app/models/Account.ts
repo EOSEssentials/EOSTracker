@@ -1,7 +1,5 @@
 export interface Account {
-  abi?: {
-    tables?: any;
-  };
+  abi?: any;
   createdAt: number;
   name: string;
   updatedAt: number;
