@@ -33,11 +33,6 @@ export class SidenavComponent implements OnInit {
         name: this.translate.instant('Producers')
       },
       {
-        icon: 'people',
-        link: '/accounts',
-        name: this.translate.instant('Accounts')
-      },
-      {
         icon: 'link',
         link: '/blocks',
         name: this.translate.instant('Blocks')
