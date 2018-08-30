@@ -55,7 +55,9 @@ export class EosService {
         return <Result<Account>>{
           isError: false,
           value: {
-            abi: nil,
+            abi: {
+              tables: []
+            },
             createdAt: 0,
             name: name,
             updatedAt: 0
