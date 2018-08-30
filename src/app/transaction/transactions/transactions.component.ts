@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { TransactionService } from '../../services/transaction.service';
-import { Transaction } from '../../models/Transaction';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, share } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { AppService } from '../../services/app.service';
 
 @Component({
   templateUrl: './transactions.component.html',
@@ -12,32 +10,43 @@ import { switchMap, map, share } from 'rxjs/operators';
 })
 export class TransactionsComponent implements OnInit {
 
-  columnHeaders$: Observable<string[]> = of(TRANSACTION_COLUMNS);
-  transactions$: Observable<Transaction[]>;
+  columnHeaders$: Observable<string[]> = of(DEFAULT_HEADERS);
+  blocks$: Observable<any[]>;
+  pageIndex = 0;
+  pageSize = 10;
+  total = 0;
 
   constructor(
-    private route: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
-    private transactionService: TransactionService
+    private appService: AppService
   ) { }
 
   ngOnInit() {
     this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
-      map(result => result.matches ? TRANSACTION_COLUMNS.filter(c => c !== 'expiration') : TRANSACTION_COLUMNS)
+      map(result => result.matches ? XSMALL_HEADERS : DEFAULT_HEADERS)
     );
-    this.transactions$ = this.route.queryParams.pipe(
-      map(queryParams => queryParams.page ? Number(queryParams.page) : 1),
-      switchMap(page => this.transactionService.getTransactions(page)),
-      share()
+    this.blocks$ = this.appService.getBlocks(this.pageIndex, this.pageSize).pipe(
+      tap(blocks => {
+        this.total = blocks[0].block_num;
+      })
     );
+  }
+
+  onPaging(pageEvent) {
+    this.pageIndex = pageEvent.pageIndex;
+    this.blocks$ = this.appService.getBlocks(pageEvent.length - pageEvent.pageSize * pageEvent.pageIndex);
   }
 
 }
 
-export const TRANSACTION_COLUMNS = [
+const DEFAULT_HEADERS = [
   'id',
-  'blockId',
-  'createdAt',
-  'expiration',
-  'numActions'
+  'cpu',
+  'net',
+  'actions'
+];
+
+const XSMALL_HEADERS = [
+  'id',
+  'actions'
 ];
