@@ -56,7 +56,7 @@ export class EosService {
           isError: false,
           value: {
             abi: {
-              tables: nil
+              tables: []
             },
             createdAt: 0,
             name: name,
