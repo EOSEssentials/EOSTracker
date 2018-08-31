@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <h1 class="mat-headline">
     {{ 'Producer' | translate }}
-    <span *ngIf="producer$ | async as producer">{{producer.account?.name}}</span>
+    <span *ngIf="producer$ | async as producer">{{producer.account?.account_name}}</span>
   </h1>
 </mat-toolbar>
 <div *ngIf="producer$ | async as producer; else loading">
@@ -13,14 +13,14 @@
         <mat-icon style="margin-right:5px;">how_to_vote</mat-icon>
         {{ 'Votes' | translate }}
       </ng-template>
-      <app-producer-votes [name]="producer.account?.name"></app-producer-votes>
+      <app-producer-votes [name]="producer.account?.account_name"></app-producer-votes>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon style="margin-right:5px;">code</mat-icon>
         {{ 'BlockchainRawData' | translate }}
       </ng-template>
-      <prettyjson [obj]="producer.account?.raw" *ngIf="producer.account?.raw"></prettyjson>
+      <prettyjson [obj]="producer.account" *ngIf="producer.account"></prettyjson>
     </mat-tab>
   </mat-tab-group>
 </div>

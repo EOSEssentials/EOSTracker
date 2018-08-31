@@ -105,11 +105,11 @@ export class SearchComponent implements OnInit {
 
   private tryAccount(query: string): Observable<string> {
     if (query.length <= 12) {
-      return this.accountService.getAccount(query).pipe(
+      return this.eosService.getDeferAccount(query).pipe(
         catchError(() => of(null)),
-        switchMap(data => {
-          if (data) {
-            this.router.navigate(['/accounts', data['name']], { replaceUrl: true });
+        switchMap(account => {
+          if (account) {
+            this.router.navigate(['/accounts', account.account_name], { replaceUrl: true });
             return empty();
           }
           return of(query);

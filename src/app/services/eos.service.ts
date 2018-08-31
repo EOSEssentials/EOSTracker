@@ -49,26 +49,8 @@ export class EosService {
     return defer(() => from(this.eos.getBlock(id)));
   }
 
-  getAccountMapped(name: string): Observable<Result<Account>> {
-    return from(this.eos.getAccount({ name })).pipe(
-      map((account: any) => {
-        return <Result<Account>>{
-          isError: false,
-          value: {
-            createdAt: 0,
-            name: name,
-            updatedAt: 0
-          }
-        };
-      }),
-      catchError(error => {
-        console.log('TODO: Log Chain Error', error);
-        return of({
-          isError: true,
-          value: error
-        });
-      })
-    );
+  getDeferAccount(name: string): Observable<any> {
+    return defer(() => from(this.eos.getAccount(name)));
   }
 
   getAccount(name: string): Observable<any> {

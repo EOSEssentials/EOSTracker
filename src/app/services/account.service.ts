@@ -5,7 +5,6 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Account, Action, Token } from '../models';
 import { EosService } from './eos.service';
-import {Result} from '../models/Result';
 
 @Injectable()
 export class AccountService {
@@ -14,22 +13,6 @@ export class AccountService {
     private http: HttpClient,
     private eosService: EosService
   ) { }
-
-  getAccount(name: string): Observable<Account> {
-
-    return this.http.get(`${environment.apiUrl}/accounts/${name}`).pipe(
-      map(account => {
-        return <Result<Account>>{
-          isError: false,
-          value: account as Account
-        };
-      }),
-      catchError(error => {
-        console.log('TODO: API Error', error);
-        return this.eosService.getAccountMapped(name);
-      })
-    );
-  }
 
   getAccountKey(key: string): Observable<Account> {
     return this.http.get(`${environment.apiUrl}/accounts/key/${key}`).pipe(

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of } from 'rxjs';
-import { map, switchMap, share } from 'rxjs/operators';
+import { map, switchMap, share, catchError } from 'rxjs/operators';
 import { EosService } from '../../services/eos.service';
 import { AccountService } from '../../services/account.service';
 import { BpService } from '../../services/bp.service';
@@ -32,10 +32,7 @@ export class ProducerComponent implements OnInit {
       this.eosService.getChainStatus(),
       this.eosService.getProducers(),
       this.name$.pipe(
-        switchMap(name => this.accountService.getAccount(name)),
-        switchMap(account => this.eosService.getAccount(account.name).pipe(
-          map(accountRaw => ({ ...account, raw: accountRaw }))
-        ))
+        switchMap(name => this.eosService.getDeferAccount(name))
       )
     ).pipe(
       map(([name, chainStatus, producers, account]) => {
@@ -72,6 +69,7 @@ export class ProducerComponent implements OnInit {
           return of(producer);
         } else {
           return this.bpService.getBP(producer.url).pipe(
+            catchError(() => of(null)),
             map(bpJson => ({
               ...producer,
               bpJson,

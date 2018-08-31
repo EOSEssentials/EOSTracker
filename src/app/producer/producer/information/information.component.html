@@ -10,7 +10,7 @@
       </tr>
       <tr *ngIf="producer.account">
         <td>{{ 'Account' | translate }}:</td>
-        <td fxLayout="row" fxLayoutAlign="start center">{{producer.account.name}}
+        <td fxLayout="row" fxLayoutAlign="start center">{{producer.account.account_name}}
           <mat-icon *ngIf="producer.validated">verified_user</mat-icon>
         </td>
       </tr>
