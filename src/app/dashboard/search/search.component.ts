@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, empty } from 'rxjs';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
 import { TransactionService } from '../../services/transaction.service';
-import { AccountService } from '../../services/account.service';
 import { EosService } from '../../services/eos.service';
 
 @Component({
@@ -20,7 +19,6 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private transactionService: TransactionService,
-    private accountService: AccountService,
     private eosService: EosService
   ) { }
 
@@ -32,7 +30,6 @@ export class SearchComponent implements OnInit {
       switchMap(query => this.tryBlockNumber(query)),
       switchMap(query => this.tryTransaction(query)),
       switchMap(query => this.tryBlockId(query)),
-      switchMap(query => this.tryAccountKey(query)),
       switchMap(query => this.tryAccount(query)),
       tap(query => console.log('no result', query))
     );
@@ -78,22 +75,6 @@ export class SearchComponent implements OnInit {
         switchMap(data => {
           if (data) {
             this.router.navigate(['/blocks', data['block_num']], { replaceUrl: true });
-            return empty();
-          }
-          return of(query);
-        })
-      );
-    }
-    return of(query);
-  }
-
-  private tryAccountKey(query: string): Observable<string> {
-    if (query.length === 53) {
-      return this.accountService.getAccountKey(query).pipe(
-        catchError(() => of(null)),
-        switchMap(data => {
-          if (data) {
-            this.router.navigate(['/accounts', data['name']], { replaceUrl: true });
             return empty();
           }
           return of(query);

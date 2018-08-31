@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { EosService } from './eos.service';
 import { CmcService } from './cmc.service';
 import { Observable, Subject, timer, from, forkJoin, of } from 'rxjs';
@@ -25,6 +26,7 @@ export class AppService {
   recentTransactions$: Observable<any[]>;
 
   constructor(
+    private http: HttpClient,
     private eosService: EosService,
     private cmcService: CmcService
   ) {
@@ -122,6 +124,10 @@ export class AppService {
         );
       })
     );
+  }
+
+  getTokens(): Observable<any[]> {
+    return this.http.get<any[]>(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`);
   }
 
   setLatestBlockNumber(blockNumber: number) {

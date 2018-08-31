@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TransactionService } from './services/transaction.service';
 import { DashboardService } from './services/dashboard.service';
-import { AccountService } from './services/account.service';
 import { ProducerService } from './services/producer.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SafeJsonPipe } from 'angular2-prettyjson';
@@ -54,7 +53,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardService,
     EosService,
     ScatterService,
-    AccountService,
     ProducerService,
     CmcService,
     ActionService,

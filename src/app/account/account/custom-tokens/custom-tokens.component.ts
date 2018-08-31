@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { AccountService } from '../../../services/account.service';
+import { AppService } from '../../../services/app.service';
 import { EosService } from '../../../services/eos.service';
 import { from } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -22,12 +22,12 @@ export class CustomTokensComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private accountService: AccountService,
+    private appService: AppService,
     private eosService: EosService
   ) { }
 
   ngOnInit() {
-    this.allTokens$ = this.accountService.getTokens();
+    this.allTokens$ = this.appService.getTokens();
   }
 
   submit() {
