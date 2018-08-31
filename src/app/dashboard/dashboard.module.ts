@@ -6,7 +6,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SearchComponent } from './search/search.component';
-import { StatsComponent } from './dashboard/stats/stats.component';
 import { BlocksComponent } from './dashboard/blocks/blocks.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
 import { ChainStatusComponent } from './dashboard/chain-status/chain-status.component';
@@ -22,7 +21,6 @@ import { MaintenanceComponent } from './dashboard/maintenance/maintenance.compon
     DashboardComponent,
     SettingsComponent,
     SearchComponent,
-    StatsComponent,
     BlocksComponent,
     TransactionsComponent,
     ChainStatusComponent,
