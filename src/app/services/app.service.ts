@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EosService } from './eos.service';
-import { CmcService } from './cmc.service';
 import { Observable, Subject, timer, from, forkJoin, of } from 'rxjs';
 import { map, filter, share, withLatestFrom, switchMap, catchError, take } from 'rxjs/operators';
 
@@ -27,8 +26,7 @@ export class AppService {
 
   constructor(
     private http: HttpClient,
-    private eosService: EosService,
-    private cmcService: CmcService
+    private eosService: EosService
   ) {
     this.info$ = timer(0, GET_INFO_INTERVAL).pipe(
       switchMap(() => this.eosService.getDeferInfo()),
@@ -72,7 +70,7 @@ export class AppService {
       share()
     );
     this.eosQuote$ = timer(0, EOS_QUOTE).pipe(
-      switchMap(() => this.cmcService.getEOSTicker()),
+      switchMap(() => this.getEOSTicker()),
       filter(ticker => !!ticker.data),
       map(ticker => ticker.data.quotes['USD']),
       share()
@@ -130,10 +128,29 @@ export class AppService {
     return this.http.get<any[]>(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`);
   }
 
+  getEOSTicker(): Observable<CMCTicker> {
+    return this.http.get<CMCTicker>('https://api.coinmarketcap.com/v2/ticker/1765/');
+  }
+
   setLatestBlockNumber(blockNumber: number) {
     if (blockNumber) {
       this.latestBlockNumberSource.next(blockNumber);
     }
   }
 
+}
+
+export interface CMCTicker {
+  data?: {
+    name: string;
+    symbol: string;
+    quotes: {
+      USD: {
+        price: number,
+        market_cap: number,
+        volume_24h: number
+      }
+    }
+  };
+  metadata?: any
 }

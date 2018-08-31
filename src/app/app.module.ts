@@ -14,7 +14,6 @@ import { EosService } from './services/eos.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Ng2Webstorage } from 'ngx-webstorage';
-import { CmcService } from './services/cmc.service';
 import { StatService } from './services/stat.service';
 import { VoteService } from './services/vote.service';
 import { BpService } from './services/bp.service';
@@ -52,7 +51,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     EosService,
     ScatterService,
     ProducerService,
-    CmcService,
     StatService,
     VoteService,
     BpService,
