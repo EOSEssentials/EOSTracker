@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, from, of, timer, defer, combineLatest } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
-import { Transaction, Result } from '../models';
+import { Result } from '../models';
 import { LoggerService } from './logger.service';
 
 @Injectable()
@@ -122,32 +122,6 @@ export class EosService {
       block_num_hint: blockId
     })));
     return this.getResult<any>(getTransaction$);
-  }
-
-  getTransaction(id: string): Observable<Result<Transaction>> {
-    return from(this.eos.getTransaction({ id })).pipe(
-      map((transaction: any) => {
-        return <Result<Transaction>>{
-          isError: false,
-          value: {
-            blockId: transaction.block_num,
-            createdAt: new Date(transaction.block_time).getTime() / 1000,
-            expiration: new Date(transaction.trx.trx.expiration).getTime() / 1000,
-            id: transaction.id,
-            numActions: transaction.trx.trx.actions.length,
-            pending: transaction.trx.trx.delay_sec > 0,
-            updatedAt: new Date(transaction.block_time).getTime() / 1000
-          }
-        };
-      }),
-      catchError(error => {
-        console.log('TODO: Log Chain Error', error);
-        return of({
-          isError: true,
-          value: error
-        });
-      })
-    );
   }
 
   getTransactionHistory(id: string, blockNumber: number): Observable<any> {
