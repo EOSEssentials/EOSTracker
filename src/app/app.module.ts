@@ -5,7 +5,6 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TransactionService } from './services/transaction.service';
-import { DashboardService } from './services/dashboard.service';
 import { ProducerService } from './services/producer.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SafeJsonPipe } from 'angular2-prettyjson';
@@ -47,7 +46,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     TransactionService,
-    DashboardService,
     EosService,
     ScatterService,
     ProducerService,
