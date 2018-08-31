@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TransactionService } from './services/transaction.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SafeJsonPipe } from 'angular2-prettyjson';
 import { JsonPipe } from '@angular/common';
@@ -42,7 +41,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule
   ],
   providers: [
-    TransactionService,
     EosService,
     ScatterService,
     VoteService,

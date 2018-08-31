@@ -3,7 +3,6 @@ import {EosService} from '../services/eos.service';
 import {ScatterService} from '../services/scatter.service';
 import {timer} from 'rxjs/index';
 import {takeWhile} from 'rxjs/operators';
-import {TransactionService} from '../services/transaction.service';
 
 @Component({
   selector: 'app-support',
@@ -21,8 +20,7 @@ export class SupportComponent implements OnInit {
   readonly contract = "trackeraegis";
 
   constructor(private eosService: EosService,
-              private scatterService: ScatterService,
-              private transactionService: TransactionService) {
+              private scatterService: ScatterService) {
   }
 
   ngOnInit() {
@@ -84,7 +82,7 @@ export class SupportComponent implements OnInit {
       timer(0, 3000).pipe(
         takeWhile(() => this.alive)
       ).subscribe(() => {
-        this.transactionService.getTransaction(transaction.transaction_id).subscribe(data => {
+        this.eosService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
           if (data) {
             this.loadTables();
           }
@@ -105,7 +103,7 @@ export class SupportComponent implements OnInit {
       timer(0, 3000).pipe(
         takeWhile(() => this.alive)
       ).subscribe(() => {
-        this.transactionService.getTransaction(transaction.transaction_id).subscribe(data => {
+        this.eosService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
           if (data) {
 
             let confettiSettings = {

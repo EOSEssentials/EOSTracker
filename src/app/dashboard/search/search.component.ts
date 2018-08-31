@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, empty } from 'rxjs';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
-import { TransactionService } from '../../services/transaction.service';
 import { EosService } from '../../services/eos.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class SearchComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private transactionService: TransactionService,
     private eosService: EosService
   ) { }
 
@@ -54,11 +52,11 @@ export class SearchComponent implements OnInit {
 
   private tryTransaction(query: string): Observable<string> {
     if (query.length === 64) {
-      return this.transactionService.getTransaction(query).pipe(
+      return this.eosService.getDeferTransaction(query).pipe(
         catchError(() => of(null)),
-        switchMap(data => {
-          if (data && !data.isError) {
-            this.router.navigate(['/transactions', query], { replaceUrl: true });
+        switchMap(transaction => {
+          if (transaction) {
+            this.router.navigate(['/transactions', transaction.block_num, transaction.id], { replaceUrl: true });
             return empty();
           }
           return of(query);
@@ -72,9 +70,9 @@ export class SearchComponent implements OnInit {
     if (query.length === 64) {
       return this.eosService.getDeferBlock(query).pipe(
         catchError(() => of(null)),
-        switchMap(data => {
-          if (data) {
-            this.router.navigate(['/blocks', data['block_num']], { replaceUrl: true });
+        switchMap(block => {
+          if (block) {
+            this.router.navigate(['/blocks', block.block_num], { replaceUrl: true });
             return empty();
           }
           return of(query);

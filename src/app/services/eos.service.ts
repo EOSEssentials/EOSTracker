@@ -53,6 +53,10 @@ export class EosService {
     return defer(() => from(this.eos.getAccount(name)));
   }
 
+  getDeferTransaction(id: string): Observable<any> {
+    return defer(() => from(this.eos.getTransaction(id)));
+  }
+
   getAccount(name: string): Observable<any> {
     return from(this.eos.getAccount(name));
   }
