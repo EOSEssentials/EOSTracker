@@ -7,22 +7,12 @@
 <div *ngIf="producer$ | async as producer; else loading">
   <app-producer-information [producer]="producer" style="margin:10px;"></app-producer-information>
   <app-producer-nodes [location]="producer.location" style="margin:10px;"></app-producer-nodes>
-  <mat-tab-group color="primary" dynamicHeight="true">
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon style="margin-right:5px;">how_to_vote</mat-icon>
-        {{ 'Votes' | translate }}
-      </ng-template>
-      <app-producer-votes [name]="producer.account?.account_name"></app-producer-votes>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon style="margin-right:5px;">code</mat-icon>
-        {{ 'BlockchainRawData' | translate }}
-      </ng-template>
-      <prettyjson [obj]="producer.account" *ngIf="producer.account"></prettyjson>
-    </mat-tab>
-  </mat-tab-group>
+  <mat-card style="margin:10px;">
+    <mat-card-title>Account Raw Data</mat-card-title>
+    <mat-card-content>
+      <prettyjson [obj]="producer.account"></prettyjson>
+    </mat-card-content>
+  </mat-card>
 </div>
 <ng-template #loading>
   <app-spinner></app-spinner>

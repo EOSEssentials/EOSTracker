@@ -132,6 +132,10 @@ export class AppService {
     return this.http.get<CMCTicker>('https://api.coinmarketcap.com/v2/ticker/1765/');
   }
 
+  getBpJson(url: string): Observable<any> {
+    return this.http.get<any>(`${url}/bp.json`);
+  }
+
   setLatestBlockNumber(blockNumber: number) {
     if (blockNumber) {
       this.latestBlockNumberSource.next(blockNumber);

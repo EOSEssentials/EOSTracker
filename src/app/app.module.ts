@@ -11,8 +11,6 @@ import { EosService } from './services/eos.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Ng2Webstorage } from 'ngx-webstorage';
-import { VoteService } from './services/vote.service';
-import { BpService } from './services/bp.service';
 import { ScatterService } from './services/scatter.service';
 import { AppService } from './services/app.service';
 import { LoggerService } from './services/logger.service';
@@ -43,8 +41,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     EosService,
     ScatterService,
-    VoteService,
-    BpService,
     AppService,
     LoggerService,
     { provide: JsonPipe, useClass: SafeJsonPipe }

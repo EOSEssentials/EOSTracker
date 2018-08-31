@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, share, catchError } from 'rxjs/operators';
 import { EosService } from '../../services/eos.service';
-import { BpService } from '../../services/bp.service';
+import { AppService } from '../../services/app.service';
 import { Producer } from '../../models/Producer';
 
 @Component({
@@ -18,7 +18,7 @@ export class ProducerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eosService: EosService,
-    private bpService: BpService
+    private appService: AppService
   ) { }
 
   ngOnInit() {
@@ -66,7 +66,7 @@ export class ProducerComponent implements OnInit {
         if (!producer.url) {
           return of(producer);
         } else {
-          return this.bpService.getBP(producer.url).pipe(
+          return this.appService.getBpJson(producer.url).pipe(
             catchError(() => of(null)),
             map(bpJson => ({
               ...producer,
