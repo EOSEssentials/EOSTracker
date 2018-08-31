@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { EosService } from '../../services/eos.service';
-import { Producer } from '../../models/Producer';
 import { Observable, of, timer } from 'rxjs';
 import { map, share, switchMap } from 'rxjs/operators';
 
@@ -12,7 +11,7 @@ import { map, share, switchMap } from 'rxjs/operators';
 export class ProducersComponent implements OnInit {
 
   columnHeaders$: Observable<string[]> = of(PRODUCERS_COLUMNS);
-  producers$: Observable<Producer[]>;
+  producers$: Observable<any[]>;
   chainStatus$: Observable<any>;
 
   constructor(

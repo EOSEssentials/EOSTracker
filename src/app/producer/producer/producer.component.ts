@@ -4,7 +4,6 @@ import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, share, catchError } from 'rxjs/operators';
 import { EosService } from '../../services/eos.service';
 import { AppService } from '../../services/app.service';
-import { Producer } from '../../models/Producer';
 
 @Component({
   templateUrl: './producer.component.html',
@@ -13,7 +12,7 @@ import { Producer } from '../../models/Producer';
 export class ProducerComponent implements OnInit {
 
   name$: Observable<string>;
-  producer$: Observable<Producer>;
+  producer$: Observable<any>;
 
   constructor(
     private route: ActivatedRoute,

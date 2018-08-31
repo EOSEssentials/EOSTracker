@@ -2,7 +2,7 @@ import * as Eos from 'eosjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable, from, of, timer, defer, combineLatest } from 'rxjs';
+import { Observable, from, of, defer, combineLatest } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Result } from '../models';
 import { LoggerService } from './logger.service';
@@ -55,10 +55,6 @@ export class EosService {
 
   getDeferTransaction(id: string): Observable<any> {
     return defer(() => from(this.eos.getTransaction(id)));
-  }
-
-  getAccount(name: string): Observable<any> {
-    return from(this.eos.getAccount(name));
   }
 
   getAccountRaw(name: string): Observable<Result<any>> {
@@ -122,24 +118,6 @@ export class EosService {
       block_num_hint: blockId
     })));
     return this.getResult<any>(getTransaction$);
-  }
-
-  getTransactionHistory(id: string, blockNumber: number): Observable<any> {
-    return from(this.eos.getTransaction({
-      id: id,
-      block_num_hint: blockNumber
-    }));
-  }
-
-  getCurrencyBalance(name: string): Observable<number> {
-    return from(this.eos.getCurrencyBalance('eosio.token', name, 'EOS')).pipe(
-      map(result => {
-        if (result && result[0]) {
-          return parseFloat(result[0].replace(' EOS', ''));
-        }
-        return 0;
-      })
-    );
   }
 
   getProducers() {
