@@ -4,7 +4,6 @@ import { Observable, of, combineLatest } from 'rxjs';
 import { map, catchError, tap, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { EosService } from './eos.service';
-import { ApiService } from './api.service';
 import { Result, Transaction, Action } from '../models';
 import { LoggerService } from './logger.service';
 
@@ -16,7 +15,6 @@ export class DataService {
   constructor(
     private http: HttpClient,
     private eosService: EosService,
-    private apiService: ApiService,
     private logger: LoggerService
   ) { }
 
