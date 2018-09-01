@@ -2,23 +2,33 @@ import * as Eos from 'eosjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable, from, of, defer, combineLatest } from 'rxjs';
+import { Observable, from, of, defer, combineLatest, BehaviorSubject } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { Result } from '../models';
 import { LoggerService } from './logger.service';
 
 @Injectable()
 export class EosService {
+
+  private apiEndpointSource = new BehaviorSubject<string>(environment.blockchainUrl);
+
+  public apiEndpoint$ = this.apiEndpointSource.asObservable();
   public eos: any;
 
   constructor(
     private http: HttpClient,
     private logger: LoggerService
   ) {
-    this.eos = Eos({
-      httpEndpoint: environment.blockchainUrl,
-      blockId: environment.chainId
+    this.apiEndpoint$.subscribe(apiEndpoint => {
+      this.eos = Eos({
+        httpEndpoint: apiEndpoint,
+        blockId: environment.chainId
+      });
     });
+  }
+
+  setApiEndpoint(url: string) {
+    this.apiEndpointSource.next(url);
   }
 
   // Note: to convert chain promise to cold observable, use defer

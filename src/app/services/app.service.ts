@@ -40,9 +40,9 @@ export class AppService {
       switchMap((block: any) => {
         const blockNumber: number = block.block_num;
         const blockNumbers: number[] = [blockNumber - 1, blockNumber - 2, blockNumber - 3, blockNumber - 4];
-        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNum => from(this.eosService.getDeferBlock(blockNum)));
+        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNum => this.eosService.getDeferBlock(blockNum).pipe(catchError(() => of(null))));
         return forkJoin(blockNumbers$).pipe(
-          map((blocks) => [block, ...blocks])
+          map((blocks) => [block, ...blocks].filter(block => block !== null))
         );
       }),
       share()
