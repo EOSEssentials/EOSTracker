@@ -1,0 +1,51 @@
+<mat-toolbar color="primary">
+  <h1 class="mat-headline">
+    {{ 'Console' | translate }}
+  </h1>
+  <span style="flex:1 1 auto;"></span>
+  <span class="mat-caption" *ngIf="apiEndpoint$ | async as apiEndpoint">
+    {{apiEndpoint}}
+  </span>
+</mat-toolbar>
+<div style="margin:10px;">
+  <h3 class="mat-title">CHAIN</h3>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          get_info
+        </mat-panel-title>
+        <mat-panel-description>
+          Returns an object containing various details about the blockchain.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        Body:
+        <pre>{{'{}'}}</pre>
+      </ng-template>
+      <mat-action-row>
+        <button mat-raised-button color="accent" (click)="getInfo()">Run</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          get_block
+        </mat-panel-title>
+        <mat-panel-description>
+          Returns an object containing various details about a specific block on the blockchain.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        Body:
+        <pre>block_num_or_id (string)</pre>
+      </ng-template>
+      <mat-action-row>
+        <button mat-raised-button color="accent" (click)="getBlock(189)">Run</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div class="mat-elevation-z1" *ngIf="result$ | async as result" style="margin:16px 0;padding:10px;background-color:#fff;">
+    <ngx-json-viewer [json]="result" [expanded]="false"></ngx-json-viewer>
+  </div>
+</div>
