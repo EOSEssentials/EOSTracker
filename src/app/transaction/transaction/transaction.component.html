@@ -17,7 +17,9 @@
         <mat-icon style="margin-right:5px;">code</mat-icon>
         {{ 'BlockchainRawData' | translate }}
       </ng-template>
-      <prettyjson [obj]="transaction.value"></prettyjson>
+      <div style="margin:10px;">
+        <ngx-json-viewer [json]="transaction.value" [expanded]="true"></ngx-json-viewer>
+      </div>
     </mat-tab>
   </mat-tab-group>
   <ng-template #error>
