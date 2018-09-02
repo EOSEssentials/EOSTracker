@@ -1,0 +1,55 @@
+<mat-card *ngIf="price">
+  <mat-card-title fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon>attach_money</mat-icon>
+    Price Info
+  </mat-card-title>
+  <mat-card-content>
+    <div class="table-container">
+      <table>
+        <ng-container *ngIf="price.quotes?.USD as usd">
+          <tr>
+            <td>Price</td>
+            <td>{{usd.price | currency:'USD'}} USD</td>
+          </tr>
+          <tr>
+            <td>Volume 24h</td>
+            <td>{{usd.volume_24h / 1000000 | currency:'USD':'symbol':'1.0-0'}}M USD</td>
+          </tr>
+          <tr>
+            <td>Market Cap</td>
+            <td>{{usd.market_cap/ 1000000000 | currency:'USD':'symbol'}}B USD</td>
+          </tr>
+          <tr>
+            <td>% Change 1h</td>
+            <td>
+              {{usd.percent_change_1h / 100 | percent:'1.2'}}
+              <app-price-trending [percentage]="usd.percent_change_1h"></app-price-trending>
+            </td>
+          </tr>
+          <tr>
+            <td>% Change 24h</td>
+            <td>
+              {{usd.percent_change_24h / 100 | percent:'1.2'}}
+              <app-price-trending [percentage]="usd.percent_change_24h"></app-price-trending>
+            </td>
+          </tr>
+          <tr>
+            <td>% Change 7d</td>
+            <td>
+              {{usd.percent_change_7d / 100 | percent:'1.2'}}
+              <app-price-trending [percentage]="usd.percent_change_7d"></app-price-trending>
+            </td>
+          </tr>
+        </ng-container>
+        <tr>
+          <td>Circulating Supply</td>
+          <td>{{price.circulating_supply | number}} EOS</td>
+        </tr>
+        <tr>
+          <td>Total Supply</td>
+          <td>{{price.total_supply | number}} EOS</td>
+        </tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

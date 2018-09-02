@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  isMaintenance$: Observable<boolean>;
+  eosQuote$: Observable<boolean>;
 
   constructor(
     private appService: AppService
   ) { }
 
   ngOnInit() {
-    this.isMaintenance$ = this.appService.isMaintenance$;
+    this.eosQuote$ = this.appService.eosQuote$;
   }
 
 }

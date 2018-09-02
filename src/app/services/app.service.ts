@@ -72,7 +72,7 @@ export class AppService {
     this.eosQuote$ = timer(0, EOS_QUOTE).pipe(
       switchMap(() => this.getEOSTicker()),
       filter(ticker => !!ticker.data),
-      map(ticker => ticker.data.quotes['USD']),
+      map(ticker => ticker.data),
       share()
     );
     this.ramQuote$ = timer(0, RAM_QUOTE).pipe(

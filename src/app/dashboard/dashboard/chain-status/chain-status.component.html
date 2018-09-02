@@ -1,34 +1,35 @@
 <mat-card *ngIf="(status$ | async) as status">
-  <mat-card-title>
-    {{ 'General Network Info' | translate }}
+  <mat-card-title fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon>network_check</mat-icon>
+    {{ 'Network Info' | translate }}
   </mat-card-title>
   <mat-card-content class="table-container">
     <table>
       <tr>
         <td>{{ 'Server Version' | translate }}:</td>
-        <td>{{status.server_version}}</td>
+        <td>{{status.server_version_string}}</td>
       </tr>
       <tr>
         <td>{{ 'Chain ID' | translate }}:</td>
         <td>{{status.chain_id}}</td>
       </tr>
       <tr>
-        <td>{{ 'Latest Block #' | translate }}:</td>
-        <td>{{status.head_block_num | number}}</td>
-      </tr>
-      <tr>
-        <td>{{ 'Latest Irreversible Block #' | translate }}:</td>
-        <td>{{status.last_irreversible_block_num | number}}</td>
-      </tr>
-      <tr>
-        <td>{{ 'Latest Block Timestamp' | translate }}:</td>
+        <td>{{ 'Head Block Timestamp' | translate }}:</td>
         <td>{{status.head_block_time | amFromUtc | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
       </tr>
       <tr>
-        <td>{{ 'Latest Block Producer' | translate }}:</td>
+        <td>{{ 'Head Block #' | translate }}:</td>
+        <td><a [routerLink]="['/blocks',status.head_block_num]">{{status.head_block_num}}</a></td>
+      </tr>
+      <tr>
+        <td>{{ 'Head Block Producer' | translate }}:</td>
         <td>
           <a [routerLink]="['/producers',status.head_block_producer]">{{status.head_block_producer}}</a>
         </td>
+      </tr>
+      <tr>
+        <td>{{ 'Last Irreversible Block #' | translate }}:</td>
+        <td><a [routerLink]="['/blocks',status.last_irreversible_block_num]">{{status.last_irreversible_block_num}}</a></td>
       </tr>
     </table>
   </mat-card-content>

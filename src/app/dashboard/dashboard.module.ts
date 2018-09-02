@@ -9,7 +9,8 @@ import { SearchComponent } from './search/search.component';
 import { BlocksComponent } from './dashboard/blocks/blocks.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
 import { ChainStatusComponent } from './dashboard/chain-status/chain-status.component';
-import { MaintenanceComponent } from './dashboard/maintenance/maintenance.component';
+import { PriceComponent } from './dashboard/price/price.component';
+import { TrendingComponent } from './dashboard/trending/trending.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { MaintenanceComponent } from './dashboard/maintenance/maintenance.compon
     BlocksComponent,
     TransactionsComponent,
     ChainStatusComponent,
-    MaintenanceComponent
+    PriceComponent,
+    TrendingComponent
   ]
 })
 export class DashboardModule { }
