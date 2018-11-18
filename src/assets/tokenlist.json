@@ -1,0 +1,23 @@
+[
+    {
+    "name": "Aikon - CPU",
+    "logo": "https://en.gravatar.com/userimage/137186280/e4841f5eb5968c946ec1d55912400827.png",
+    "logo_lg": "https://en.gravatar.com/userimage/137186280/e4841f5eb5968c946ec1d55912400827.png",
+    "symbol": "CPU",
+    "account": "token.ore"
+    },
+    {
+    "name": "Aikon - ORE",
+    "logo": "https://en.gravatar.com/userimage/137186280/5daef17b8841f34cc5104f7e25729bc7.png",
+    "logo_lg": "https://en.gravatar.com/userimage/137186280/5daef17b8841f34cc5104f7e25729bc7.png",
+    "symbol": "ORE",
+    "account": "token.ore"
+    },
+    {
+    "name": "Lumeos",
+    "logo": "https://en.gravatar.com/userimage/137186280/974b532c234869e3c4857ae933a376a8.png",
+    "logo_lg": "https://en.gravatar.com/userimage/137186280/974b532c234869e3c4857ae933a376a8.png",
+    "symbol": "Lume",
+    "account": "token.ore"
+    }
+]

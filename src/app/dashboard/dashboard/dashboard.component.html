@@ -4,12 +4,12 @@
   </h1>
 </mat-toolbar>
 <div>
-    <a target="_blank" href="https://app.nebulaprotocol.com/"><img src="/assets/nebula.jpg" style="width: 100%;"/></a>
+    <a target="_blank" href="https://www.aikon.com/"><img src="/assets/ore-splash-3.png" style="width: 100%;"/></a>
 </div>
 <div>
   <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px" style="margin:10px;">
-    <app-dashboard-chain-status fxFlex.gt-sm="50%"></app-dashboard-chain-status>
-    <app-dashboard-price fxFlex.gt-sm="50%" [price]="eosQuote$ | async"></app-dashboard-price>
+    <app-dashboard-chain-status fxFlex.gt-sm="100%"></app-dashboard-chain-status>
+    <!-- <app-dashboard-price fxFlex.gt-sm="50%" [price]="eosQuote$ | async"></app-dashboard-price> -->
   </div>
   <div style="margin:10px;">
     <app-dashboard-blocks></app-dashboard-blocks>

@@ -4,11 +4,11 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   walletUrl: 'https://walleteos.com',
   votingUrl: 'https://eosportal.io',
-  appName: 'EOS Tracker',
+  appName: 'ORE Explorer - Staging',
   logoUrl: '/assets/logo.png',
-  blockchainUrl: 'https://eos.greymass.com',
-  chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
+  blockchainUrl: 'https://ore-staging.openrights.exchange',
+  chainId: 'a6df478d5593b4efb1ea20d13ba8a3efc1364ee0bf7dbd85d8d756831c0e3256'
 };
