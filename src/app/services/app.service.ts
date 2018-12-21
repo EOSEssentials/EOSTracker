@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { EosService } from './eos.service';
 import { Observable, Subject, timer, from, forkJoin, of } from 'rxjs';
 import { map, filter, share, withLatestFrom, switchMap, catchError, take } from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 const EOS_QUOTE = 60000;
 const RAM_QUOTE = 60000;
@@ -125,11 +126,11 @@ export class AppService {
   }
 
   getTokens(): Observable<any[]> {
-    return this.http.get<any[]>(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`);
+    return this.http.get<any[]>(environment.tokensUrl);
   }
 
   getEOSTicker(): Observable<CMCTicker> {
-    return this.http.get<CMCTicker>('https://api.coinmarketcap.com/v2/ticker/1765/');
+    return this.http.get<CMCTicker>(environment.tickerUrl);
   }
 
   getBpJson(url: string): Observable<any> {

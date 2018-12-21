@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard-price',
@@ -8,6 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PriceComponent implements OnInit {
 
   @Input() price: any;
+  token = environment.token;
 
   constructor() { }
 
