@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
-  walletUrl: process.env.WALLET_URL,
-  votingUrl: process.env.VOTING_URL,
-  appName: process.env.APP_NAME,
-  logoUrl: process.env.LOGO_URL,
-  blockchainUrl: process.env.BLOCKCHAIN_URL,
-  chainId: process.env.CHAIN_ID,
-  showAds: process.env.SHOW_ADS,
-  tokensUrl: process.env.TOKENS_URL,
-  tickerUrl: process.env.TICKER_URL,
-  token: process.env.TOKEN
+  walletUrl: '{WALLET_URL}',
+  votingUrl: '{VOTING_URL}',
+  appName: '{APP_NAME}',
+  logoUrl: '{LOGO_URL}',
+  blockchainUrl: '{BLOCKCHAIN_URL}',
+  chainId: '{CHAIN_ID}',
+  showAds: {SHOW_ADS},
+  tokensUrl: '{TOKENS_URL}',
+  tickerUrl: '{TICKER_URL}',
+  token: '{TOKEN}'
 };
