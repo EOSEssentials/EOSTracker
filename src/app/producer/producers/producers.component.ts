@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { EosService } from '../../services/eos.service';
 import { Observable, of, timer } from 'rxjs';
 import { map, share, switchMap } from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Component({
   templateUrl: './producers.component.html',
@@ -42,13 +43,23 @@ export class ProducersComponent implements OnInit {
             let reward = 0;
             let percentageVotes = producer.total_votes / chainStatus.total_producer_vote_weight * 100;
             let percentageVotesRewarded = producer.total_votes / (chainStatus.total_producer_vote_weight - votesToRemove) * 100;
-            if (position < 22) {
-              reward += 318;
+
+            if (environment.token === 'TLOS') {
+              if (position < 22) {
+                reward = 900;
+              } else if (position < 52) {
+                reward = 400;
+              }
+            } else {
+              if (position < 22) {
+                reward += 318;
+              }
+              reward += percentageVotesRewarded * 200;
+              if (reward < 100) {
+                reward = 0;
+              }
             }
-            reward += percentageVotesRewarded * 200;
-            if (reward < 100) {
-              reward = 0;
-            }
+
             return {
               ...producer,
               position: position,

@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
-  walletUrl: 'https://walleteos.com',
-  votingUrl: 'https://eosportal.io',
-  appName: 'EOS Tracker',
-  logoUrl: '/assets/logo.png',
-  blockchainUrl: 'https://proxy.eosnode.tools',
-  chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-  showAds: true,
-  tokensUrl: 'https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json',
-  tickerUrl: 'https://api.coinmarketcap.com/v2/ticker/1765/',
-  token: 'EOS'
+  walletUrl: process.env.WALLET_URL,
+  votingUrl: process.env.VOTING_URL,
+  appName: process.env.APP_NAME,
+  logoUrl: process.env.LOGO_URL,
+  blockchainUrl: process.env.BLOCKCHAIN_URL,
+  chainId: process.env.CHAIN_ID,
+  showAds: process.env.SHOW_ADS,
+  tokensUrl: process.env.TOKENS_URL,
+  tickerUrl: process.env.TICKER_URL,
+  token: process.env.TOKEN
 };
