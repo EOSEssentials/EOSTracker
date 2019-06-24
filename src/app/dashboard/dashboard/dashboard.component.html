@@ -3,9 +3,11 @@
     {{ 'Dashboard' | translate }}
   </h1>
 </mat-toolbar>
-<div *ngIf="showAds">
+<!-- 
+  <div *ngIf="showAds">
     <a target="_blank" href="https://app.nebulaprotocol.com/"><img src="/assets/nebula.jpg" style="width: 100%;"/></a>
-</div>
+</div> 
+-->
 <div>
   <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px" style="margin:10px;">
     <app-dashboard-chain-status fxFlex.gt-sm="50%"></app-dashboard-chain-status>
