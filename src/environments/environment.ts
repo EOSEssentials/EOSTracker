@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   walletUrl: 'https://walleteos.com',
   votingUrl: 'https://eosportal.io',
-  appName: 'EOS Tracker',
+  appName: 'Liberland Explorer',
   logoUrl: '/assets/logo.png',
   blockchainUrl: 'https://proxy.eosnode.tools',
   chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
