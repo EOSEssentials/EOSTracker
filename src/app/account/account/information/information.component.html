@@ -1,78 +1,83 @@
 <div style="margin:10px;">
-  <mat-card>
-    <mat-card-title>
-      {{ 'Account Information' | translate }}
-    </mat-card-title>
-    <mat-card-content class="table-container">
-      <table>
-        <tr>
-          <td>{{ 'Account Name' | translate }}:</td>
-          <td>{{account.account_name}}</td>
-        </tr>
-        <tr>
-          <td>{{ 'Created' | translate }}:</td>
-          <td>{{account.created | amFromUtc | date:'medium'}}</td>
-        </tr>
-        <!-- <tr>
+    <mat-card>
+        <mat-card-title>
+            {{ 'Account Information' | translate }}
+        </mat-card-title>
+        <mat-card-content class="table-container">
+            <table>
+                <tr>
+                    <td>{{ 'Account Name' | translate }}:</td>
+                    <td>{{account.account_name}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Created' | translate }}:</td>
+                    <td>{{account.created | amFromUtc | date:'medium'}}</td>
+                </tr>
+                <tr>
+                    <!-- Static information to be changed -->
+                    <td>Citizenship status</td>
+                    <td> approved</td>
+                </tr>
+                <!-- <tr>
           <td>{{ 'UpdatedAt' | translate }}:</td>
           <td>{{account.last_code_update | amFromUtc | date:'medium'}}</td>
         </tr> -->
-        <tr *ngIf="account.core_liquid_balance">
-          <td>{{ 'Balance' | translate }}:</td>
-          <td>{{account.core_liquid_balance}}</td>
-        </tr>
-        <!-- <tr *ngIf="account.tokens.length">
+                <tr *ngIf="account.core_liquid_balance">
+                    <td>{{ 'Balance' | translate }}:</td>
+                    <td>{{account.core_liquid_balance}}</td>
+                </tr>
+                <!-- <tr *ngIf="account.tokens.length">
           <td>{{ 'Other tokens' | translate }}:</td>
           <td style="padding:10px">
             <div *ngFor="let token of account.tokens">{{token.balance}}</div>
           </td>
         </tr> -->
-        <tr *ngIf="account.ram_quota > 0 && ramQuote">
-          <td>{{ 'RAM' | translate }}:</td>
-          <td>
-            <div style="padding:10px 0;">
-              Staked: {{account.ram_quota * ramQuote.price | number:'1.0-4'}} EOS
-              <br /> Used: {{account.ram_usage | toKB | number:'1.0-2'}} KB
-              <br /> Max: {{account.ram_quota | toKB | number:'1.0-2'}} KB
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="account.cpu_weight > 0">
-          <td>{{ 'CPU' | translate }}:</td>
-          <td>
-            <div style="padding:10px 0;">
-              Staked: {{account.total_resources?.cpu_weight}}
-              <br /> Used: {{account.cpu_limit.used | number}} µs
-              <br /> Available: {{account.cpu_limit.available | number}} µs
-              <br /> Max: {{account.cpu_limit.max | number}} µs
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="account.net_weight > 0">
-          <td>{{ 'NET' | translate }}:</td>
-          <td>
-            <div style="padding:10px 0;">
-              Staked: {{account.total_resources?.net_weight}}
-              <br /> Used: {{(account.net_limit.used) | toKB | number:'1.0-2'}} KB
-              <br /> Available: {{(account.net_limit.available) | toKB | number:'1.0-2'}} KB
-              <br /> Max: {{(account.net_limit.max) | toKB | number:'1.0-2'}} KB
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="balance">
-          <td>{{ 'Value' | translate }}:</td>
-          <td>
-            <div style="padding:10px 0;">
-              Balance: {{this.balance.liquid | number:'1.0-4'}} EOS
-              <br> CPU: {{this.balance.cpu | number:'1.0-4'}} EOS
-              <br> NET: {{this.balance.net | number:'1.0-4'}} EOS
-              <br> RAM: {{this.balance.ram | number:'1.0-4'}} EOS
-              <br> Total EOS: {{this.balance.total | number:'1.0-4'}} EOS
-              <br> Total USD: {{this.balance.total * this.eosQuote.price | currency}}
-            </div>
-          </td>
-        </tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
+                <tr *ngIf="account.ram_quota > 0 && ramQuote">
+                    <td>{{ 'RAM' | translate }}:</td>
+                    <td>
+                        <div style="padding:10px 0;">
+                            Staked: {{account.ram_quota * ramQuote.price | number:'1.0-4'}} EOS
+                            <br /> Used: {{account.ram_usage | toKB | number:'1.0-2'}} KB
+                            <br /> Max: {{account.ram_quota | toKB | number:'1.0-2'}} KB
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="account.cpu_weight > 0">
+                    <td>{{ 'CPU' | translate }}:</td>
+                    <td>
+                        <div style="padding:10px 0;">
+                            Staked: {{account.total_resources?.cpu_weight}}
+                            <br /> Used: {{account.cpu_limit.used | number}} µs
+                            <br /> Available: {{account.cpu_limit.available | number}} µs
+                            <br /> Max: {{account.cpu_limit.max | number}} µs
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="account.net_weight > 0">
+                    <td>{{ 'NET' | translate }}:</td>
+                    <td>
+                        <div style="padding:10px 0;">
+                            Staked: {{account.total_resources?.net_weight}}
+                            <br /> Used: {{(account.net_limit.used) | toKB | number:'1.0-2'}} KB
+                            <br /> Available: {{(account.net_limit.available) | toKB | number:'1.0-2'}} KB
+                            <br /> Max: {{(account.net_limit.max) | toKB | number:'1.0-2'}} KB
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="balance">
+                    <td>{{ 'Value' | translate }}:</td>
+                    <td>
+                        <div style="padding:10px 0;">
+                            Balance: {{this.balance.liquid | number:'1.0-4'}} EOS
+                            <br> CPU: {{this.balance.cpu | number:'1.0-4'}} EOS
+                            <br> NET: {{this.balance.net | number:'1.0-4'}} EOS
+                            <br> RAM: {{this.balance.ram | number:'1.0-4'}} EOS
+                            <br> Total EOS: {{this.balance.total | number:'1.0-4'}} EOS
+                            <br> Total USD: {{this.balance.total * this.eosQuote.price | currency}}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
 </div>
