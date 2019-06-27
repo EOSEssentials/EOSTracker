@@ -1,49 +1,50 @@
 <mat-toolbar color="primary">
-  <h1 class="mat-headline">
-    {{ 'Account' | translate }} {{name$ | async}}
-  </h1>
+    <h1 class="mat-headline">
+        {{ 'Account' | translate }} {{name$ | async}}
+    </h1>
 </mat-toolbar>
 <ng-container *ngIf="account$ | async as account; else loading">
-  <ng-container *ngIf="!account.isError; else error">
-    <app-account-information [account]="account.value" [eosQuote]="app.eosQuote$ | async" [ramQuote]="app.ramQuote$ | async"></app-account-information>
-    <app-account-tokens [tokens]="accountTokens$ | async" [account]="name$ | async"></app-account-tokens>
-    <mat-tab-group color="primary" dynamicHeight="true">
-      <!-- <mat-tab>
+    <ng-container *ngIf="!account.isError; else error">
+        <app-account-information [account]="account.value" [eosQuote]="app.eosQuote$ | async" [ramQuote]="app.ramQuote$ | async"></app-account-information>
+        <app-account-registration></app-account-registration>
+        <app-account-tokens [tokens]="accountTokens$ | async" [account]="name$ | async"></app-account-tokens>
+        <mat-tab-group color="primary" dynamicHeight="true">
+            <!-- <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon style="margin-right:5px;">list</mat-icon>
           {{ 'Actions Received' | translate }}
         </ng-template>
         <app-account-actions [actions]="accountActionsReceived$ | async"></app-account-actions>
       </mat-tab> -->
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon style="margin-right:5px;">list</mat-icon>
-          {{ 'Actions' | translate }}
-        </ng-template>
-        <app-account-actions [actions]="accountActions$ | async" [newActions]="accountNewActions$ | async" (onLoadMore)="loadMore($event)"></app-account-actions>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon style="margin-right:5px;">code</mat-icon>
-          {{ 'BlockchainRawData' | translate }}
-        </ng-template>
-        <prettyjson [obj]="account.value"></prettyjson>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon style="margin-right:5px;">code</mat-icon>
-          {{ 'Contract' | translate }}
-        </ng-template>
-        <ng-template matTabContent>
-          <div *ngIf="(accountAbi$ | async) as abi; else loading">
-            <prettyjson [obj]="abi.value"></prettyjson>
-          </div>
-          <ng-template #loading>
-            <app-spinner></app-spinner>
-          </ng-template>
-        </ng-template>
-      </mat-tab>
-      <!-- <mat-tab [disabled]="!account.abi || account.abi?.tables?.length === 0">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon style="margin-right:5px;">list</mat-icon>
+                    {{ 'Actions' | translate }}
+                </ng-template>
+                <app-account-actions [actions]="accountActions$ | async" [newActions]="accountNewActions$ | async" (onLoadMore)="loadMore($event)"></app-account-actions>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon style="margin-right:5px;">code</mat-icon>
+                    {{ 'BlockchainRawData' | translate }}
+                </ng-template>
+                <prettyjson [obj]="account.value"></prettyjson>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon style="margin-right:5px;">code</mat-icon>
+                    {{ 'Contract' | translate }}
+                </ng-template>
+                <ng-template matTabContent>
+                    <div *ngIf="(accountAbi$ | async) as abi; else loading">
+                        <prettyjson [obj]="abi.value"></prettyjson>
+                    </div>
+                    <ng-template #loading>
+                        <app-spinner></app-spinner>
+                    </ng-template>
+                </ng-template>
+            </mat-tab>
+            <!-- <mat-tab [disabled]="!account.abi || account.abi?.tables?.length === 0">
         <ng-template mat-tab-label>
           <mat-icon style="margin-right:5px;">table_chart</mat-icon>
           {{ 'Tables' | translate }}
@@ -52,12 +53,12 @@
           <app-account-tables [account]="account"></app-account-tables>
         </ng-template>
       </mat-tab> -->
-    </mat-tab-group>
-  </ng-container>
-  <ng-template #error>
-    <app-error></app-error>
-  </ng-template>
+        </mat-tab-group>
+    </ng-container>
+    <ng-template #error>
+        <app-error></app-error>
+    </ng-template>
 </ng-container>
 <ng-template #loading>
-  <app-spinner></app-spinner>
+    <app-spinner></app-spinner>
 </ng-template>
