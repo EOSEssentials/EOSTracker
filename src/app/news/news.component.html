@@ -1,4 +1,8 @@
-
+<mat-toolbar color="primary">
+    <h1 class="mat-headline">
+      {{ 'News' | translate }}
+    </h1>
+</mat-toolbar>
 <mat-grid-list cols="2" rowHeight="1:1">
   <mat-grid-tile *ngFor="let article of data">
     <mat-card class="example-card">

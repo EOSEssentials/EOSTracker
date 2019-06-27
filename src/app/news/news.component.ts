@@ -21,9 +21,9 @@ export class NewsComponent implements OnInit {
 
   constructor(){
     //this.map.set(news);
-    data.forEach((title: string, date: string) => {
-      console.log(title, date);
-    });
+    // data.forEach((title: string, date: string) => {
+    //   console.log(title, date);
+    // });
 
   }
 }

@@ -30,6 +30,7 @@
     "@ngx-translate/core": "^10.0.2",
     "@ngx-translate/http-loader": "^3.0.1",
     "@swimlane/ngx-charts": "^9.0.0",
+    "angular-progress-bar": "^1.0.9",
     "angular2-counto": "^1.2.5",
     "angular2-prettyjson": "^2.0.6",
     "confetti-js": "0.0.11",
