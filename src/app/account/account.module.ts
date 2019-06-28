@@ -8,6 +8,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AccountComponent } from './account/account.component';
 import { InformationComponent } from './account/information/information.component';
+import { RegistrationComponent } from './account/registration/registration.component';
 import { TablesComponent } from './account/tables/tables.component';
 import { ActionsComponent } from './account/actions/actions.component';
 import { TokensComponent } from './account/tokens/tokens.component';
@@ -25,6 +26,7 @@ import { CustomTokensComponent } from './account/custom-tokens/custom-tokens.com
   declarations: [
     AccountComponent,
     InformationComponent,
+    RegistrationComponent,
     TablesComponent,
     ActionsComponent,
     TokensComponent,

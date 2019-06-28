@@ -1,20 +1,22 @@
 :host {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 app-header {
-  height: 50px;
+    height: 50px;
+    background: #1577C6;
 }
 
 mat-sidenav-container {
-  padding-top: 50px;
-  height: 100%;
+    padding-top: 50px;
+    height: 100%;
 }
 
 mat-sidenav {
-  width: 200px;
+    width: 200px;
+    background: #3D647C;
 }

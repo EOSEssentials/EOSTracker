@@ -1,20 +1,22 @@
 <mat-toolbar color="primary">
-  <h1 class="mat-headline">
-    {{ 'Dashboard' | translate }}
-  </h1>
+    <h1 class="mat-headline">
+        {{ 'Dashboard' | translate }}
+    </h1>
 </mat-toolbar>
-<div *ngIf="showAds">
+<!-- 
+  <div *ngIf="showAds">
     <a target="_blank" href="https://app.nebulaprotocol.com/"><img src="/assets/nebula.jpg" style="width: 100%;"/></a>
-</div>
+</div> 
+-->
 <div>
-  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px" style="margin:10px;">
-    <app-dashboard-chain-status fxFlex.gt-sm="50%"></app-dashboard-chain-status>
-    <app-dashboard-price fxFlex.gt-sm="50%" [price]="eosQuote$ | async"></app-dashboard-price>
-  </div>
-  <div style="margin:10px;">
-    <app-dashboard-blocks></app-dashboard-blocks>
-  </div>
-  <div style="margin:10px;">
-    <app-dashboard-transactions></app-dashboard-transactions>
-  </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px" style="margin:10px;">
+        <app-dashboard-chain-status fxFlex.gt-sm="50%"></app-dashboard-chain-status>
+        <app-dashboard-price fxFlex.gt-sm="50%" [price]="eosQuote$ | async"></app-dashboard-price>
+    </div>
+    <div style="margin:10px;">
+        <app-dashboard-blocks></app-dashboard-blocks>
+    </div>
+    <div style="margin:10px;">
+        <app-dashboard-transactions></app-dashboard-transactions>
+    </div>
 </div>
