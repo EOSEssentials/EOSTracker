@@ -1,25 +1,25 @@
 [
     {
         "proposal": "Airport Purchase",
-        "expires": "12:00:00 am, July 1, 2019",
+        "expires": "12:00:00 am, December 1, 2019",
         "turnout": "12.54%",
-        "vote": "45"        
+        "vote": "42.2"        
     },
     {
         "proposal": "Block Producer Pay Structure",
-        "expires": "12:00:00 am, July 1, 2019",
+        "expires": "12:00:00 am, December 1, 2019",
         "turnout": "9.45%",
         "vote": "35"        
     },
     {
         "proposal": "Bridge to Serbia",
-        "expires": "12:00:00 am, July 1, 2019",
+        "expires": "12:00:00 am, December 1, 2019",
         "turnout": "4.53%",
         "vote": "15"        
     }, 
     {
         "proposal": "City Statue",
-        "expires": "12:00:00 am, July 1, 2019",
+        "expires": "12:00:00 am, December 1, 2019",
         "turnout": "4.32%",
         "vote": "35"        
     } 

@@ -12,8 +12,9 @@
     <!-- Position Column -->
     <ng-container matColumnDef="Proposals">
       <th mat-header-cell *matHeaderCellDef> Proposals </th>
-      <td mat-cell *matCellDef="let element"> {{element.proposal}}
-        <i class="material-icons">add</i> 
+      <td mat-cell *matCellDef="let element"> 
+        <i class="material-icons" id="add-icon">add</i>
+        {{element.proposal}} 
       </td>
     </ng-container>
   
@@ -31,8 +32,8 @@
   
     <!-- Symbol Column -->
     <ng-container matColumnDef="Vote">
-      <th mat-header-cell *matHeaderCellDef> Vote </th>
-      <td mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef id="vote"> Vote </th>
+      <td mat-cell *matCellDef="let element" id="progressbar">
           <progress-bar [progress]="45" [color]="'#00cc00'">
             </progress-bar>
       </td>
