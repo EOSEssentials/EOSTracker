@@ -1,3 +1,4 @@
-.mat-row:nth-child(-n+21) {
-    background-color: #e8f5e9;   
+.mat-row:nth-child(-n+21) td:first-child {
+    color: #90A660;
+    border-left: 5px solid #90A660;
 }
